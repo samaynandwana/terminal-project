@@ -87,7 +87,7 @@ io_modifier:
     }
 	 | GREATGREATAMPERSAND WORD {
     Shell::TheShell->_pipeCommand->append_out = true;
-    Shell:TheShell->_pipeCommand->append_err = true;
+    Shell::TheShell->_pipeCommand->append_err = true;
    }
 	 | GREATAMPERSAND WORD
 	 | LESS WORD {
