@@ -1183,7 +1183,7 @@ yyreduce:
 #line 79 "shell.y"
                            {
 		Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
-    Shell::TheShell->_pipeCommand->_append_out = true;
+    Shell::TheShell->_pipeCommand->append_out = true;
      }
 #line 1189 "y.tab.cc"
     break;
@@ -1192,7 +1192,7 @@ yyreduce:
 #line 84 "shell.y"
             {
 		Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
-    Shell::TheShell->_pipeCommand->_append_out = false;
+    Shell::TheShell->_pipeCommand->append_out = false;
 }
 #line 1198 "y.tab.cc"
     break;

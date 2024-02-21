@@ -87,7 +87,9 @@ io_modifier:
 }
 	 | GREATGREATAMPERSAND WORD
 	 | GREATAMPERSAND WORD
-	 | LESS WORD
+	 | LESS WORD {
+    Shell::TheShell->_pipeCommand->_inFile = $2;
+   }
 	;
 
 io_modifier_list:
