@@ -77,9 +77,9 @@ pipe_list:
 
 background_optional: 
 	AMPERSAND
-	| /*empty*/ /*{
+	| /*empty*/ {
   Shell::TheShell->_pipeCommand->_background = true;
-  }*/
+  }
 	;
 io_modifier:
 	   GREATGREAT WORD {
