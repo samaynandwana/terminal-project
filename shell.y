@@ -76,11 +76,15 @@ pipe_list:
 	;
 
 io_modifier:
-	   GREATGREAT WORD
+	   GREATGREAT WORD {
+		Shell::TheShell->_pipeCommand->_outFile = $2;
+    Shell:TheShell->_pipeCommand->_append_out = true;
+     }
 	 | GREAT WORD 
 	    {
 		Shell::TheShell->_pipeCommand->_outFile = $2;
-	    }
+    Shell:TheShell->_pipeCommand->_append_out = false;
+
 	 | GREATGREATAMPERSAND WORD
 	 | GREATAMPERSAND WORD
 	 | LESS WORD
