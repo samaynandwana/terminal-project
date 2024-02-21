@@ -76,9 +76,11 @@ pipe_list:
 	;
 
 background_optional: 
-	AMPERSAND
+	AMPERSAND {
+    Shell::TheShell->_pipeCommand->_background = true;
+  }
 	| /*empty*/ {
-  Shell::TheShell->_pipeCommand->_background = true;
+  Shell::TheShell->_pipeCommand->_background = false;
   }
 	;
 io_modifier:
