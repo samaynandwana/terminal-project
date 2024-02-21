@@ -1205,7 +1205,7 @@ yyreduce:
 #line 88 "shell.y"
                                     {
     Shell::TheShell->_pipeCommand->append_out = true;
-    Shell:TheShell->_pipeCommand->append_err = true;
+    Shell::TheShell->_pipeCommand->append_err = true;
    }
 #line 1211 "y.tab.cc"
     break;
