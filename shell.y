@@ -84,11 +84,17 @@ io_modifier:
 	    {
 		Shell::TheShell->_pipeCommand->_outFile = $2;
     Shell::TheShell->_pipeCommand->append_out = false;
-}
-	 | GREATGREATAMPERSAND WORD
+    }
+	 | GREATGREATAMPERSAND WORD {
+    Shell::TheShell->_pipeCommand->append_out = true;
+    Shell:TheShell->_pipeCommand->append_err = true;
+   }
 	 | GREATAMPERSAND WORD
 	 | LESS WORD {
     Shell::TheShell->_pipeCommand->_inFile = $2;
+   }
+   | TWOGREAT {
+
    }
 	;
 
