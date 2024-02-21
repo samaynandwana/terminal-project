@@ -75,14 +75,6 @@ pipe_list:
 	    }
 	;
 
-background_optional: 
-	AMPERSAND {
-    Shell::TheShell->_pipeCommand->_background = true;
-  }
-	| /*empty*/ {
-  Shell::TheShell->_pipeCommand->_background = false;
-  }
-	;
 io_modifier:
 	   GREATGREAT WORD {
 		Shell::TheShell->_pipeCommand->_outFile = $2;
@@ -116,6 +108,14 @@ io_modifier_list:
 	| /*empty*/
 	;
 
+background_optional: 
+	AMPERSAND {
+    Shell::TheShell->_pipeCommand->_background = true;
+  }
+	| /*empty*/ {
+  Shell::TheShell->_pipeCommand->_background = false;
+  }
+	;
 
 SEPARATOR:
 	NEWLINE
