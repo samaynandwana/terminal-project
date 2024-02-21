@@ -474,7 +474,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  22
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   111
+#define YYLAST   105
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  25
@@ -483,7 +483,7 @@ union yyalloc
 /* YYNRULES -- Number of rules.  */
 #define YYNRULES  33
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  67
+#define YYNSTATES  68
 
 /* YYMAXUTOK -- Last valid token kind.  */
 #define YYMAXUTOK   279
@@ -535,9 +535,9 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    47,    47,    50,    52,    56,    56,    64,    70,    79,
-      83,    88,    92,    93,    96,   102,   103,   107,   108,   112,
-     113,   117,   123,   128,   129,   130,   131,   135,   140,   148,
-     153,   147,   168,   172
+      83,    88,    94,    98,   101,   107,   108,   112,   113,   117,
+     118,   122,   128,   133,   134,   135,   136,   140,   145,   153,
+     158,   152,   173,   177
 };
 #endif
 
@@ -570,7 +570,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-30)
+#define YYPACT_NINF (-15)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -584,13 +584,13 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      69,    -9,   -30,   -30,   -14,   -30,   -12,     9,    13,   -30,
-      10,   -30,   -30,     5,    -9,    -9,    -9,   -30,   -30,   -30,
-     -30,    12,   -30,    29,    87,   -30,   -30,   -30,   -30,    34,
-     -30,     7,   -30,   -30,    38,    46,    47,    48,   -30,    50,
-     -30,   -30,    -9,   -30,     8,    39,     4,   -30,   -30,   -30,
-     -30,   -30,   -30,    41,    52,    56,    51,    69,    69,   -30,
-      18,    42,    69,   -30,   -30,    55,   -30
+      63,    -9,   -15,   -15,   -14,   -15,   -12,     9,    20,   -15,
+       3,   -15,   -15,     5,    -9,    -9,    -9,   -15,   -15,   -15,
+     -15,     6,   -15,    25,    81,   -15,   -15,   -15,   -15,    29,
+     -15,     7,   -15,   -15,    31,    38,    41,    47,   -15,    48,
+      55,   -15,    -9,   -15,     8,    44,     4,   -15,   -15,   -15,
+     -15,   -15,   -15,   -15,    45,    52,    53,    58,    63,    63,
+     -15,    18,    34,    63,   -15,   -15,    56,   -15
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -602,23 +602,23 @@ static const yytype_int8 yydefact[] =
       16,    25,    27,     0,     0,     0,     0,    26,     4,    29,
        4,     0,     1,     0,    18,    28,    22,    23,    24,     6,
        4,     0,     4,     8,     0,     0,     0,     0,    17,     0,
-      14,    15,     0,     3,     0,     0,     0,    10,     9,    12,
-      11,    13,    21,     0,     0,     0,     0,     0,     0,    30,
-       0,     0,     0,    32,    33,     0,    31
+       0,    15,     0,     3,     0,     0,     0,    10,     9,    12,
+      11,    13,    14,    21,     0,     0,     0,     0,     0,     0,
+      30,     0,     0,     0,    32,    33,     0,    31
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -30,   -30,    14,    57,   -30,   -30,   -30,   -30,   -30,     0,
-     -13,   -29,   -30,   -30,   -30,   -30,   -30
+     -15,   -15,    13,    57,   -15,   -15,   -15,   -15,   -15,     0,
+     -13,     2,   -15,   -15,   -15,   -15,   -15
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
        0,     8,    29,     9,    18,    10,    41,    24,    42,    11,
-      12,    13,    14,    30,    62,    15,    16
+      12,    13,    14,    30,    63,    15,    16
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -627,33 +627,31 @@ static const yytype_int8 yydefgoto[] =
 static const yytype_int8 yytable[] =
 {
       25,    17,    19,     3,    20,    -2,     1,    43,     2,     5,
-      43,    43,    21,    22,    26,    27,    28,     3,     4,     1,
-      23,     2,    55,     5,    45,    53,     6,     7,    60,    61,
-       3,     4,     2,    65,    31,    32,     5,    43,    63,     6,
-       7,    47,    52,     1,    44,     2,    46,    25,    25,    48,
-      49,    50,    25,    51,     3,     4,     1,    54,     2,    56,
-       5,     0,    64,     6,     7,     0,    59,     3,     4,    66,
-       1,    57,     2,     5,     0,    58,     6,     7,     0,     0,
-      33,     3,     4,     0,     0,     0,     0,     5,     0,     0,
-       6,     7,    34,    35,    36,    37,    38,     0,    39,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    40
+      43,    43,    21,    23,    26,    27,    28,     3,     4,     1,
+      22,     2,    56,     5,    45,    54,     6,     7,     2,    32,
+       3,     4,    43,    31,    47,     1,     5,     2,    64,     6,
+       7,    48,    53,    44,    49,    46,     3,     4,    25,    25,
+      50,    51,     5,    25,    65,     6,     7,     1,    52,     2,
+      61,    62,    55,    57,     1,    66,     2,     0,     3,     4,
+      67,    58,    59,    60,     5,     3,     4,     6,     7,     0,
+      33,     5,     0,     0,     6,     7,    34,    35,    36,    37,
+      38,     0,    39,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,    40
 };
 
 static const yytype_int8 yycheck[] =
 {
       13,     1,    16,    12,    16,     0,     1,     3,     3,    18,
-       3,     3,     3,     0,    14,    15,    16,    12,    13,     1,
-      10,     3,    18,    18,    17,    17,    21,    22,    57,    58,
-      12,    13,     3,    62,    20,    23,    18,     3,    20,    21,
-      22,     3,    42,     1,    30,     3,    32,    60,    61,     3,
-       3,     3,    65,     3,    12,    13,     1,    18,     3,    18,
-      18,    -1,    20,    21,    22,    -1,    15,    12,    13,    14,
-       1,    19,     3,    18,    -1,    19,    21,    22,    -1,    -1,
-      23,    12,    13,    -1,    -1,    -1,    -1,    18,    -1,    -1,
-      21,    22,     5,     6,     7,     8,     9,    -1,    11,    -1,
-      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
-      -1,    24
+       3,     3,     3,    10,    14,    15,    16,    12,    13,     1,
+       0,     3,    18,    18,    17,    17,    21,    22,     3,    23,
+      12,    13,     3,    20,     3,     1,    18,     3,    20,    21,
+      22,     3,    42,    30,     3,    32,    12,    13,    61,    62,
+       3,     3,    18,    66,    20,    21,    22,     1,     3,     3,
+      58,    59,    18,    18,     1,    63,     3,    -1,    12,    13,
+      14,    19,    19,    15,    18,    12,    13,    21,    22,    -1,
+      23,    18,    -1,    -1,    21,    22,     5,     6,     7,     8,
+       9,    -1,    11,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    24
 };
 
 /* YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
@@ -665,8 +663,8 @@ static const yytype_int8 yystos[] =
       16,     3,     0,    10,    32,    35,    34,    34,    34,    27,
       38,    27,    23,    28,     5,     6,     7,     8,     9,    11,
       24,    31,    33,     3,    27,    17,    27,     3,     3,     3,
-       3,     3,    34,    17,    18,    18,    18,    19,    19,    15,
-      36,    36,    39,    20,    20,    36,    14
+       3,     3,     3,    34,    17,    18,    18,    18,    19,    19,
+      15,    36,    36,    39,    20,    20,    36,    14
 };
 
 /* YYR1[RULE-NUM] -- Symbol kind of the left-hand side of rule RULE-NUM.  */
@@ -682,7 +680,7 @@ static const yytype_int8 yyr1[] =
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     0,     0,     3,     1,     3,     2,
-       2,     2,     2,     2,     1,     2,     0,     1,     0,     1,
+       2,     2,     2,     2,     2,     2,     0,     1,     0,     1,
        1,     4,     2,     2,     2,     1,     2,     1,     2,     0,
        0,    10,     8,     8
 };
@@ -1151,7 +1149,7 @@ yyreduce:
 #line 50 "shell.y"
                       { 
           Shell::TheShell->_simpleCommand->insertArgument( (yyvsp[0].cpp_string) ); }
-#line 1155 "y.tab.cc"
+#line 1153 "y.tab.cc"
     break;
 
   case 5: /* $@1: %empty  */
@@ -1160,7 +1158,7 @@ yyreduce:
           Shell::TheShell->_simpleCommand = new SimpleCommand(); 
           Shell::TheShell->_simpleCommand->insertArgument( (yyvsp[0].cpp_string) );
         }
-#line 1164 "y.tab.cc"
+#line 1162 "y.tab.cc"
     break;
 
   case 7: /* pipe_list: cmd_and_args  */
@@ -1170,7 +1168,7 @@ yyreduce:
 		    Shell::TheShell->_simpleCommand ); 
 		Shell::TheShell->_simpleCommand = new SimpleCommand();
 	    }
-#line 1174 "y.tab.cc"
+#line 1172 "y.tab.cc"
     break;
 
   case 8: /* pipe_list: pipe_list PIPE cmd_and_args  */
@@ -1180,7 +1178,7 @@ yyreduce:
 		    Shell::TheShell->_simpleCommand ); 
 		Shell::TheShell->_simpleCommand = new SimpleCommand();
 	    }
-#line 1184 "y.tab.cc"
+#line 1182 "y.tab.cc"
     break;
 
   case 9: /* io_modifier: GREATGREAT WORD  */
@@ -1189,7 +1187,7 @@ yyreduce:
 		Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
     Shell::TheShell->_pipeCommand->append_out = true;
      }
-#line 1193 "y.tab.cc"
+#line 1191 "y.tab.cc"
     break;
 
   case 10: /* io_modifier: GREAT WORD  */
@@ -1198,119 +1196,130 @@ yyreduce:
 		Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
     Shell::TheShell->_pipeCommand->append_out = false;
     }
-#line 1202 "y.tab.cc"
+#line 1200 "y.tab.cc"
     break;
 
   case 11: /* io_modifier: GREATGREATAMPERSAND WORD  */
 #line 88 "shell.y"
                                     {
+    Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
+    Shell::TheShell->_pipeCommand->_errFile = (yyvsp[0].cpp_string);
     Shell::TheShell->_pipeCommand->append_out = true;
     Shell::TheShell->_pipeCommand->append_err = true;
    }
 #line 1211 "y.tab.cc"
     break;
 
+  case 12: /* io_modifier: GREATAMPERSAND WORD  */
+#line 94 "shell.y"
+                               {
+    Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
+    Shell::TheShell->_pipeCommand->_errFile = (yyvsp[0].cpp_string);
+   }
+#line 1220 "y.tab.cc"
+    break;
+
   case 13: /* io_modifier: LESS WORD  */
-#line 93 "shell.y"
+#line 98 "shell.y"
                      {
     Shell::TheShell->_pipeCommand->_inFile = (yyvsp[0].cpp_string);
    }
-#line 1219 "y.tab.cc"
+#line 1228 "y.tab.cc"
     break;
 
-  case 14: /* io_modifier: TWOGREAT  */
-#line 96 "shell.y"
-              {
-
+  case 14: /* io_modifier: TWOGREAT WORD  */
+#line 101 "shell.y"
+                  {
+    Shell::TheShell->_pipeCommand->_errFile = (yyvsp[0].cpp_string);
    }
-#line 1227 "y.tab.cc"
+#line 1236 "y.tab.cc"
     break;
 
   case 21: /* command_line: pipe_list io_modifier_list background_optional SEPARATOR  */
-#line 118 "shell.y"
+#line 123 "shell.y"
          { 
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_pipeCommand);
 	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
          }
-#line 1237 "y.tab.cc"
+#line 1246 "y.tab.cc"
     break;
 
   case 22: /* command_line: if_command SEPARATOR  */
-#line 124 "shell.y"
+#line 129 "shell.y"
          {
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
          }
-#line 1246 "y.tab.cc"
+#line 1255 "y.tab.cc"
     break;
 
   case 23: /* command_line: while_command SEPARATOR  */
-#line 128 "shell.y"
+#line 133 "shell.y"
                                   {printf("while\n"); }
-#line 1252 "y.tab.cc"
+#line 1261 "y.tab.cc"
     break;
 
   case 24: /* command_line: for_command SEPARATOR  */
-#line 129 "shell.y"
+#line 134 "shell.y"
                                 {printf("for\n"); }
-#line 1258 "y.tab.cc"
+#line 1267 "y.tab.cc"
     break;
 
   case 26: /* command_line: error SEPARATOR  */
-#line 131 "shell.y"
+#line 136 "shell.y"
                           {yyerrok; Shell::TheShell->clear(); }
-#line 1264 "y.tab.cc"
+#line 1273 "y.tab.cc"
     break;
 
   case 27: /* command_list: command_line  */
-#line 136 "shell.y"
+#line 141 "shell.y"
         { 
 	   Shell::TheShell->execute();
 	}
-#line 1272 "y.tab.cc"
+#line 1281 "y.tab.cc"
     break;
 
   case 28: /* command_list: command_list command_line  */
-#line 141 "shell.y"
+#line 146 "shell.y"
         {
 	    Shell::TheShell->execute();
-	}
-#line 1280 "y.tab.cc"
-    break;
-
-  case 29: /* $@2: %empty  */
-#line 148 "shell.y"
-        { 
-	    Shell::TheShell->_level++; 
-	    Shell::TheShell->_ifCommand = new IfCommand();
 	}
 #line 1289 "y.tab.cc"
     break;
 
-  case 30: /* $@3: %empty  */
+  case 29: /* $@2: %empty  */
 #line 153 "shell.y"
+        { 
+	    Shell::TheShell->_level++; 
+	    Shell::TheShell->_ifCommand = new IfCommand();
+	}
+#line 1298 "y.tab.cc"
+    break;
+
+  case 30: /* $@3: %empty  */
+#line 158 "shell.y"
         {
 	    Shell::TheShell->_ifCommand->insertCondition( 
 		    Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
 	}
-#line 1299 "y.tab.cc"
+#line 1308 "y.tab.cc"
     break;
 
   case 31: /* if_command: IF LBRACKET $@2 arg_list RBRACKET SEMI THEN $@3 command_list FI  */
-#line 159 "shell.y"
+#line 164 "shell.y"
         { 
 	    Shell::TheShell->_level--; 
 	    Shell::TheShell->_ifCommand->insertListCommands( 
 		    Shell::TheShell->_listCommands);
 	    Shell::TheShell->_listCommands = new ListCommands();
 	}
-#line 1310 "y.tab.cc"
+#line 1319 "y.tab.cc"
     break;
 
 
-#line 1314 "y.tab.cc"
+#line 1323 "y.tab.cc"
 
       default: break;
     }
@@ -1503,7 +1512,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 175 "shell.y"
+#line 180 "shell.y"
 
 
 void

@@ -111,6 +111,7 @@ io_modifier_list:
 background_optional: 
 	AMPERSAND
 	| /*empty*/
+  Shell::TheShell->_pipeCommand->_background = true;
 	;
 
 SEPARATOR:
