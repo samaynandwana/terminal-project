@@ -109,8 +109,25 @@ void PipeCommand::execute() {
 
     // Add execution here
     // For every simple command fork a new process
-    // Setup i/o redirection
-    // and call exec
+    int tmpin = dup(0);
+    int tmpout = dup(1);
+    int fdin;
+    if (infile) {
+      //open file
+    } else {
+      fdin = dup(tmpin);
+    }
+    int ret;
+    int fdout;
+    for (int i = 0; i < _arguments.size(); i++) {
+      dup2(fdin, 0);
+      close(fdin);
+      if (i = _arguments.size() - 1) {
+        if (_outFile) {
+          //open outfile
+        }
+      }
+    }
 
     // Clear to prepare for next command
     clear();

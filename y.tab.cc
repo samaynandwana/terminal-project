@@ -124,9 +124,9 @@ enum yysymbol_kind_t
   YYSYMBOL_cmd_and_args = 28,              /* cmd_and_args  */
   YYSYMBOL_29_1 = 29,                      /* $@1  */
   YYSYMBOL_pipe_list = 30,                 /* pipe_list  */
-  YYSYMBOL_background_optional = 31,       /* background_optional  */
-  YYSYMBOL_io_modifier = 32,               /* io_modifier  */
-  YYSYMBOL_io_modifier_list = 33,          /* io_modifier_list  */
+  YYSYMBOL_io_modifier = 31,               /* io_modifier  */
+  YYSYMBOL_io_modifier_list = 32,          /* io_modifier_list  */
+  YYSYMBOL_background_optional = 33,       /* background_optional  */
   YYSYMBOL_SEPARATOR = 34,                 /* SEPARATOR  */
   YYSYMBOL_command_line = 35,              /* command_line  */
   YYSYMBOL_command_list = 36,              /* command_list  */
@@ -535,7 +535,7 @@ static const yytype_int8 yytranslate[] =
 static const yytype_uint8 yyrline[] =
 {
        0,    47,    47,    50,    52,    56,    56,    64,    70,    79,
-      82,    87,    91,    96,   102,   106,   109,   115,   116,   121,
+      83,    88,    94,    98,   101,   107,   108,   112,   115,   121,
      122,   126,   132,   137,   138,   139,   140,   144,   149,   157,
      162,   156,   177,   181
 };
@@ -558,7 +558,7 @@ static const char *const yytname[] =
   "AMPERSAND", "PIPE", "LESS", "NEWLINE", "IF", "FI", "THEN", "LBRACKET",
   "RBRACKET", "SEMI", "DO", "DONE", "WHILE", "FOR", "IN", "TWOGREAT",
   "$accept", "goal", "arg_list", "cmd_and_args", "$@1", "pipe_list",
-  "background_optional", "io_modifier", "io_modifier_list", "SEPARATOR",
+  "io_modifier", "io_modifier_list", "background_optional", "SEPARATOR",
   "command_line", "command_list", "if_command", "$@2", "$@3",
   "while_command", "for_command", YY_NULLPTR
 };
@@ -570,7 +570,7 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 }
 #endif
 
-#define YYPACT_NINF (-31)
+#define YYPACT_NINF (-15)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -584,13 +584,13 @@ yysymbol_name (yysymbol_kind_t yysymbol)
    STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-      63,    -9,   -31,   -31,   -14,   -31,   -12,     9,    13,   -31,
-      10,   -31,   -31,     5,    -9,    -9,    -9,   -31,   -31,   -31,
-     -31,    11,   -31,    40,    81,   -31,   -31,   -31,   -31,    42,
-     -31,     7,   -31,   -31,    47,    48,    55,    57,   -31,    58,
-      59,    -9,   -31,   -31,     8,    45,     4,   -31,   -31,   -31,
-     -31,   -31,   -31,   -31,    49,    46,    52,    64,    63,    63,
-     -31,    18,    34,    63,   -31,   -31,    56,   -31
+      63,    -9,   -15,   -15,   -14,   -15,   -12,     9,    20,   -15,
+       3,   -15,   -15,     5,    -9,    -9,    -9,   -15,   -15,   -15,
+     -15,     6,   -15,    25,    81,   -15,   -15,   -15,   -15,    29,
+     -15,     7,   -15,   -15,    31,    38,    41,    47,   -15,    48,
+      55,   -15,    -9,   -15,     8,    44,     4,   -15,   -15,   -15,
+     -15,   -15,   -15,   -15,    45,    52,    53,    58,    63,    63,
+     -15,    18,    34,    63,   -15,   -15,    56,   -15
 };
 
 /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -599,25 +599,25 @@ static const yytype_int8 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        0,     0,     5,    19,     0,    20,     0,     0,     0,     7,
-      18,    25,    27,     0,     0,     0,     0,    26,     4,    29,
-       4,     0,     1,     0,    10,    28,    22,    23,    24,     6,
-       4,     0,     4,     8,     0,     0,     0,     0,     9,     0,
-       0,     0,    17,     3,     0,     0,     0,    12,    11,    14,
-      13,    15,    16,    21,     0,     0,     0,     0,     0,     0,
+      16,    25,    27,     0,     0,     0,     0,    26,     4,    29,
+       4,     0,     1,     0,    18,    28,    22,    23,    24,     6,
+       4,     0,     4,     8,     0,     0,     0,     0,    17,     0,
+       0,    15,     0,     3,     0,     0,     0,    10,     9,    12,
+      11,    13,    14,    21,     0,     0,     0,     0,     0,     0,
       30,     0,     0,     0,    32,    33,     0,    31
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -31,   -31,    12,    50,   -31,   -31,   -31,   -31,   -31,     0,
-     -13,   -30,   -31,   -31,   -31,   -31,   -31
+     -15,   -15,    13,    57,   -15,   -15,   -15,   -15,   -15,     0,
+     -13,     2,   -15,   -15,   -15,   -15,   -15
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     8,    29,     9,    18,    10,    41,    42,    24,    11,
+       0,     8,    29,     9,    18,    10,    41,    24,    42,    11,
       12,    13,    14,    30,    63,    15,    16
 };
 
@@ -627,14 +627,14 @@ static const yytype_int8 yydefgoto[] =
 static const yytype_int8 yytable[] =
 {
       25,    17,    19,     3,    20,    -2,     1,    43,     2,     5,
-      43,    43,    21,    22,    26,    27,    28,     3,     4,     1,
-      23,     2,    56,     5,    45,    54,     6,     7,    61,    62,
-       3,     4,    31,    66,    32,     1,     5,     2,    64,     6,
-       7,    53,    44,     2,    46,    43,     3,     4,    25,    25,
-      47,    48,     5,    25,    65,     6,     7,     1,    49,     2,
-      50,    51,    52,    55,     1,    58,     2,    57,     3,     4,
-      67,    59,     0,    33,     5,     3,     4,     6,     7,    60,
-       0,     5,     0,     0,     6,     7,    34,    35,    36,    37,
+      43,    43,    21,    23,    26,    27,    28,     3,     4,     1,
+      22,     2,    56,     5,    45,    54,     6,     7,     2,    32,
+       3,     4,    43,    31,    47,     1,     5,     2,    64,     6,
+       7,    48,    53,    44,    49,    46,     3,     4,    25,    25,
+      50,    51,     5,    25,    65,     6,     7,     1,    52,     2,
+      61,    62,    55,    57,     1,    66,     2,     0,     3,     4,
+      67,    58,    59,    60,     5,     3,     4,     6,     7,     0,
+      33,     5,     0,     0,     6,     7,    34,    35,    36,    37,
       38,     0,    39,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,    40
 };
@@ -642,14 +642,14 @@ static const yytype_int8 yytable[] =
 static const yytype_int8 yycheck[] =
 {
       13,     1,    16,    12,    16,     0,     1,     3,     3,    18,
-       3,     3,     3,     0,    14,    15,    16,    12,    13,     1,
-      10,     3,    18,    18,    17,    17,    21,    22,    58,    59,
-      12,    13,    20,    63,    23,     1,    18,     3,    20,    21,
-      22,    41,    30,     3,    32,     3,    12,    13,    61,    62,
+       3,     3,     3,    10,    14,    15,    16,    12,    13,     1,
+       0,     3,    18,    18,    17,    17,    21,    22,     3,    23,
+      12,    13,     3,    20,     3,     1,    18,     3,    20,    21,
+      22,     3,    42,    30,     3,    32,    12,    13,    61,    62,
        3,     3,    18,    66,    20,    21,    22,     1,     3,     3,
-       3,     3,     3,    18,     1,    19,     3,    18,    12,    13,
-      14,    19,    -1,    23,    18,    12,    13,    21,    22,    15,
-      -1,    18,    -1,    -1,    21,    22,     5,     6,     7,     8,
+      58,    59,    18,    18,     1,    63,     3,    -1,    12,    13,
+      14,    19,    19,    15,    18,    12,    13,    21,    22,    -1,
+      23,    18,    -1,    -1,    21,    22,     5,     6,     7,     8,
        9,    -1,    11,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
       -1,    -1,    -1,    -1,    -1,    24
 };
@@ -660,9 +660,9 @@ static const yytype_int8 yystos[] =
 {
        0,     1,     3,    12,    13,    18,    21,    22,    26,    28,
       30,    34,    35,    36,    37,    40,    41,    34,    29,    16,
-      16,     3,     0,    10,    33,    35,    34,    34,    34,    27,
+      16,     3,     0,    10,    32,    35,    34,    34,    34,    27,
       38,    27,    23,    28,     5,     6,     7,     8,     9,    11,
-      24,    31,    32,     3,    27,    17,    27,     3,     3,     3,
+      24,    31,    33,     3,    27,    17,    27,     3,     3,     3,
        3,     3,     3,    34,    17,    18,    18,    18,    19,    19,
       15,    36,    36,    39,    20,    20,    36,    14
 };
@@ -671,7 +671,7 @@ static const yytype_int8 yystos[] =
 static const yytype_int8 yyr1[] =
 {
        0,    25,    26,    27,    27,    29,    28,    30,    30,    31,
-      31,    32,    32,    32,    32,    32,    32,    33,    33,    34,
+      31,    31,    31,    31,    31,    32,    32,    33,    33,    34,
       34,    35,    35,    35,    35,    35,    35,    36,    36,    38,
       39,    37,    40,    41
 };
@@ -679,8 +679,8 @@ static const yytype_int8 yyr1[] =
 /* YYR2[RULE-NUM] -- Number of symbols on the right-hand side of rule RULE-NUM.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     2,     0,     0,     3,     1,     3,     1,
-       0,     2,     2,     2,     2,     2,     2,     2,     0,     1,
+       0,     2,     1,     2,     0,     0,     3,     1,     3,     2,
+       2,     2,     2,     2,     2,     2,     0,     1,     0,     1,
        1,     4,     2,     2,     2,     1,     2,     1,     2,     0,
        0,    10,     8,     8
 };
@@ -1181,73 +1181,73 @@ yyreduce:
 #line 1182 "y.tab.cc"
     break;
 
-  case 9: /* background_optional: AMPERSAND  */
+  case 9: /* io_modifier: GREATGREAT WORD  */
 #line 79 "shell.y"
-                  {
-    Shell::TheShell->_pipeCommand->_background = true;
-  }
-#line 1190 "y.tab.cc"
-    break;
-
-  case 10: /* background_optional: %empty  */
-#line 82 "shell.y"
-                    {
-  Shell::TheShell->_pipeCommand->_background = false;
-  }
-#line 1198 "y.tab.cc"
-    break;
-
-  case 11: /* io_modifier: GREATGREAT WORD  */
-#line 87 "shell.y"
                            {
 		Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
     Shell::TheShell->_pipeCommand->append_out = true;
      }
-#line 1207 "y.tab.cc"
+#line 1191 "y.tab.cc"
     break;
 
-  case 12: /* io_modifier: GREAT WORD  */
-#line 92 "shell.y"
+  case 10: /* io_modifier: GREAT WORD  */
+#line 84 "shell.y"
             {
 		Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
     Shell::TheShell->_pipeCommand->append_out = false;
     }
-#line 1216 "y.tab.cc"
+#line 1200 "y.tab.cc"
     break;
 
-  case 13: /* io_modifier: GREATGREATAMPERSAND WORD  */
-#line 96 "shell.y"
+  case 11: /* io_modifier: GREATGREATAMPERSAND WORD  */
+#line 88 "shell.y"
                                     {
     Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
     Shell::TheShell->_pipeCommand->_errFile = (yyvsp[0].cpp_string);
     Shell::TheShell->_pipeCommand->append_out = true;
     Shell::TheShell->_pipeCommand->append_err = true;
    }
-#line 1227 "y.tab.cc"
+#line 1211 "y.tab.cc"
     break;
 
-  case 14: /* io_modifier: GREATAMPERSAND WORD  */
-#line 102 "shell.y"
+  case 12: /* io_modifier: GREATAMPERSAND WORD  */
+#line 94 "shell.y"
                                {
     Shell::TheShell->_pipeCommand->_outFile = (yyvsp[0].cpp_string);
+    Shell::TheShell->_pipeCommand->_errFile = (yyvsp[0].cpp_string);
+   }
+#line 1220 "y.tab.cc"
+    break;
+
+  case 13: /* io_modifier: LESS WORD  */
+#line 98 "shell.y"
+                     {
+    Shell::TheShell->_pipeCommand->_inFile = (yyvsp[0].cpp_string);
+   }
+#line 1228 "y.tab.cc"
+    break;
+
+  case 14: /* io_modifier: TWOGREAT WORD  */
+#line 101 "shell.y"
+                  {
     Shell::TheShell->_pipeCommand->_errFile = (yyvsp[0].cpp_string);
    }
 #line 1236 "y.tab.cc"
     break;
 
-  case 15: /* io_modifier: LESS WORD  */
-#line 106 "shell.y"
-                     {
-    Shell::TheShell->_pipeCommand->_inFile = (yyvsp[0].cpp_string);
-   }
+  case 17: /* background_optional: AMPERSAND  */
+#line 112 "shell.y"
+                  {
+    Shell::TheShell->_pipeCommand->_background = true;
+  }
 #line 1244 "y.tab.cc"
     break;
 
-  case 16: /* io_modifier: TWOGREAT WORD  */
-#line 109 "shell.y"
-                  {
-    Shell::TheShell->_pipeCommand->_errFile = (yyvsp[0].cpp_string);
-   }
+  case 18: /* background_optional: %empty  */
+#line 115 "shell.y"
+                    {
+  Shell::TheShell->_pipeCommand->_background = false;
+  }
 #line 1252 "y.tab.cc"
     break;
 
