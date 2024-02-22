@@ -112,20 +112,39 @@ void PipeCommand::execute() {
     int tmpin = dup(0);
     int tmpout = dup(1);
     int fdin;
-    if (infile) {
+    if (_infile) {
       //open file
     } else {
       fdin = dup(tmpin);
     }
     int ret;
     int fdout;
-    for (int i = 0; i < _arguments.size(); i++) {
+    for (int i = 0; i < _simpleCommands.size(); i++) {
       dup2(fdin, 0);
       close(fdin);
+      //last argument
       if (i = _arguments.size() - 1) {
         if (_outFile) {
           //open outfile
+        } else {
+          fdout = dup(tmpout);
         }
+      //not last argument
+      } else {
+        int fdpipe[2];
+        pipe(fdpipe);
+        fdout = fdpipe[1];
+        fdin = fdpipe[0];
+
+      }
+      dup2(fdout, 1);
+      close(fdout);
+      //child process create with fork
+      ret = fork();
+      if (ret == 0) {
+        //call execvp
+        perror("execvp");
+        exit(1);
       }
     }
 
