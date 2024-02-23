@@ -149,7 +149,7 @@ void PipeCommand::execute() {
           if (append_err) {
             fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0777);
           } else {
-            fdout = open(_outFile->c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0777);
+            fderr = open(_outFile->c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0777);
           }
 
         } else {
