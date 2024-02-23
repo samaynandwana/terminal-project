@@ -115,7 +115,7 @@ void PipeCommand::execute() {
     int fdin;
     if (_inFile) {
       //open file
-      fdin = open(_inFile->c_str(), O_RDONLY, 0444);
+      fdin = open(_inFile->c_str(), O_RDONLY);
     } else {
       fdin = dup(tmpin);
     }
