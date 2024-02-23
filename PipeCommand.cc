@@ -140,7 +140,7 @@ void PipeCommand::execute() {
       dup2(fdout, 1);
       close(fdout);
       //child process create with fork
-      const char ** args = (const char **) malloc ((s->_arguments.size() + 1)*sizeof(char*));
+      const char ** args = (const char **) malloc ((_arguments.size() + 1)*sizeof(char*));
       ret = fork();
       if (ret == 0) {
         //call execvp
