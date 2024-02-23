@@ -28,6 +28,7 @@
 #include "PipeCommand.hh"
 #include "Shell.hh"
 
+#include "SimpleCommand.hh"
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
@@ -114,6 +115,7 @@ void PipeCommand::execute() {
     int fdin;
     if (_inFile) {
       //open file
+      fdin = open(_inFile->c_str(), 0_RDONLY, 0666);
     } else {
       fdin = dup(tmpin);
     }
