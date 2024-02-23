@@ -120,7 +120,7 @@ void PipeCommand::execute() {
       fdin = dup(tmpin);
     }
     if (fdin == -1) {
-      fprintf(stderr,"/bin/sh: 1: %s: not found\n", _inFile->c_str()); 
+      fprintf(stderr,"/bin/sh: 1: cannot open %s: No such file\n", _inFile->c_str()); 
       clear();
     }
     int ret;
