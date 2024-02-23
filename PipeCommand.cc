@@ -112,18 +112,18 @@ void PipeCommand::execute() {
     int tmpin = dup(0);
     int tmpout = dup(1);
     int fdin;
-    if (_infile) {
+    if (_inFile) {
       //open file
     } else {
       fdin = dup(tmpin);
     }
     int ret;
     int fdout;
-    for (int i = 0; i < _simpleCommands.size(); i++) {
+    for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
       dup2(fdin, 0);
       close(fdin);
       //last argument
-      if (i = _arguments.size() - 1) {
+      if (i = _simpleCommands.size() - 1) {
         if (_outFile) {
           //open outfile
         } else {
@@ -140,6 +140,7 @@ void PipeCommand::execute() {
       dup2(fdout, 1);
       close(fdout);
       //child process create with fork
+      const char ** args = (const char **) malloc ((
       ret = fork();
       if (ret == 0) {
         //call execvp
@@ -147,7 +148,14 @@ void PipeCommand::execute() {
         exit(1);
       }
     }
+    dup2(tmpin, 0);
+    dup2(tmpout, 1);
+    close(tmpin);
+    close(tmpout);
 
+    if (!background) {
+      waitpid(ret, NULL, 0);
+    }
     // Clear to prepare for next command
     clear();
 
