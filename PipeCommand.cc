@@ -115,7 +115,7 @@ void PipeCommand::execute() {
     int fdin;
     if (_inFile) {
       //open file
-      fdin = open(_inFile->c_str(), 0_RDONLY, 0666);
+      fdin = open(_inFile->c_str(), O_RDONLY, 0666);
     } else {
       fdin = dup(tmpin);
     }
@@ -142,8 +142,8 @@ void PipeCommand::execute() {
       dup2(fdout, 1);
       close(fdout);
       //child process create with fork
-      const char ** args = (const char **) malloc ((s->_arguments.size() + 1)*sizeof(char*));
-      for (unsigned long j = 0; j < s->_arguments.size(); j++) {
+      const char ** args = (const char **) malloc ((_arguments.size() + 1)*sizeof(char*));
+      for (unsigned long j = 0; j < _arguments.size(); j++) {
         args[j] = s->_arguments[j]->c_str();
       }
       args[s->_arguments.size()] = NULL;
