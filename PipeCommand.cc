@@ -111,6 +111,7 @@ void PipeCommand::execute() {
     // For every simple command fork a new process
     int tmpin = dup(0);
     int tmpout = dup(1);
+    int tmperr = dup(2);
     int fdin;
     if (_inFile) {
       //open file
@@ -120,6 +121,7 @@ void PipeCommand::execute() {
     }
     int ret;
     int fdout;
+    int fderr;
     for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
       dup2(fdin, 0);
       close(fdin);
@@ -135,16 +137,28 @@ void PipeCommand::execute() {
         } else {
           fdout = dup(tmpout);
         }
+        if (_errFile) {
+          if (append_err) {
+            fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0666);
+          } else {
+            fdout = open(_outFile->c_str(), O_TRUNC | O_WRONLY, 0666);
+          }
+
+        } else {
+          fderr = dup(tmperr);
+        }
       //not last argument
       } else {
         int fdpipe[2];
         pipe(fdpipe);
         fdout = fdpipe[1];
         fdin = fdpipe[0];
-
+       
       }
       dup2(fdout, 1);
       close(fdout);
+      dup2(fderr, 2);
+      close(fderr);
       //child process create with fork
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
@@ -161,8 +175,10 @@ void PipeCommand::execute() {
     }
     dup2(tmpin, 0);
     dup2(tmpout, 1);
+    dup2(tmperr, 2);
     close(tmpin);
     close(tmpout);
+    close(tmperr);
 
     if (!_background) {
       waitpid(ret, NULL, 0);
