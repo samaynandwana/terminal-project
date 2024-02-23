@@ -120,6 +120,9 @@ void PipeCommand::execute() {
       fprintf(stderr,"/bin/sh: 1: %s: not found", _inFile->c_str()); 
       fdin = dup(tmpin);
     }
+    if (fdin == -1) {
+      clear();
+    }
     int ret;
     int fdout;
     int fderr;
