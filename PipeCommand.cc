@@ -53,7 +53,11 @@ void PipeCommand::clear() {
     // remove all references to the simple commands we've deallocated
     // (basically just sets the size to 0)
     _simpleCommands.clear();
-
+    if (_outFile == _errFile) {
+      delete _outFile;
+      _inFile = NULL;
+      _errFile = NULL;
+    }
     if ( _outFile ) {
         delete _outFile;
     }
