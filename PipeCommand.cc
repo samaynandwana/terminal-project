@@ -148,7 +148,7 @@ void PipeCommand::execute() {
       ret = fork();
       if (ret == 0) {
         //call execvp
-        excevp(args[0], (char* const*)args);
+        execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
       }
