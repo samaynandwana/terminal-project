@@ -126,7 +126,7 @@ void PipeCommand::execute() {
       //last argument
       if (i == _simpleCommands.size() - 1) {
         if (_outFile) {
-          //open outfile
+          //open outfile, but also have to check append and error conditions
         } else {
           fdout = dup(tmpout);
         }
