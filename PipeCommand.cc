@@ -123,7 +123,7 @@ void PipeCommand::execute() {
       dup2(fdin, 0);
       close(fdin);
       //last argument
-      if (i = _simpleCommands.size() - 1) {
+      if (i == _simpleCommands.size() - 1) {
         if (_outFile) {
           //open outfile
         } else {
@@ -153,7 +153,7 @@ void PipeCommand::execute() {
     close(tmpin);
     close(tmpout);
 
-    if (!background) {
+    if (!_background) {
       waitpid(ret, NULL, 0);
     }
     // Clear to prepare for next command
