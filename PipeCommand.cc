@@ -130,7 +130,7 @@ void PipeCommand::execute() {
         if (_outFile) {
           //open outfile, but also have to check append and error conditions
           if (append_out) {
-            fdout = open(_outFile->c_str(), O_CREAT | O_APPEND |  O_WRONLY, 0666);
+            fdout = open(_outFile->c_str(), O_APPEND |  O_WRONLY, 0666);
           } else {
             fdout = open(_outFile->c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0666);
           }
@@ -139,7 +139,7 @@ void PipeCommand::execute() {
         }
         if (_errFile) {
           if (append_err) {
-            fderr = open(_errFile->c_str(), O_CREAT | O_APPEND | O_WRONLY, 0666);
+            fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0666);
           } else {
             fdout = open(_outFile->c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0666);
           }
@@ -153,6 +153,7 @@ void PipeCommand::execute() {
         pipe(fdpipe);
         fdout = fdpipe[1];
         fdin = fdpipe[0];
+        fderr = dup(tmperr);
       }
       dup2(fdout, 1);
       close(fdout);
