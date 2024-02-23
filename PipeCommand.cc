@@ -127,6 +127,11 @@ void PipeCommand::execute() {
       if (i == _simpleCommands.size() - 1) {
         if (_outFile) {
           //open outfile, but also have to check append and error conditions
+          if (append) {
+            fdout = open(_outFile->c_str(), O_APPEND |  O_WRONLY, 0666);
+          } else {
+            fdout = open(_outFile->c_str(), O_TRUNC | O_WRONLY, 0666);
+          }
         } else {
           fdout = dup(tmpout);
         }
