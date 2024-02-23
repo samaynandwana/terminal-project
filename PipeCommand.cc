@@ -28,7 +28,6 @@
 #include "PipeCommand.hh"
 #include "Shell.hh"
 
-#include "SimpleCommand.hh"
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
@@ -143,7 +142,7 @@ void PipeCommand::execute() {
       close(fdout);
       //child process create with fork
       const char ** args = (const char **) malloc ((_arguments.size() + 1)*sizeof(char*));
-      for (unsigned long j = 0; j < _simpleCommands->_arguments.size(); j++) {
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
         args[j] = s->_arguments[j]->c_str();
       }
       args[s->_arguments.size()] = NULL;
