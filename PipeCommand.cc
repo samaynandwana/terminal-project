@@ -113,16 +113,20 @@ void PipeCommand::execute() {
 
     // Add execution here
     // For every simple command fork a new process
+
+    //temp file descriptors
     int tmpin = dup(0);
     int tmpout = dup(1);
     int tmperr = dup(2);
     int fdin;
+    //open the infile
     if (_inFile) {
       //open file
       fdin = open(_inFile->c_str(), O_RDONLY, 0777);
     } else {
       fdin = dup(tmpin);
     }
+    //fdin will contain -1 if file did not exist, so return error as follows
     if (fdin == -1) {
       fprintf(stderr,"/bin/sh: 1: cannot open %s: No such file\n", _inFile->c_str()); 
       clear();
@@ -130,6 +134,7 @@ void PipeCommand::execute() {
     int ret;
     int fdout;
     int fderr;
+    //loop through the vector of simple commands
     for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
       dup2(fdin, 0);
       close(fdin);
@@ -145,6 +150,7 @@ void PipeCommand::execute() {
         } else {
           fdout = dup(tmpout);
         }
+        //open the error file and also check the append and error conditions
         if (_errFile) {
           if (append_err) {
             fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0777);
@@ -155,7 +161,7 @@ void PipeCommand::execute() {
         } else {
           fderr = dup(tmperr);
         }
-      //not last argument
+      //not last argument, proceed with piping
       } else {
         int fdpipe[2];
         pipe(fdpipe);
@@ -163,6 +169,7 @@ void PipeCommand::execute() {
         fdin = fdpipe[0];
         fderr = dup(tmperr);
       }
+      //close file descriptors
       dup2(fdout, 1);
       close(fdout);
       dup2(fderr, 2);
@@ -181,6 +188,7 @@ void PipeCommand::execute() {
         exit(1);
       }
     }
+    //close temps
     dup2(tmpin, 0);
     dup2(tmpout, 1);
     dup2(tmperr, 2);
