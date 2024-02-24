@@ -108,9 +108,9 @@ void PipeCommand::execute() {
         Shell::TheShell->prompt();
         return;
     }
-    if (strcmp(_simpleCommands[0]->_arguments[0],"exit") == 0) {
+    if (strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0) {
       fprintf(stderr, "Good bye!!\n");
-      exit(1);
+      exit(0);
     }
     // Print contents of PipeCommand data structure
     //print();
