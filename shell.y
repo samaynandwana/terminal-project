@@ -113,10 +113,7 @@ io_modifier:
    | TWOGREAT WORD {
     Shell::TheShell->_pipeCommand->_errFile = $2;
    }
-   //quote implementation
-   | \"[^\n\"]*\" WORD {
-    fprintf(stderr, WORD);
-   }
+
 	;
 
 io_modifier_list:
