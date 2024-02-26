@@ -55,6 +55,7 @@ void Shell::execute() {
 void yyset_in (FILE *  in_str );
 extern "C" void disp( int sig )
 {
+  fprintf(stderr, "\n");
   Shell::TheShell->prompt();
 }
 int 
