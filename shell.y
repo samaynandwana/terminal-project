@@ -77,6 +77,9 @@ pipe_list:
 
 io_modifier:
 	   GREATGREAT WORD {
+      if(Shell::TheShell->_pipeCommand->_outFile != NULL) {
+        fprintf(stderr, "Ambiguous output redirect.\n");
+      }
 		Shell::TheShell->_pipeCommand->_outFile = $2;
     Shell::TheShell->_pipeCommand->append_out = true;
      }
@@ -89,12 +92,18 @@ io_modifier:
     Shell::TheShell->_pipeCommand->append_out = false;
     }
 	 | GREATGREATAMPERSAND WORD {
+      if(Shell::TheShell->_pipeCommand->_outFile != NULL) {
+        fprintf(stderr, "Ambiguous output redirect.\n");
+      }
     Shell::TheShell->_pipeCommand->_outFile = $2;
     Shell::TheShell->_pipeCommand->_errFile = $2;
     Shell::TheShell->_pipeCommand->append_out = true;
     Shell::TheShell->_pipeCommand->append_err = true;
    }
 	 | GREATAMPERSAND WORD {
+      if(Shell::TheShell->_pipeCommand->_outFile != NULL) {
+        fprintf(stderr, "Ambiguous output redirect.\n");
+      }
     Shell::TheShell->_pipeCommand->_outFile = $2;
     Shell::TheShell->_pipeCommand->_errFile = $2;
    }
