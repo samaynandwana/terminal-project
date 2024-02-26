@@ -20,7 +20,9 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
+#include <signal.h>
+#include <string.h>
+#include <stdlib.h>
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
@@ -112,6 +114,8 @@ void PipeCommand::execute() {
       fprintf(stderr, "Good bye!!\n");
       exit(1);
     }
+
+
     // Print contents of PipeCommand data structure
     //print();
 
@@ -178,6 +182,8 @@ void PipeCommand::execute() {
       close(fdout);
       dup2(fderr, 2);
       close(fderr);
+      //env
+      char ** environ;
       //child process create with fork
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
@@ -187,6 +193,7 @@ void PipeCommand::execute() {
       ret = fork();
       if (ret == 0) {
         //call execvp
+
         execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
