@@ -110,7 +110,7 @@ void PipeCommand::execute() {
     }
     if (strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0) {
       fprintf(stderr, "Good bye!!\n");
-      exit(0);
+      exit(1);
     }
     // Print contents of PipeCommand data structure
     //print();
