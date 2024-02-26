@@ -110,10 +110,10 @@ void PipeCommand::execute() {
         Shell::TheShell->prompt();
         return;
     }
-    /*if (strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0) {
+    if (strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0) {
       fprintf(stderr, "Good bye!!\n");
       exit(1);
-    }*/
+    }
 
 
     // Print contents of PipeCommand data structure
@@ -190,10 +190,21 @@ void PipeCommand::execute() {
         args[j] = _simpleCommands[i]->_arguments[j]->c_str();
       }
       args[_simpleCommands[i]->_arguments.size()] = NULL;
+      if (!strcmp(_simpleCommands[i]->_arguments[0], "setenv")) {
+        //set env code
+      }
       ret = fork();
       if (ret == 0) {
         //call execvp
-
+        if (!strcmp(_simpleCommands[i]->_arguments[0]."printenv")) {
+          //print env code
+          char **p = environ;
+          while (*p != NULL) {
+            printf("%s\n", *p);
+            p++;
+          }
+          exit(0);
+        }
         execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
