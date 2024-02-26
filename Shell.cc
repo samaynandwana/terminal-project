@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
   sigemptyset(&sa_zombie.sa_mask);
   sa_zombie.sa_flags = SA_RESTART;
 
-  int error = sigaction(SIGCHLD, &sa_zombie, NULL) 
+  int error = sigaction(SIGCHLD, &sa_zombie, NULL); 
 
   if (error) {
     perror ("sigaction");
