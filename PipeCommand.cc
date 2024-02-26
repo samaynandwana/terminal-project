@@ -183,7 +183,7 @@ void PipeCommand::execute() {
       dup2(fderr, 2);
       close(fderr);
       //env
-      char ** environ;
+      extern char ** environ;
       //child process create with fork
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
