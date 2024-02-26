@@ -1,10 +1,11 @@
 
 #include <unistd.h>
 #include <cstdio>
-
+#include <stdio.h>
+#include <signal.h>
+#include <string.h>
+#include <stdlib.h>
 #include "Command.hh"
-#include "Shell.hh"
-
 int yyparse(void);
 
 Shell * Shell::TheShell;
