@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "Shell.hh"
 #include "Command.hh"
+#include <sys/wait.h>
 int yyparse(void);
 
 Shell * Shell::TheShell;
@@ -104,7 +105,7 @@ int main(int argc, char **argv) {
   sigemptyset(&sa_zombie.sa_mask);
   sa_zombie.sa_flags = SA_RESTART;
 
-  int error = sigaction(SIGCHILD, &sa_zombie, NULL) 
+  int error = sigaction(SIGCHLD, &sa_zombie, NULL) 
 
   if (error) {
     perror ("sigaction");
