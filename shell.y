@@ -110,8 +110,12 @@ io_modifier:
 	 | LESS WORD {
     Shell::TheShell->_pipeCommand->_inFile = $2;
    }
-   | TWOGREAT WORD{
+   | TWOGREAT WORD {
     Shell::TheShell->_pipeCommand->_errFile = $2;
+   }
+   //quote implementation
+   | \"[^\n\"]*\" WORD {
+    fprintf(stderr, WORD);
    }
 	;
 
