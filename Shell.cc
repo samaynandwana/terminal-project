@@ -53,7 +53,7 @@ void Shell::execute() {
 }
 
 void yyset_in (FILE *  in_str );
-extern "C" void disp( int sig )
+extern "C" void disp_ctrlc( int sig )
 {
   fprintf(stderr, "\n");
   Shell::TheShell->prompt();
@@ -85,7 +85,7 @@ main(int argc, char **argv) {
   //printf( "Type ctrl-c or \"exit\"\n");
     
     struct sigaction sa;
-    sa.sa_handler = disp;
+    sa.sa_handler = disp_ctrlc;
     sigemptyset(&sa.sa_mask);
     sa.sa_flags = SA_RESTART;
 
