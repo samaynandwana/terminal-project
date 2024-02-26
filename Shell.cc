@@ -86,7 +86,7 @@ main(int argc, char **argv) {
     struct sigaction sa;
     sa.sa_handler = disp;
     sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTAR;
+    sa.sa_flags = SA_RESTART;
 
     if(sigaction(SIGINT, &sa, NULL)){
         perror("sigaction");
