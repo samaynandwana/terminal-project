@@ -53,13 +53,17 @@ void Shell::execute() {
 }
 
 void yyset_in (FILE *  in_str );
+
+//Ctrl-c Helper
 extern "C" void disp_ctrlc( int sig )
 {
   fprintf(stderr, "\n");
   Shell::TheShell->prompt();
 }
-int 
-main(int argc, char **argv) {
+extern "C" void disp_zombie( int sig) {
+  wait3(0,0,NULL);
+}
+int main(int argc, char **argv) {
 
   char * input_file = NULL;
   if ( argc > 1 ) {
@@ -82,18 +86,31 @@ main(int argc, char **argv) {
   else {
     Shell::TheShell->prompt();
   }
-  //printf( "Type ctrl-c or \"exit\"\n");
-    
-    struct sigaction sa;
-    sa.sa_handler = disp_ctrlc;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = SA_RESTART;
 
-    if(sigaction(SIGINT, &sa, NULL)){
-        perror("sigaction");
-        exit(2);
-    }
+  //Ctrl-c Implementation
+  struct sigaction sa;
+  sa.sa_handler = disp_ctrlc;
+  sigemptyset(&sa.sa_mask);
+  sa.sa_flags = SA_RESTART;
 
+  if(sigaction(SIGINT, &sa, NULL)){
+    perror("sigaction");
+    exit(-1);
+  }
+
+  //Zombie Process Implementation
+  struct sigaction sa_zombie;
+  sa_zombie.sa_handler = disp_zombie;
+  sigemptyset(&sa_zombie.sa_mask);
+  sa_zombie.sa_flags = SA_RESTART;
+
+  int error = sigaction(SIGCHILD, &sa_zombie, NULL) 
+
+  if (error) {
+    perror ("sigaction");
+    exit(-1);
+
+  }
 
 
   yyparse();
