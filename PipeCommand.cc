@@ -190,13 +190,13 @@ void PipeCommand::execute() {
         args[j] = _simpleCommands[i]->_arguments[j]->c_str();
       }
       args[_simpleCommands[i]->_arguments.size()] = NULL;
-      if (!strcmp(_simpleCommands[i]->_arguments[0], "setenv")) {
+      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
         //set env code
       }
       ret = fork();
       if (ret == 0) {
         //call execvp
-        if (!strcmp(_simpleCommands[i]->_arguments[0]."printenv")) {
+        if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
           //print env code
           char **p = environ;
           while (*p != NULL) {
