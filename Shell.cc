@@ -5,6 +5,7 @@
 #include <signal.h>
 #include <string.h>
 #include <stdlib.h>
+#include "Shell.hh"
 #include "Command.hh"
 int yyparse(void);
 
