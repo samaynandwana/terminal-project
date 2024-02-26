@@ -62,7 +62,8 @@ extern "C" void disp_ctrlc( int sig )
   Shell::TheShell->prompt();
 }
 extern "C" void disp_zombie( int sig) {
-  wait3(0,0,NULL);
+  //wait3(0,0,NULL);
+  while(waitpid(-1,NULL,WNOHANG) > 0);
 }
 int main(int argc, char **argv) {
 
