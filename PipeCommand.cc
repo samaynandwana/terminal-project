@@ -197,6 +197,7 @@ void PipeCommand::execute() {
         env_var += _simpleCommands[0]->_arguments[2]->c_str();
         fprintf(stderr, env_var.c_str());
         int env_ret = putenv(const_cast<char*>(env_var.c_str()));
+        fprintf(stderr, const_cast<char*>(env_var.c_str()));
         if (env_ret != 0) {
           perror("putenv");
         }
