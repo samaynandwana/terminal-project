@@ -199,6 +199,7 @@ void PipeCommand::execute() {
         if (env_ret != 0) {
           perror("putenv");
         }
+        exit(0);
       }
       ret = fork();
       if (ret == 0) {
