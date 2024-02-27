@@ -192,6 +192,13 @@ void PipeCommand::execute() {
       args[_simpleCommands[i]->_arguments.size()] = NULL;
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
         //set env code
+        std::string env_var = _simpleCommands[0]->_arguments[1]->c_str();
+        env_var += "=";
+        env_var += _simpleCommands[0]->_arguments[2]->c_str();
+        int env_ret = putenv(env_var);
+        if (env_ret != 0) {
+          perror("putenv");
+        }
       }
       ret = fork();
       if (ret == 0) {
