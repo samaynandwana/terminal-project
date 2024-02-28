@@ -59,7 +59,8 @@ void yyset_in (FILE *  in_str );
 extern "C" void disp_ctrlc( int sig )
 {
   fprintf(stderr, "\n");
-  //Shell::TheShell->prompt();
+  clear();
+  Shell::TheShell->prompt();
 }
 extern "C" void disp_zombie( int sig) {
   //wait3(0,0,NULL);
