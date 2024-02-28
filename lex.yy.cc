@@ -972,9 +972,9 @@ YY_RULE_SETUP
 #line 113 "shell.l"
 {
   yylval.cpp_string = new std::string(yytext);
-  yytext[yyleng - 1] = '\0';
-  fprintf(stderr, "%s\n", yytext + 1);
-  //fprintf(stderr, yylval.cpp_string[0].c_str());
+  char *temp;
+  temp = strdup(yytext + 1);
+  temp[yyleng - 2] = '\0';
   return WORD;
 }
 	YY_BREAK

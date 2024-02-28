@@ -111,10 +111,10 @@ void myunputc(int c) {
 }
 
 \"[^\n\"]*\" {
-  yylval.cpp_string = new std::string(yytext);
   char *temp;
   temp = strdup(yytext + 1);
   temp[yyleng - 2] = '\0';
+  yylval.cpp_string = new std::string(temp);
   return WORD;
 }
 
