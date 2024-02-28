@@ -183,6 +183,13 @@ void PipeCommand::execute() {
       dup2(fderr, 2);
       close(fderr);
       //env
+      if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
+        if(!_simpleCommands[0]->_arguments[1]) {
+          char *home_dir = getenv("HOME");
+          chdir(home_dir);
+        }
+        exit(0);
+      }
       extern char ** environ;
       //child process create with fork
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
