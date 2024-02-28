@@ -98,8 +98,6 @@ int main(int argc, char **argv) {
   if(sigaction(SIGINT, &sa, NULL)){
     perror("sigaction");
     exit(-1);
-  } else {
-    Shell::TheShell->prompt();
   }
 
   //Zombie Process Implementation
