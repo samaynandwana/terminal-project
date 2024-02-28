@@ -971,8 +971,8 @@ case 23:
 YY_RULE_SETUP
 #line 113 "shell.l"
 {
-  fprintf(stderr, cpp_string[0]);
   yylval.cpp_string = new std::string(yytext);
+  fprintf(stderr, yylval.cpp_string[0]);
   return WORD;
 }
 	YY_BREAK
