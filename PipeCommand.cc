@@ -184,7 +184,6 @@ void PipeCommand::execute() {
       close(fderr);
       //env
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "source")) {
-        
 
       }
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
@@ -221,7 +220,8 @@ void PipeCommand::execute() {
         if (env_ret != 0) {
           perror("putenv");
         }
-        exit(0);
+        continue;
+        //exit(0);
       }
       ret = fork();
       if (ret == 0) {
