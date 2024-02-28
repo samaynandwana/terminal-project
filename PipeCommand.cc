@@ -188,7 +188,9 @@ void PipeCommand::execute() {
           char *home_dir = getenv("HOME");
           chdir(home_dir);
         }
-        exit(0);
+        clear();
+        Shell::prompt();
+        return;
       }
       extern char ** environ;
       //child process create with fork
