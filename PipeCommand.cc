@@ -183,6 +183,10 @@ void PipeCommand::execute() {
       dup2(fderr, 2);
       close(fderr);
       //env
+      if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "source")) {
+        
+
+      }
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
         if(!_simpleCommands[0]->_arguments[1]) {
           const char *home_dir = getenv("HOME");
