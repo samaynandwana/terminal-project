@@ -97,6 +97,7 @@ int main(int argc, char **argv) {
 
   if(sigaction(SIGINT, &sa, NULL)){
     perror("sigaction");
+    Shell::TheShell->prompt();
     exit(-1);
   }
 
