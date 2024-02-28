@@ -971,10 +971,10 @@ case 23:
 YY_RULE_SETUP
 #line 113 "shell.l"
 {
-  yylval.cpp_string = new std::string(yytext);
   char *temp;
   temp = strdup(yytext + 1);
   temp[yyleng - 2] = '\0';
+  yylval.cpp_string = new std::string(temp);
   return WORD;
 }
 	YY_BREAK

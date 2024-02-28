@@ -199,7 +199,7 @@ void PipeCommand::execute() {
             fprintf(stderr, "cd: can't cd to %s", other_dir);
           }
         }
-        clear();
+        //clear();
         //Shell::TheShell->prompt();
         return;
       }
