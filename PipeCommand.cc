@@ -189,8 +189,8 @@ void PipeCommand::execute() {
           chdir(home_dir);
         } else {
           const char *other_dir = _simpleCommands[0]->_arguments[1]->c_str();
-          fprintf(stderr, other_dir);
-
+          //fprintf(stderr, other_dir);
+          int ret = chdir(other_dir);
         }
         clear();
         Shell::TheShell->prompt();
