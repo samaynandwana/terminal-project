@@ -175,7 +175,7 @@ void PipeCommand::execute() {
         pipe(fdpipe);
         fdout = fdpipe[1];
         fdin = fdpipe[0];
-        fderr = dup(tmperr);
+        //fderr = dup(tmperr);
       }
       //close file descriptors
       dup2(fdout, 1);
