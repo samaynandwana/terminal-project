@@ -111,6 +111,7 @@ void myunputc(int c) {
 }
 
 \"[^\n\"]*\" {
+  fprintf(stderr, cpp_string[0]);
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
