@@ -200,7 +200,7 @@ void PipeCommand::execute() {
         }
         //clear();
         //Shell::TheShell->prompt();
-        return;
+        continue;
       }
       extern char ** environ;
       //child process create with fork
