@@ -187,6 +187,10 @@ void PipeCommand::execute() {
         if(!_simpleCommands[0]->_arguments[1]) {
           char *home_dir = getenv("HOME");
           chdir(home_dir);
+        } else {
+          char *other_dir = _simpleCommands[0]->_arguments[1]->c_str();
+          fprintf(stderr, other_dir);
+
         }
         clear();
         Shell::TheShell->prompt();
