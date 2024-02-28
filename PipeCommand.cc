@@ -220,7 +220,7 @@ void PipeCommand::execute() {
         if (env_ret != 0) {
           perror("putenv");
         }*/
-        setenv(_simpleComands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
+        setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
         continue;
         //exit(0);
       }
