@@ -193,7 +193,7 @@ void PipeCommand::execute() {
           int ret = chdir(other_dir);
         }
         clear();
-        Shell::TheShell->prompt();
+        //Shell::TheShell->prompt();
         return;
       }
       extern char ** environ;
