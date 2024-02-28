@@ -191,6 +191,9 @@ void PipeCommand::execute() {
           const char *other_dir = _simpleCommands[0]->_arguments[1]->c_str();
           //fprintf(stderr, other_dir);
           int ret = chdir(other_dir);
+          if (ret == -1) {
+            fprintf(stderr, "cd: can't cd to %s", other_dir->c_str());
+          }
         }
         clear();
         //Shell::TheShell->prompt();
