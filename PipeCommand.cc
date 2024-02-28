@@ -224,6 +224,10 @@ void PipeCommand::execute() {
         continue;
         //exit(0);
       }
+      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")) {
+        unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
+        continue;
+      }
       ret = fork();
       if (ret == 0) {
         //call execvp
