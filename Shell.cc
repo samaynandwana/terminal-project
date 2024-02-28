@@ -60,7 +60,7 @@ extern "C" void disp_ctrlc( int sig )
 {
   fprintf(stderr, "\n");
   Shell::TheShell->clear();
-  Shell::TheShell->prompt();
+  //Shell::TheShell->prompt();
 }
 extern "C" void disp_zombie( int sig) {
   //wait3(0,0,NULL);
