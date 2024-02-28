@@ -189,7 +189,7 @@ void PipeCommand::execute() {
           chdir(home_dir);
         }
         clear();
-        Shell::prompt();
+        Shell::TheShell->prompt();
         return;
       }
       extern char ** environ;
