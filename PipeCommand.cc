@@ -185,14 +185,14 @@ void PipeCommand::execute() {
       //env
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
         if(!_simpleCommands[0]->_arguments[1]) {
-          char *home_dir = getenv("HOME");
+          const char *home_dir = getenv("HOME");
           chdir(home_dir);
         } else {
           const char *other_dir = _simpleCommands[0]->_arguments[1]->c_str();
           //fprintf(stderr, other_dir);
           int ret = chdir(other_dir);
           if (ret == -1) {
-            fprintf(stderr, "cd: can't cd to %s", other_dir->c_str());
+            fprintf(stderr, "cd: can't cd to %s", other_dir);
           }
         }
         clear();
