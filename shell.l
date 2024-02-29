@@ -127,34 +127,7 @@ void myunputc(int c) {
 [^ \t\n;]*\\[^\n\t]* {
   char *temp;
   temp = strdup(yytext);
-  //std::string temp(yytext);
-  /*temp[yyleng - 2] = '\0';
-  std::string str = "\\";
-  std::string out = "";
-  out[yyleng - 2] = '\0';
-  int ptr = 0;
-  size_t find_pos = temp.find(str);
-  while (find_pos != std::string::npos) {
-    out += temp.substr(ptr, find_pos);
-    switch (out[find_pos + 1]) {
-      case 'n':
-        // do \n
-        out += "\n";
-        break;
-      case 't':
-        out += "\t";
-        break;
-      case 'r':
-        out += "\r";
-        break;
-      default:
-        out += out[find_pos + 1];
-    }
-    ptr = find_pos + 2;
-    find_pos = temp.find(temp.substr(ptr));
-  }
-  //yylval.cpp_string = temp;
-  yylval.cpp_string = new std::string(out);*/
+  fprintf(stderr, temp);
   temp[yyleng - 2] = '\0';
   //std::string out;
   for (char c: temp) {
@@ -162,7 +135,7 @@ void myunputc(int c) {
       temp.erase(c, 1);
     }
   }
-
+  fprintf(stderr, temp);
   yylval.cpp_string = new std::string(temp);
   return WORD;
 }
