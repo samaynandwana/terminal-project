@@ -132,6 +132,11 @@ void myunputc(int c) {
   std::string temp;
   temp = std::string(yytext);
   temp[yyleng - 1] = '\0';
+  for (char c: temp) {
+    if (c == '\') {
+      temp.erase(c, 1);
+    }
+  }
   yylval.cpp_string = new std::string(temp);
   return WORD;
 }

@@ -1027,7 +1027,7 @@ YY_RULE_SETUP
 #line 131 "shell.l"
 {
   std::string temp;
-  temp = new std::string(yytext);
+  temp = std::string(yytext);
   temp[yyleng - 1] = '\0';
   yylval.cpp_string = new std::string(temp);
   return WORD;
