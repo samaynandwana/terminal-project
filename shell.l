@@ -141,7 +141,7 @@ void myunputc(int c) {
     }*/
     if (temp[i] == '\\') {
       size_t start = i;
-      while (i + 1 < temp.length && temp[i+1] == '\\') {
+      while (i + 1 < temp.length() && temp[i+1] == '\\') {
         i++;
       }
       size_t count = i - start + 1;
