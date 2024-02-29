@@ -1015,14 +1015,15 @@ case 24:
 YY_RULE_SETUP
 #line 121 "shell.l"
 {
-  std::string temp= strdup(yytext + 1);
-  yylval.cpp_string = temp;
+  std::string temp = strdup(yytext + 1);
+  fprintf(stderr, temp);
+  //yylval.cpp_string = temp;
   return WORD;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 126 "shell.l"
+#line 127 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -1031,10 +1032,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 131 "shell.l"
+#line 132 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1038 "lex.yy.cc"
+#line 1039 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2051,4 +2052,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 131 "shell.l"
+#line 132 "shell.l"
