@@ -1021,7 +1021,7 @@ YY_RULE_SETUP
   std::string out = "";
   int ptr = 0;
   size_t find_pos = temp.find(str);
-  while (find_pos != string::npos) {
+  while (find_pos != std::string::npos) {
     out += temp.substr(ptr, find_pos);
     switch (out[find_pos + 1]) {
       case 'n':
