@@ -130,14 +130,16 @@ void myunputc(int c) {
 
 [^ \t\n;]*\\[^\n\t]* {
   std::string temp;
+  std::string cleaned;
   temp = std::string(yytext);
   temp[yyleng - 1] = '\0';
-  fprintf(stderr, temp[0].c_str());
-  /*for (char c: temp) {
-    if (c == '\') {
-      temp.erase(c, 1);
+  for (size_t i = 0; i < temp.length(); i++) {
+    if (temp[i] == '\\' && i + 1 < temp.length()) {
+      i++;
+    } else {
+      cleaned += temp[i];
     }
-  }*/
-  yylval.cpp_string = new std::string(temp);
+  }
+  yylval = new std::string(cleaned);
   return WORD;
 }
