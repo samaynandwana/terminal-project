@@ -132,6 +132,7 @@ void myunputc(int c) {
   std::string temp;
   temp = std::string(yytext);
   temp[yyleng - 1] = '\0';
+  fprintf(stderr, temp[0]);
   /*for (char c: temp) {
     if (c == '\') {
       temp.erase(c, 1);
