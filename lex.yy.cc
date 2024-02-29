@@ -1039,7 +1039,7 @@ YY_RULE_SETUP
         out += out[find_pos + 1];
     }
     ptr = find_pos + 2;
-    find_pos = temp.find(str);
+    find_pos = temp.find(temp.substr(ptr));
   }
   //yylval.cpp_string = temp;
   yylval.cpp_string = new std::string(out);
