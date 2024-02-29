@@ -149,14 +149,14 @@ void myunputc(int c) {
   //yylval.cpp_string = temp;
   yylval.cpp_string = new std::string(out);*/
   temp[yyleng - 2] = '\0';
-  std::string out;
+  //std::string out;
   for (char c: temp) {
     if (c == '\') {
-      out.erase(c, 1);
+      temp.erase(c, 1);
     }
   }
 
-  yylval.cpp_string = new std::string(out);
+  yylval.cpp_string = new std::string(temp);
   return WORD;
 }
 
