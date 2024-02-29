@@ -11,7 +11,6 @@
 
 #include <cstring>
 #include <string>
-#include <string.h>
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
@@ -136,7 +135,7 @@ void myunputc(int c) {
       case 't':
         out += "\t";
         break;
-      case 'c':
+      case 'r':
         out += "\r";
         break;
       default:
