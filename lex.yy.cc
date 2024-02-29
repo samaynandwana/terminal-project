@@ -1037,7 +1037,7 @@ YY_RULE_SETUP
       cleaned += temp[i];
     }
   }
-  yylval = new std::string(cleaned);
+  yylval.cpp_string = new std::string(cleaned);
   return WORD;
 }
 	YY_BREAK
