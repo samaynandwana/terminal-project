@@ -153,6 +153,7 @@ void myunputc(int c) {
   for (char c: temp) {
     if (c == '\') {
       out.erase(c, 1);
+    }
   }
 
   yylval.cpp_string = new std::string(out);

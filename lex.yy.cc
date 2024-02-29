@@ -1046,10 +1046,10 @@ YY_RULE_SETUP
   temp[yyleng - 2] = '\0';
   std::string out;
   for (char c: temp) {
-    if (c != '\\') {
-      out += c;
-    }
+    if (c == '\') {
+      out.erase(c, 1);
   }
+
   yylval.cpp_string = new std::string(out);
   return WORD;
 }
