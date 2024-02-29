@@ -11,6 +11,7 @@
 
 #include <cstring>
 #include <string>
+#include <vector>
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
