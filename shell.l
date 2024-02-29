@@ -123,6 +123,7 @@ void myunputc(int c) {
   temp[yyleng - 2] = '\0';
   std::string str = "\\";
   std::string out = "";
+  temp[yyleng - 2] = '\0';
   int ptr = 0;
   size_t find_pos = temp.find(str);
   while (find_pos != std::string::npos) {
