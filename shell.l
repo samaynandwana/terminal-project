@@ -140,6 +140,6 @@ void myunputc(int c) {
       cleaned += temp[i];
     }
   }
-  yylval = new std::string(cleaned);
+  yylval.cpp_string = new std::string(cleaned);
   return WORD;
 }

@@ -1028,7 +1028,7 @@ YY_RULE_SETUP
 {
   std::string temp;
   std::string cleaned;
-  temp = std::string(yytext);
+  temp = std::string(yytext, yytext + yyleng);
   temp[yyleng - 1] = '\0';
   for (size_t i = 0; i < temp.length(); i++) {
     if (temp[i] == '\\' && i + 1 < temp.length()) {
