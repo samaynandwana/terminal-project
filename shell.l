@@ -10,6 +10,7 @@
 %{
 
 #include <cstring>
+#include <string>
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
@@ -118,6 +119,7 @@ void myunputc(int c) {
   return WORD;
 }
 [^ \t\n;]*\\[^\n\t]* {
+  std::string; 
   char *temp;
   temp = strdup(yytext + 1);
   yylval.cpp_string = new std::string(temp);
