@@ -1027,24 +1027,26 @@ YY_RULE_SETUP
 #line 131 "shell.l"
 {
   std::string temp;
+  std::string cleaned;
   temp = std::string(yytext);
   temp[yyleng - 1] = '\0';
-  fprintf(stderr, temp[0].c_str());
-  /*for (char c: temp) {
-    if (c == '\') {
-      temp.erase(c, 1);
+  for (size_t i = 0; i < temp.length(); i++) {
+    if (temp[i] == '\\' && i + 1 < temp.length()) {
+      i++;
+    } else {
+      cleaned += temp[i];
     }
-  }*/
-  yylval.cpp_string = new std::string(temp);
+  }
+  yylval = new std::string(cleaned);
   return WORD;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 144 "shell.l"
+#line 146 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1048 "lex.yy.cc"
+#line 1050 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2061,4 +2063,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 144 "shell.l"
+#line 146 "shell.l"
