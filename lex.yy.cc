@@ -1024,7 +1024,7 @@ case 25:
 YY_RULE_SETUP
 #line 129 "shell.l"
 {
-  
+  char *temp;
 }
 	YY_BREAK
 case 26:

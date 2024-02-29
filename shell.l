@@ -128,4 +128,5 @@ void myunputc(int c) {
 
 [^ \t\n;]*\\[^\n\t]* {
   char *temp;
+  temp = strdup(yytext + 1);
 }
