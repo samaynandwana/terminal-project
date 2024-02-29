@@ -124,7 +124,7 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
-[^ \t\n;]*\\[^\n\t]* {
+/*[^ \t\n;]*\\[^\n\t]* {
   char *temp;
   temp = strdup(yytext);
   fprintf(stderr, temp);
@@ -138,5 +138,6 @@ void myunputc(int c) {
   fprintf(stderr, temp);
   yylval.cpp_string = new std::string(temp);
   return WORD;
-}
+}*/
+
 
