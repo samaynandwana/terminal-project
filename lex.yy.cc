@@ -1050,7 +1050,7 @@ YY_RULE_SETUP
       out += c;
     }
   }
-  yylval.cpp_string = new std::string(yytext);
+  yylval.cpp_string = new std::string(out);
   return WORD;
 }
 	YY_BREAK
