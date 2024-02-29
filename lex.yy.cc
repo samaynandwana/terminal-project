@@ -1016,14 +1016,38 @@ YY_RULE_SETUP
 #line 121 "shell.l"
 {
   std::string temp = strdup(yytext + 1);
-  fprintf(stderr, temp.c_str());
+  //fprintf(stderr, temp.c_str());
+  std::string str = "\\";
+  std::string out = "";
+  int ptr = 0;
+  size_t find_pos = temp.find(str);
+  while (find_pos != string::npos) {
+    out += temp.substr(ptr, find_pos);
+    switch (out[find_pos + 1]) {
+      case 'n':
+        // do \n
+        out += "\n";
+        break;
+      case 't':
+        out += "\t";
+        break;
+      case 'c':
+        out += "\r";
+        break;
+      default:
+        out += out[find_pos + 1];
+    }
+    ptr = find_pos + 2;
+    find_pos = temp.find(str);
+  }
   //yylval.cpp_string = temp;
+  yyval.cpp_string = new std::string(out);
   return WORD;
 }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 127 "shell.l"
+#line 151 "shell.l"
 {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
@@ -1032,10 +1056,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 132 "shell.l"
+#line 156 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1039 "lex.yy.cc"
+#line 1063 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2052,4 +2076,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 132 "shell.l"
+#line 156 "shell.l"

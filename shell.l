@@ -11,6 +11,7 @@
 
 #include <cstring>
 #include <string>
+#include <string.h>
 #include "y.tab.hh"
 
 static  void yyunput (int c,char *buf_ptr  );
@@ -145,7 +146,7 @@ void myunputc(int c) {
     find_pos = temp.find(str);
   }
   //yylval.cpp_string = temp;
-  yyval.cpp_string = new std::string(out);
+  yylval.cpp_string = new std::string(out);
   return WORD;
 }
 [^ \t\n;][^ \t\n;]*  {
