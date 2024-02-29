@@ -120,8 +120,32 @@ void myunputc(int c) {
 }
 [^ \t\n;]*\\[^\n\t]* {
   std::string temp = strdup(yytext + 1);
-  fprintf(stderr, temp.c_str());
+  //fprintf(stderr, temp.c_str());
+  std::string str = "\\";
+  std::string out = "";
+  int ptr = 0;
+  size_t find_pos = temp.find(str);
+  while (find_pos != string::npos) {
+    out += temp.substr(ptr, find_pos);
+    switch (out[find_pos + 1]) {
+      case 'n':
+        // do \n
+        out += "\n";
+        break;
+      case 't':
+        out += "\t";
+        break;
+      case 'c':
+        out += "\r";
+        break;
+      default:
+        out += out[find_pos + 1];
+    }
+    ptr = find_pos + 2;
+    find_pos = temp.find(str);
+  }
   //yylval.cpp_string = temp;
+  yyval.cpp_string = new std::string(out);
   return WORD;
 }
 [^ \t\n;][^ \t\n;]*  {

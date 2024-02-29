@@ -1016,7 +1016,7 @@ YY_RULE_SETUP
 #line 121 "shell.l"
 {
   std::string temp = strdup(yytext + 1);
-  fprintf(stderr, temp->c_str());
+  fprintf(stderr, temp.c_str());
   //yylval.cpp_string = temp;
   return WORD;
 }
