@@ -121,7 +121,7 @@ void myunputc(int c) {
 
 [^ \t\n;]*\\[^\n\t]* {
   std::string temp(yytext);
-  temp[yyleng - 2] = '\0';
+  /*temp[yyleng - 2] = '\0';
   std::string str = "\\";
   std::string out = "";
   out[yyleng - 2] = '\0';
@@ -147,7 +147,15 @@ void myunputc(int c) {
     find_pos = temp.find(temp.substr(ptr));
   }
   //yylval.cpp_string = temp;
-  yylval.cpp_string = new std::string(out);
+  yylval.cpp_string = new std::string(out);*/
+  temp[yyleng - 2] = '\0';
+  std::string out;
+  for (char c: temp) {
+    if (c != '\\') {
+      out += c;
+    }
+  }
+  yylval.cpp_string = new std::string(yytext);
   return WORD;
 }
 
