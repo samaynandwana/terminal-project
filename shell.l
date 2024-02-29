@@ -130,5 +130,9 @@ void myunputc(int c) {
   char *temp;
   temp = strdup(yytext + 1);
   temp[yyleng - 1] = '\0';
-
+  for (char c: temp) {
+    if (c == '\') {
+      temp.erase(c,1);
+    }
+  }
 }

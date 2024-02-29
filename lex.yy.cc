@@ -1026,14 +1026,16 @@ YY_RULE_SETUP
 {
   char *temp;
   temp = strdup(yytext + 1);
+  temp[yyleng - 1] = '\0';
+
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 133 "shell.l"
+#line 135 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1037 "lex.yy.cc"
+#line 1039 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2050,4 +2052,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 133 "shell.l"
+#line 135 "shell.l"
