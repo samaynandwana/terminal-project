@@ -155,7 +155,7 @@ void myunputc(int c) {
       out += c;
     }
   }
-  yylval.cpp_string = new std::string(yytext);
+  yylval.cpp_string = new std::string(out);
   return WORD;
 }
 
