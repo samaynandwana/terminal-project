@@ -1029,6 +1029,7 @@ YY_RULE_SETUP
   std::string temp;
   temp = std::string(yytext);
   temp[yyleng - 1] = '\0';
+  fprintf(stderr, temp[0]);
   /*for (char c: temp) {
     if (c == '\') {
       temp.erase(c, 1);
@@ -1040,10 +1041,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 143 "shell.l"
+#line 144 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1047 "lex.yy.cc"
+#line 1048 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2060,4 +2061,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 143 "shell.l"
+#line 144 "shell.l"
