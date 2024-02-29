@@ -118,6 +118,7 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(temp);
   return WORD;
 }
+
 [^ \t\n;]*\\[^\n\t]* {
   std::string temp(yytext);
   temp[yyleng - 2] = '\0';
@@ -149,6 +150,7 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(out);
   return WORD;
 }
+
 [^ \t\n;][^ \t\n;]*  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);

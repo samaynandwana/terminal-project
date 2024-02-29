@@ -1015,7 +1015,7 @@ case 24:
 YY_RULE_SETUP
 #line 121 "shell.l"
 {
-  std::string temp = strdup(yytext + 1);
+  std::string temp(yytext);
   temp[yyleng - 2] = '\0';
   std::string str = "\\";
   std::string out = "";
