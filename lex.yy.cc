@@ -1026,46 +1026,23 @@ case 25:
 YY_RULE_SETUP
 #line 131 "shell.l"
 {
-  std::string temp;
-  std::string cleaned;
-  temp = std::string(yytext, yytext + yyleng);
-  temp[yyleng - 1] = '\0';
-  for (size_t i = 0; i < temp.length(); i++) {
-    /*if (temp[i] == '\\' && i + 1 < temp.length()) {
-      i++;
-    } else {
-      cleaned += temp[i];
-    }*/
+  yylval.cpp_string = new std::string(yytext);
+  std::string temp(*yylval.cpp_string);
+  for (int i = 0; i < temp.size(); i++) {
     if (temp[i] == '\\') {
-      size_t start = i;
-      while (i + 1 < temp.length() && temp[i+1] == '\\') {
-        i++;
-      }
-      size_t count = i - start + 1;
-      if (count % 2 == 0) {
-        cleaned += std::string(count / 2, '\\');
-      } else {
-        if (i + 1 < temp.length()) {
-          cleaned += temp[i+1];
-          i++;
-        } else {
-          cleaned += '\\';
-        }
-      }
-    } else  {
-      cleaned += temp[i];
+      temp.erase(i,1);
     }
   }
-  yylval.cpp_string = new std::string(cleaned);
+  yylval.cpp_string = new std::string(temp);
   return WORD;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 165 "shell.l"
+#line 142 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1069 "lex.yy.cc"
+#line 1046 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2082,4 +2059,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 165 "shell.l"
+#line 142 "shell.l"
