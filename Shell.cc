@@ -59,7 +59,7 @@ void yyset_in (FILE *  in_str );
 extern "C" void disp_ctrlc( int sig )
 {
   fprintf(stderr, "\n");
-  //Shell::TheShell->clear();
+  Shell::TheShell->clear();
 
   Shell::TheShell->prompt();
 }
