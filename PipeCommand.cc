@@ -242,7 +242,7 @@ void PipeCommand::execute() {
         }
         for (unsigned long j = 0; i < _simpleCommands[i]->_arguments.size(); i++) {
           if(!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
-            strcpy(_simpleCommands[i]->_arguments[j], getenv("$!"));
+            strcpy(_simpleCommands[i]->_arguments[j]->c_str(), getenv("$!"));
           }
         }
         execvp(args[0], (char* const*)args);
