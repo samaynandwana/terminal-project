@@ -231,6 +231,7 @@ void PipeCommand::execute() {
       ret = fork();
       if (ret == 0) {
         //call execvp
+        std::vector<char *> env_arg;
         if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
           //print env code
           char **p = environ;
@@ -242,7 +243,7 @@ void PipeCommand::execute() {
         }
         for (unsigned long j = 0; i < _simpleCommands[i]->_arguments.size(); i++) {
           if(!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
-            strcpy(_simpleCommands[i]->_arguments[j]->c_str(), getenv("$!"));
+            strcpy(env_arg, getenv("$!"));
           }
         }
         execvp(args[0], (char* const*)args);
