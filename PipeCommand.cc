@@ -257,7 +257,7 @@ void PipeCommand::execute() {
               if (env_val != NULL) {
                 arg.replace(start_pos, end_pos - start_pos + 1, env_val);
               }
-              fprintf(stderr, arg);
+              fprintf(stderr, arg->c_str());
             }
           }
         }
