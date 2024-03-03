@@ -257,8 +257,9 @@ void PipeCommand::execute() {
               if (env_val != NULL) {
                 arg.replace(start_pos, end_pos - start_pos + 1, env_val);
               }
-              //fprintf(stderr, arg->c_str());
-              std::cout << "Environment variable " << envv << " = " << env_val << std::endl;
+              fprintf(stderr, env_val);
+              //std::cout << "Environment variable " << envv << " = " << env_val << std::endl;
+
 
             }
           }
