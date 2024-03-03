@@ -124,6 +124,12 @@ void myunputc(int c) {
 [^ >|\t\n;][^ >|\t\n;]*  {
   /* Assume that file names have only alpha chars */
   yylval.cpp_string = new std::string(yytext);
+  return WORD;
+}
+
+
+[^ \t\n;]*\\[^\n\t]* {
+  yylval.cpp_string = new std::string(yytext);
   std::string temp(*yylval.cpp_string);
   for (int i = 0; i < temp.size(); i++) {
     if (temp[i] == '\\') {
@@ -133,5 +139,3 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(temp);
   return WORD;
 }
-
-
