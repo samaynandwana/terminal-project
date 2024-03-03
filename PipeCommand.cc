@@ -231,23 +231,28 @@ void PipeCommand::execute() {
           }
           exit(0);
         }
+        //Environment Variable Expansion
         for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           std::size_t start_pos = arg.find("${");
-          if  (start_pos != std::string::npos) {
+          while (start_pos != std::string::npos) {
             std::size_t end_pos = arg.find("}", start_pos);
             if (end_pos != std::string::npos) {
               std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
               char *env_val = getenv(envv.c_str());
+              std::string tok;
               //fprintf(stderr, env_val);
-              if (env_val != NULL) {
-                arg.replace(start_pos, end_pos - start_pos + 1, env_val);
-              }
               if (!strcmp(env_val, "${SHELL}")) {
                 char *path = realpath("./shell", NULL);
                 arg.replace(start_pos, end_pos - start_pos + 1, path);
+              } else {
+                if (env_val != NULL) {
+                  arg.replace(start_pos, end_pos - start_pos + 1, env_val);
+                }
               }
+              start_pos = arg.find("${", start_pos + env_val.length());
             }
+            *_simpleCommands[i]->_arguments[j] = arg;
           }
         }
         execvp(args[0], (char* const*)args);
