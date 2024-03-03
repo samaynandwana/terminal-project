@@ -253,7 +253,8 @@ void PipeCommand::execute() {
                 args[j] = path;
               } else {
                 if (env_val != NULL) {
-                  arg.replace(start_pos, end_pos - start_pos + 1, env_val);
+                  //arg.replace(start_pos, end_pos - start_pos + 1, env_val);
+                  args[j] = env_val;
                 }
               }
               std::string copy = envv.c_str();
