@@ -270,8 +270,7 @@ void PipeCommand::execute() {
 
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
-char ** 
-PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
+char ** PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
 {
     simpleCommandNumber->print();
     return NULL;
