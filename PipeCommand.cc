@@ -210,16 +210,6 @@ void PipeCommand::execute() {
       }
       args[_simpleCommands[i]->_arguments.size()] = NULL;
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
-        //set env code
-        /*std::string env_var = _simpleCommands[0]->_arguments[1]->c_str();
-        env_var += "=";
-        env_var += _simpleCommands[0]->_arguments[2]->c_str();
-        //fprintf(stderr, env_var.c_str());
-        int env_ret = putenv(const_cast<char*>(env_var.c_str()));
-        //fprintf(stderr, const_cast<char*>(env_var.c_str()));
-        if (env_ret != 0) {
-          perror("putenv");
-        }*/
         setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
         continue;
         //exit(0);
@@ -242,10 +232,6 @@ void PipeCommand::execute() {
           exit(0);
         }
         for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          /*if (!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
-            char * env_val = getenv("${!}"->c_str());
-            _simpleCommands[i]->_arguments[j] = env_val;
-          }*/
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           std::size_t start_pos = arg.find("${");
           if  (start_pos != std::string::npos) {
@@ -264,11 +250,6 @@ void PipeCommand::execute() {
             }
           }
         }
-        /*for (unsigned long j = 0; i < _simpleCommands[i]->_arguments.size(); i++) {
-          if(!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
-             //_simpleCommands[i]->_arguments[j] = getenv("$!");
-          }
-        }*/
         execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
