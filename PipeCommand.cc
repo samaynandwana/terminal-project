@@ -251,9 +251,7 @@ void PipeCommand::execute() {
               } else if (!strcmp(envv.c_str(), "$")) {
                 //args[j] = std::to_string(getpid())->c_str();
                 //args[j] = pid.c_str();
-                char *temp = args[j]
-                sprintf(temp, "%d", pid);
-                args[j] = temp;
+                args[j] = std::to_string(pid);
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
               } else if (!strcmp(envv.c_str(), "?")) {
