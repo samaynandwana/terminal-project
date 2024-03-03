@@ -243,8 +243,9 @@ void PipeCommand::execute() {
               std::string tok;
               //fprintf(stderr, env_val);
               if (!strcmp(env_val, "${SHELL}")) {
-                char *path = realpath("./shell", NULL);
-                arg.replace(start_pos, end_pos - start_pos + 1, path);
+                char buf[1000];
+                char *path = realpath("./shell", buf);
+                arg.replace(start_pos, end_pos - start_pos + 1, buf);
               } else {
                 if (env_val != NULL) {
                   arg.replace(start_pos, end_pos - start_pos + 1, env_val);
