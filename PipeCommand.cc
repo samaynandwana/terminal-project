@@ -247,10 +247,14 @@ void PipeCommand::execute() {
                 //fprintf(stderr, "REACHED");
                 char *path = realpath("../lab3-src/shell", NULL);
                 fprintf(stderr, path);
+                start_pos += strlen(path);
                 arg.replace(start_pos, end_pos - start_pos + 1, path);
               } else {
                 if (env_val != NULL) {
                   arg.replace(start_pos, end_pos - start_pos + 1, env_val);
+                  start_pos += strlen(env_val);
+                } else {
+                  start_pos = end_pos + 1;
                 }
               }
               std::string copy = env_val;
