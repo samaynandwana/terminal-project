@@ -249,16 +249,12 @@ void PipeCommand::execute() {
                 //fprintf(stderr, path);
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
-                fprintf(stderr, "REACHED");
-                //args[j] = std::to_string(getpid())->c_str();
-                //args[j] = pid.c_str();
-                //args[j] = getpid();
                 int pidval = getpid();
                 std::string pidstr = std::to_string(pidval);
                 args[j] = pidstr.c_str();
-                //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
+                args[j] = getenv("$!");
               } else if (!strcmp(envv.c_str(), "?")) {
               } else {
                 if (env_val != NULL) {
