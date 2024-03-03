@@ -267,7 +267,7 @@ void PipeCommand::execute() {
     // Print new prompt
     //Shell::TheShell->prompt();
 }
-}
+
 
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
