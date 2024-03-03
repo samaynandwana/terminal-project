@@ -249,7 +249,6 @@ void PipeCommand::execute() {
         execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
-      }
     }
     //close temps
     dup2(tmpin, 0);
