@@ -249,6 +249,7 @@ void PipeCommand::execute() {
                 //fprintf(stderr, path);
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
+                fprintf(stderr, "REACHED");
                 //args[j] = std::to_string(getpid())->c_str();
                 //args[j] = pid.c_str();
                 //args[j] = getpid();
