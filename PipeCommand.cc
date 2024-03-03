@@ -258,7 +258,7 @@ void PipeCommand::execute() {
                 arg.replace(start_pos, end_pos - start_pos + 1, env_val);
               }
               if (!strcmp(env_val, "${SHELL}")) {
-                char *path = realpath(arg[0], NULL);
+                char *path = realpath("../shell", NULL);
                 fprintf(stderr, path);
               }
             }
