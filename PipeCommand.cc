@@ -281,7 +281,7 @@ void PipeCommand::execute() {
     close(tmperr);
 
     if (!_background) {
-      pid = waitpid(ret, NULL, 0);
+      waitpid(ret, NULL, 0);
     }
     // Clear to prepare for next command
     clear();
