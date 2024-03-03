@@ -249,7 +249,9 @@ void PipeCommand::execute() {
                 //fprintf(stderr, path);
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
-                args[j] = std::to_string(getpid())->c_str();
+                //args[j] = std::to_string(getpid())->c_str();
+              } else if (!strcmp(envv.c_str(), "_")) {
+                args[j] = _simpleCommands[i-1]->_arguments[_simpleCommands[i-1]->_arguments.size()-1]->c_str();
               } else {
                 if (env_val != NULL) {
                   args[j] = env_val;
