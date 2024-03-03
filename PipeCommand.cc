@@ -241,7 +241,7 @@ void PipeCommand::execute() {
               std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
               char *env_val = getenv(envv.c_str());
               std::string tok;
-              fprintf(stderr, env_val);
+              //fprintf(stderr, env_val);
               if (!strcmp(env_val, "${SHELL}")) {
                 char *path = realpath("../lab3-src/shell", NULL);
                 arg.replace(start_pos, end_pos - start_pos + 1, path);
