@@ -276,4 +276,4 @@ char ** PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumb
     return NULL;
 }
 
-
+}
