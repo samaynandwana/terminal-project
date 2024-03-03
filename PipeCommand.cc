@@ -241,8 +241,10 @@ void PipeCommand::execute() {
           }
           exit(0);
         }
-        if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(). "${!}")) {
-          _simpleCommands[i]->_arguments[j] = getenv("$!").c_str();
+        for (unsigned long j = 0; j < _simpleCommands[j]->_arguments.size(); j++) {
+          if (!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
+            _simpleCommands[i]->_arguments[j] = getenv("$!")->c_str();
+          }
         }
         /*for (unsigned long j = 0; i < _simpleCommands[i]->_arguments.size(); i++) {
           if(!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
