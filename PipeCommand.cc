@@ -250,7 +250,8 @@ void PipeCommand::execute() {
                   arg.replace(start_pos, end_pos - start_pos + 1, env_val);
                 }
               }
-              start_pos = arg.find("${", start_pos + env_val.length());
+              std::string copy = env_val;
+              start_pos = arg.find("${", start_pos + copy.length());
             }
             *_simpleCommands[i]->_arguments[j] = arg;
           }
