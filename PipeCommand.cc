@@ -243,12 +243,13 @@ void PipeCommand::execute() {
         }
         for (unsigned long j = 0; i < _simpleCommands[i]->_arguments.size(); i++) {
           if(!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
-             *_simpleCommands[i]->_arguments[j] = std::string(getenv("$!"));
+             _simpleCommands[i]->_arguments[j] = getenv("$!");
           }
         }
         execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
+      }
     }
     //close temps
     dup2(tmpin, 0);
@@ -268,12 +269,13 @@ void PipeCommand::execute() {
     //Shell::TheShell->prompt();
 }
 
-
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
-char ** PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
+char ** 
+PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
 {
     simpleCommandNumber->print();
     return NULL;
 }
+
 
