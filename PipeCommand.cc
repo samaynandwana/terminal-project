@@ -255,7 +255,7 @@ void PipeCommand::execute() {
                 int pidval = getpid();
                 std::string pidstr = std::to_string(pidval);
                 args[j] = pidstr.c_str();
-                fprintf(stderr, args[j]);
+                fprintf(stderr, "%sb", args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
               } else if (!strcmp(envv.c_str(), "?")) {
