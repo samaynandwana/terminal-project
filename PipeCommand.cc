@@ -248,7 +248,8 @@ void PipeCommand::execute() {
                 char *path = realpath("../lab3-src/shell", NULL);
                 //fprintf(stderr, path);
                 //arg.replace(start_pos, end_pos - start_pos + 1, path);
-                arg = path;
+                //arg = path;
+                _simpleCommands[i]->_arguments[j] = path;
               } else {
                 if (env_val != NULL) {
                   arg.replace(start_pos, end_pos - start_pos + 1, env_val);
