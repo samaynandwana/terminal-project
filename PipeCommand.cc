@@ -247,7 +247,7 @@ void PipeCommand::execute() {
                 //fprintf(stderr, "REACHED");
                 char *path = realpath("../lab3-src/shell", NULL);
                 //fprintf(stderr, path);
-                arg.replace(start_pos, end_pos - start_pos + 1, env_val);
+                arg.replace(start_pos, end_pos - start_pos + 1, path);
                 //arg = path;
                 //PATH CONTAINS THE CORRECT PATH, FIGURE OUT HOW TO RETURN
               } else {
@@ -255,7 +255,7 @@ void PipeCommand::execute() {
                   arg.replace(start_pos, end_pos - start_pos + 1, env_val);
                 }
               }
-              std::string copy = env_val;
+              std::string copy = envv.c_str();
               start_pos = arg.find("${", start_pos + copy.length());
             }
             //*_simpleCommands[i]->_arguments[j] = arg;
