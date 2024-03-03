@@ -243,9 +243,7 @@ void PipeCommand::execute() {
               std::string tok;
               fprintf(stderr, env_val);
               if (!strcmp(env_val, "${SHELL}")) {
-                fprintf(stderr, "REACHED");
-                char buf[1000];
-                char *path = realpath("./shell", buf);
+                char *path = realpath("../lab3-src/shell", NULL);
                 arg.replace(start_pos, end_pos - start_pos + 1, buf);
               } else {
                 if (env_val != NULL) {
