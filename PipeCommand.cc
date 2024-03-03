@@ -249,6 +249,7 @@ void PipeCommand::execute() {
                 //fprintf(stderr, path);
                 //arg.replace(start_pos, end_pos - start_pos + 1, path);
                 //arg = path;
+                //_simpleCommands[i]->_arguments[j] = path;
                 _simpleCommands[i]->_arguments[j] = path;
               } else {
                 if (env_val != NULL) {
@@ -258,7 +259,7 @@ void PipeCommand::execute() {
               std::string copy = env_val;
               start_pos = arg.find("${", start_pos + copy.length());
             }
-            *_simpleCommands[i]->_arguments[j] = arg;
+            //*_simpleCommands[i]->_arguments[j] = arg;
           }
         }
         execvp(args[0], (char* const*)args);
