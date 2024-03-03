@@ -242,9 +242,19 @@ void PipeCommand::execute() {
           exit(0);
         }
         for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          if (!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
-            char * env_val = getenv("$!"->c_str());
+          /*if (!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
+            char * env_val = getenv("${!}"->c_str());
             _simpleCommands[i]->_arguments[j] = env_val;
+          }*/
+          std::string& arg = *_simpleCommands[i]->_arguments[j];
+          std::size_t start_pos = arg.find("${");
+          if  (start_pos != std::string::npos) {
+            std::size_t end_pos = arg.find("}", start_pos);
+            if (end_pos != std::string::npos) {
+              std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
+              char *env_val = getenv(envv.c_str());
+              fprintf(stderr, env_val);
+            }
           }
         }
         /*for (unsigned long j = 0; i < _simpleCommands[i]->_arguments.size(); i++) {
