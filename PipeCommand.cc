@@ -253,7 +253,11 @@ void PipeCommand::execute() {
             if (end_pos != std::string::npos) {
               std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
               char *env_val = getenv(envv.c_str());
-              fprintf(stderr, env_val);
+              //fprintf(stderr, env_val);
+              if (env_val != NULL) {
+                arg.replace(start_pos, end_pos - start_pos + 1, env_val);
+              }
+              fprintf(stderr, arg);
             }
           }
         }
