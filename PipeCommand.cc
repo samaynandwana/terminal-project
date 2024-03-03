@@ -248,6 +248,8 @@ void PipeCommand::execute() {
                 char *path = realpath("../lab3-src/shell", NULL);
                 //fprintf(stderr, path);
                 args[j] = path;
+              } else if (!strcmp(envv.c_str(), "$")) {
+                args[j] = std::to_string(getpid());
               } else {
                 if (env_val != NULL) {
                   args[j] = env_val;
