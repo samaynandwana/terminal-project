@@ -244,7 +244,7 @@ void PipeCommand::execute() {
         for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           if (!strcmp(_simpleCommands[i]->_arguments[j]->c_str(), "${!}")) {
             //_simpleCommands[i]->_arguments[j] = std::string(getenv("$!")->c_str();
-            char * env_val = getenv("$!".c_str());
+            char * env_val = getenv("$!"->c_str());
             //if (env_val != NULL) {
               _simpleCommands[i]->_arguments[j] = env_val;
             //}
