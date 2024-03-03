@@ -9,11 +9,11 @@
 class PipeCommand : public Command {
 public:
   std::vector<SimpleCommand *> _simpleCommands;
-  bool append_out;
-  bool append_err;
   std::string * _outFile;
   std::string * _inFile;
   std::string * _errFile;
+  bool append_out;
+  bool append_err;
   bool _background;
 
   PipeCommand();
