@@ -238,7 +238,21 @@ void PipeCommand::execute() {
         unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
         continue;
       }
-       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+      ret = fork();
+      if (ret == 0) {
+        //call execvp
+        std::vector<char *> env_arg;
+        if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
+          //print env code
+          char **p = environ;
+          while (*p != NULL) {
+            printf("%s\n", *p);
+            p++;
+          }
+          exit(0);
+        }
+        //Environment Variable Expansion
+        for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           std::size_t start_pos = arg.find("${");
           while (start_pos != std::string::npos) {
@@ -275,22 +289,7 @@ void PipeCommand::execute() {
             //*_simpleCommands[i]->_arguments[j] = arg;
           }
         }
-
-      ret = fork();
-      if (ret == 0) {
-        //call execvp
-        std::vector<char *> env_arg;
-        if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
-          //print env code
-          char **p = environ;
-          while (*p != NULL) {
-            printf("%s\n", *p);
-            p++;
-          }
-          exit(0);
-        }
-        //Environment Variable Expansion
-               for (int k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
+        for (int k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
           fprintf(stderr, "%s\n", args[k]);
         }
         execvp(args[0], (char* const*)args);
