@@ -40,7 +40,7 @@ PipeCommand::PipeCommand() {
     _inFile = NULL;
     _errFile = NULL;
     _background = false;
-    question = NULL;
+    //question = NULL;
 }
 
 void PipeCommand::insertSimpleCommand( SimpleCommand * simplePipeCommand ) {
