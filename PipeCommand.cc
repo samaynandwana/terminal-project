@@ -261,21 +261,12 @@ void PipeCommand::execute() {
               std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
               char *env_val = getenv(envv.c_str());
               std::string tok;
-              //fprintf(stderr, envv.c_str());
-              //fprintf(stderr, env_val);
               if (!strcmp(envv.c_str(), "SHELL")) {
-                //fprintf(stderr, "REACHED");
                 char *path = realpath("../lab3-src/shell", NULL);
-                //fprintf(stderr, path);
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
-                //int pid2 = getpid();
-                //std::string *pidstr = new std::string(pid2);
-                //args[j] = pidstr->c_str();
                 args[j] = (std::to_string(getpid() - 2)).c_str();
-                //_simpleCommands[i]->_arguments[j]->c_str() = pidstr->c_str();
                 //fprintf(stderr, args[j]);
-                //*_simpleCommands[i]->_arguments[j] = arg;
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
                 args[j] = getenv("$!");
