@@ -287,7 +287,7 @@ void PipeCommand::execute() {
               std::string copy = envv.c_str();
               start_pos = arg.find("${", start_pos + copy.length());
             }
-            //*_simpleCommands[i]->_arguments[j] = arg;
+            *_simpleCommands[i]->_arguments[j] = arg;
           }
         }
         execvp(args[0], (char* const*)args);
