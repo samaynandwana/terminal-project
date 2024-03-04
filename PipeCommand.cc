@@ -271,7 +271,7 @@ void PipeCommand::execute() {
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
-                args[j] = (std::to_string(glob)).c_str();
+                //args[j] = (std::to_string(glob)).c_str();
               } else if (!strcmp(envv.c_str(), "?")) {
                 //std::string bangstr = std::to_string(exit_status);
                 //args[j] = bangstr.c_str();
@@ -305,8 +305,6 @@ void PipeCommand::execute() {
       if(WIFEXITED(i)) {
         exit_status = WEXITSTATUS(i);
       }
-    } else {
-      glob = ret;
     }
     // Clear to prepare for next command
     clear();
