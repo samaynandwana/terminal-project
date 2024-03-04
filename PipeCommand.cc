@@ -188,7 +188,7 @@ void PipeCommand::execute() {
 
       }
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
-        if(!_simpleCommands[0]->_arguments[1]) {
+        /*if(!_simpleCommands[0]->_arguments[1]) {
           char *home_dir = getenv("HOME");
           chdir(home_dir);
         } else {
@@ -202,6 +202,21 @@ void PipeCommand::execute() {
           if (ret == -1) {
             fprintf(stderr, "cd: can't cd to %s", other_dir);
           }
+        }*/
+        if (_simpleCommands[0]->_arguments[1]) {
+          int is_error = 0;
+          if(strcmp(_simpleCommands[0]->_arguments[1]->c_str(),"${HOME}") == 0) {
+            char *dir = getenv("HOME");
+            is_error = chdir(dir);
+          } else {
+            is_error = chdir(_simpleCommands[0]->_arguments[1]->c_str());
+          }
+          if (is_error != 0 ) {
+            fprintf(stderr, "cd: can't cd to %s", _simpleCommands[0]->_arguments[1]->c_str());
+          }
+        } else {
+          char *dir = getenv("HOME");
+          chdir(dir);
         }
         //clear();
         //Shell::TheShell->prompt();
