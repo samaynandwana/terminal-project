@@ -257,7 +257,7 @@ void PipeCommand::execute() {
                 args[j] = getenv("$!");
               } else if (!strcmp(envv.c_str(), "?")) {
                 std::string bangstr = std::to_string(exit_status);
-                args[j] = exit_status.c_str();
+                args[j] = bangstr.c_str();
               } else {
                 if (env_val != NULL) {
                   args[j] = env_val;
