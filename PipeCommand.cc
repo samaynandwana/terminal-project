@@ -273,6 +273,7 @@ void PipeCommand::execute() {
                 args[j] = pidstr.c_str();
                 //_simpleCommands[i]->_arguments[j]->c_str() = pidstr->c_str();
                 //fprintf(stderr, args[j]);
+                *_simpleCommands[i]->_arguments[j] = arg;
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
                 args[j] = getenv("$!");
@@ -287,7 +288,6 @@ void PipeCommand::execute() {
               std::string copy = envv.c_str();
               start_pos = arg.find("${", start_pos + copy.length());
             }
-            *_simpleCommands[i]->_arguments[j] = arg;
           }
         }
         execvp(args[0], (char* const*)args);
