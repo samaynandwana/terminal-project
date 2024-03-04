@@ -289,6 +289,9 @@ void PipeCommand::execute() {
             //*_simpleCommands[i]->_arguments[j] = arg;
           }
         }
+       for (unsigned long j: args) {
+          fprintf(stderr, "%d\n", j);
+       }
         execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
