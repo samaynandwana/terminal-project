@@ -270,7 +270,8 @@ void PipeCommand::execute() {
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
-                args[j] = glob;
+                //args[j] = glob;
+                args[j] = (std::to_string(glob)).c_str();
               } else if (!strcmp(envv.c_str(), "?")) {
                 //std::string bangstr = std::to_string(exit_status);
                 //args[j] = bangstr.c_str();
