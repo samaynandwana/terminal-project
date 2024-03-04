@@ -282,7 +282,7 @@ void PipeCommand::execute() {
                 }
               }
               std::string copy = envv.c_str();
-              start_pos = arg.find("${", start_pos + copy.length());
+              start_pos = arg.find("${", start_pos + copy.length() + 1);
             }
           }
         }
