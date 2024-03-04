@@ -119,6 +119,7 @@ void PipeCommand::execute() {
     // Print contents of PipeCommand data structure
     //print();
     int pid;
+    int exit_status;
     // Add execution here
     // For every simple command fork a new process
 
@@ -249,13 +250,15 @@ void PipeCommand::execute() {
                 //fprintf(stderr, path);
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
-                int pidval = getpid();
+                /*int pidval = getpid();
                 std::string pidstr = std::to_string(pidval);
-                args[j] = pidstr.c_str();
+                args[j] = pidstr.c_str();*/
+                args[j] = pid;
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
                 args[j] = getenv("$!");
               } else if (!strcmp(envv.c_str(), "?")) {
+                args[j] = exit_status;
               } else {
                 if (env_val != NULL) {
                   args[j] = env_val;
@@ -281,7 +284,12 @@ void PipeCommand::execute() {
     close(tmperr);
 
     if (!_background) {
-      waitpid(ret, NULL, 0);
+      int i;
+      //waitpid(ret, NULL, 0);
+      pid = waitpid(ret, &i, 0);
+      if(WIFEXITED(i)) {
+        exit_status = WEXITSTATUS(i);
+      }
     }
     // Clear to prepare for next command
     clear();
