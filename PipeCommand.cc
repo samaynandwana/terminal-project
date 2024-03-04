@@ -270,7 +270,7 @@ void PipeCommand::execute() {
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
                 std::string pidstr = std::to_string(getpid());
-                char *p = pidstr.c_str();
+                const char *p = pidstr.c_str();
                 //args[j] = pidstr.c_str();
                 args[j] = p;
                 //_simpleCommands[i]->_arguments[j]->c_str() = pidstr->c_str();
