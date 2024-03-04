@@ -290,7 +290,7 @@ void PipeCommand::execute() {
           }
         }
         for (int k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
-          fprintf(stderr, "%d\n", args[k]);
+          fprintf(stderr, "%s\n", args[k]);
         }
         execvp(args[0], (char* const*)args);
         perror("execvp");
