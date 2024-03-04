@@ -117,7 +117,7 @@ void PipeCommand::execute() {
 
 
     // Print contents of PipeCommand data structure
-    //print();
+    print();
     int pid;
     int exit_status;
     // Add execution here
