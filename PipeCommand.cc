@@ -253,12 +253,12 @@ void PipeCommand::execute() {
                 /*int pidval = getpid();
                 std::string pidstr = std::to_string(pidval);
                 args[j] = pidstr.c_str();*/
-                args[j] = pid;
+                args[j] = pid.c_str();
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
                 args[j] = getenv("$!");
               } else if (!strcmp(envv.c_str(), "?")) {
-                args[j] = exit_status;
+                args[j] = exit_status.c_str();
               } else {
                 if (env_val != NULL) {
                   args[j] = env_val;
