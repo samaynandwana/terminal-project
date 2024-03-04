@@ -193,6 +193,10 @@ void PipeCommand::execute() {
           chdir(home_dir);
         } else {
           const char *other_dir = _simpleCommands[0]->_arguments[1]->c_str();
+          if (strcmp(other_dir, "${HOME}") == 0) {
+            char *home_dir = getenv("HOME");
+            chdir(home_dir);
+          }
           //fprintf(stderr, other_dir);
           int ret = chdir(other_dir);
           if (ret == -1) {
