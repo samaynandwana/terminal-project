@@ -117,7 +117,7 @@ void PipeCommand::execute() {
 
 
     // Print contents of PipeCommand data structure
-    print();
+    //print();
     int pid;
     int exit_status;
     // Add execution here
@@ -288,9 +288,6 @@ void PipeCommand::execute() {
             }
             //*_simpleCommands[i]->_arguments[j] = arg;
           }
-        }
-        for (int k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
-          fprintf(stderr, "%s\n", args[k]);
         }
         execvp(args[0], (char* const*)args);
         perror("execvp");
