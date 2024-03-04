@@ -272,7 +272,7 @@ void PipeCommand::execute() {
                 //int pid2 = getpid();
                 //std::string *pidstr = new std::string(pid2);
                 //args[j] = pidstr->c_str();
-                args[j] = (std::to_string(getpid() + 2)).c_str();
+                args[j] = (std::to_string(getpid() - 2)).c_str();
                 //_simpleCommands[i]->_arguments[j]->c_str() = pidstr->c_str();
                 //fprintf(stderr, args[j]);
                 //*_simpleCommands[i]->_arguments[j] = arg;
