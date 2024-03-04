@@ -290,7 +290,7 @@ void PipeCommand::execute() {
           }
         }
         execvp(args[0], (char* const*)args);
-        perror("execvp");
+        //perror("execvp");
         exit(1);
       }
     }
