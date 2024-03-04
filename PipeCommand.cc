@@ -269,7 +269,7 @@ void PipeCommand::execute() {
                 //fprintf(stderr, path);
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
-                std::string *pidstr = new std::to_string(getpid());
+                std::string *pidstr = new std::string(getpid());
                 args[j] = pidstr->c_str();
                 //_simpleCommands[i]->_arguments[j]->c_str() = pidstr->c_str();
                 //fprintf(stderr, args[j]);
