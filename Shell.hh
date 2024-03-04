@@ -16,6 +16,7 @@ public:
   IfCommand * _ifCommand;
   Command * _currentCommand;
   static Shell * TheShell;
+  std::string question;
 
   Shell();
   void execute();

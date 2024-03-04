@@ -40,6 +40,7 @@ PipeCommand::PipeCommand() {
     _inFile = NULL;
     _errFile = NULL;
     _background = false;
+    question = NULL;
 }
 
 void PipeCommand::insertSimpleCommand( SimpleCommand * simplePipeCommand ) {
@@ -275,7 +276,9 @@ void PipeCommand::execute() {
               } else if (!strcmp(envv.c_str(), "?")) {
                 //std::string bangstr = std::to_string(exit_status);
                 //args[j] = bangstr.c_str();
-                args[j] = (std::to_string(exit_status)).c_str();
+                //args[j] = (std::to_string(exit_status)).c_str();
+                Shell:TheShell->question = args[i - 1];
+                args[j] =  question;
               } else {
                 if (env_val != NULL) {
                   args[j] = env_val;
