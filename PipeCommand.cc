@@ -189,7 +189,7 @@ void PipeCommand::execute() {
       }
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
         if(!_simpleCommands[0]->_arguments[1]) {
-          const char *home_dir = getenv("HOME");
+          char *home_dir = getenv("HOME");
           chdir(home_dir);
         } else {
           const char *other_dir = _simpleCommands[0]->_arguments[1]->c_str();
