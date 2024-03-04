@@ -290,7 +290,7 @@ void PipeCommand::execute() {
           }
         }
         execvp(args[0], (char* const*)args);
-        //perror("execvp");
+        perror("execvp");
         exit(1);
       }
     }
@@ -304,8 +304,7 @@ void PipeCommand::execute() {
 
     if (!_background) {
       int i;
-      //waitpid(ret, NULL, 0);
-      pid = waitpid(ret, &i, 0);
+      waitpid(ret, NULL, 0);
       if(WIFEXITED(i)) {
         exit_status = WEXITSTATUS(i);
       }
