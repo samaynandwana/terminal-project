@@ -120,6 +120,7 @@ void PipeCommand::execute() {
     //print();
     int pid;
     int exit_status;
+    int glob;
     // Add execution here
     // For every simple command fork a new process
 
@@ -269,7 +270,7 @@ void PipeCommand::execute() {
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
               } else if (!strcmp(envv.c_str(), "!")) {
-                args[j] = getenv("$!");
+                args[j] = glob;
               } else if (!strcmp(envv.c_str(), "?")) {
                 //std::string bangstr = std::to_string(exit_status);
                 //args[j] = bangstr.c_str();
@@ -303,6 +304,8 @@ void PipeCommand::execute() {
       if(WIFEXITED(i)) {
         exit_status = WEXITSTATUS(i);
       }
+    } else {
+      glob = ret;
     }
     // Clear to prepare for next command
     clear();
