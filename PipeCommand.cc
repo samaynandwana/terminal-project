@@ -277,7 +277,7 @@ void PipeCommand::execute() {
                 //std::string bangstr = std::to_string(exit_status);
                 //args[j] = bangstr.c_str();
                 //args[j] = (std::to_string(exit_status)).c_str();
-                Shell:TheShell->question = args[i - 1];
+                Shell::TheShell->question = args[i - 1];
                 args[j] =  question;
               } else {
                 if (env_val != NULL) {
