@@ -271,8 +271,9 @@ void PipeCommand::execute() {
               } else if (!strcmp(envv.c_str(), "!")) {
                 args[j] = getenv("$!");
               } else if (!strcmp(envv.c_str(), "?")) {
-                std::string bangstr = std::to_string(exit_status);
-                args[j] = bangstr.c_str();
+                //std::string bangstr = std::to_string(exit_status);
+                //args[j] = bangstr.c_str();
+                args[j] = (std::to_string(exit_status)).c_str();
               } else {
                 if (env_val != NULL) {
                   args[j] = env_val;
@@ -298,7 +299,7 @@ void PipeCommand::execute() {
 
     if (!_background) {
       int i;
-      waitpid(ret, NULL, 0);
+      pid = waitpid(ret, &i, 0);
       if(WIFEXITED(i)) {
         exit_status = WEXITSTATUS(i);
       }
