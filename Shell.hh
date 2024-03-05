@@ -19,6 +19,8 @@ public:
   static Shell * TheShell;
   std::string question;
   std::string glob;
+  int return_last_exit;
+  int pid_background;
 
   Shell();
   void execute();
