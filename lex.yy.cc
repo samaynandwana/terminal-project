@@ -1042,15 +1042,16 @@ YY_RULE_SETUP
   temp = strdup(yytext + 1);
   temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
+  fprintf(stderr, "%s", temp->c_str());
   return WORD;
 }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 145 "shell.l"
+#line 146 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1054 "lex.yy.cc"
+#line 1055 "lex.yy.cc"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2067,4 +2068,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 145 "shell.l"
+#line 146 "shell.l"
