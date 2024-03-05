@@ -17,6 +17,7 @@ public:
   Command * _currentCommand;
   static Shell * TheShell;
   std::string question;
+  std::string glob;
 
   Shell();
   void execute();

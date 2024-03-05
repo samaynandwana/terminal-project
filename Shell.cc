@@ -19,6 +19,7 @@ Shell::Shell() {
     this->_simpleCommand = new SimpleCommand();
     this->_pipeCommand = new PipeCommand();
     this->_currentCommand = this->_pipeCommand;
+    this->glob = "NULL";
     if ( !isatty(0)) {
 	this->_enablePrompt = false;
     }

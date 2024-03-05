@@ -121,7 +121,7 @@ void PipeCommand::execute() {
     //print();
     int pid;
     int exit_status;
-    std::string glob;
+    //std::string glob;
     int proc_var;
     int time_run = 0;
     // Add execution here
@@ -257,18 +257,13 @@ void PipeCommand::execute() {
                 args[j] = (std::to_string(getpid() - 2)).c_str();
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
-                std::cout << "From loop " << glob;
-                //args[j] = glob;
+                //std::cout << "From loop " << glob;
+                args[j] = glob.c_str();
                 time_run++;
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
                 //args[j] = (std::to_string(glob)).c_str();
               } else if (!strcmp(envv.c_str(), "?")) {
-                //std::string bangstr = std::to_string(exit_status);
-                //args[j] = bangstr.c_str();
-                //args[j] = (std::to_string(exit_status)).c_str();
-                //Shell::TheShell->question = args[i - 1];
-                //args[j] =  question;
                 args[j] = (std::to_string(proc_var)).c_str();
               } else {
                 if (env_val != NULL) {
@@ -284,7 +279,7 @@ void PipeCommand::execute() {
         perror("execvp");
         exit(1);
       }
-      glob = _simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size() - 1]->c_str();
+      glob = new std::string(_simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size() - 1]);
       //fprintf(stderr, glob);
                 //fprintf(stderr, "Glob val: %s %d", glob, time_run);
     }
