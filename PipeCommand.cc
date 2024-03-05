@@ -297,6 +297,7 @@ void PipeCommand::execute() {
         exit(1);
       }
       glob = _simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size() - 1]->c_str();
+      fprintf(stderr, glob);
     }
     //close temps
     dup2(tmpin, 0);
