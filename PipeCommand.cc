@@ -272,7 +272,6 @@ void PipeCommand::execute() {
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
                 args[j] = glob;
-                fprintf(stderr, "Glob val: %s", glob);
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
                 //args[j] = (std::to_string(glob)).c_str();
@@ -298,6 +297,7 @@ void PipeCommand::execute() {
       }
       glob = _simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size() - 1]->c_str();
       //fprintf(stderr, glob);
+                fprintf(stderr, "Glob val: %s", glob);
     }
     //close temps
     dup2(tmpin, 0);
