@@ -263,10 +263,10 @@ void PipeCommand::execute() {
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
                 //args[j] = (std::to_string(glob)).c_str();
-                args[j] = Shell::TheShell->pid_background;
+                args[j] = (std::to_string(Shell::TheShell->pid_background).c_str();
               } else if (!strcmp(envv.c_str(), "?")) {
                 //args[j] = (std::to_string(proc_var)).c_str();
-                args[j] = Shell::TheShell->return_last_exit;
+                args[j] = (std::to_string(Shell::TheShell->return_last_exit).c_str();
               } else {
                 if (env_val != NULL) {
                   args[j] = env_val;
