@@ -4,6 +4,7 @@
 #include "ListCommands.hh"
 #include "PipeCommand.hh"
 #include "IfCommand.hh"
+#include <string>
 
 class Shell {
 
