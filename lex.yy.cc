@@ -1038,11 +1038,11 @@ case 25:
 YY_RULE_SETUP
 #line 138 "shell.l"
 {
-  yylval.cpp_string = new std::string(yytext);
-  std::string original(**yylval.cpp_string);
-  std::string str = original.substr(2);
-  fprintf(stderr, "%s", str->c_str());
-
+  char* temp;
+  temp = strdup(yytext + 1);
+  temp[yyleng - 2] = '\0';
+  yllval.cpp_string = new std::string(temp);
+  return WORD:
 }
 	YY_BREAK
 case 26:
