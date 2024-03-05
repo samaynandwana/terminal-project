@@ -299,7 +299,7 @@ void PipeCommand::execute() {
       }
       glob = _simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size() - 1]->c_str();
       //fprintf(stderr, glob);
-                fprintf(stderr, "Glob val: %s %d", glob, time_run);
+                //fprintf(stderr, "Glob val: %s %d", glob, time_run);
     }
     //close temps
     dup2(tmpin, 0);
