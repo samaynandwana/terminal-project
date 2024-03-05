@@ -123,6 +123,7 @@ void PipeCommand::execute() {
     int exit_status;
     const char * glob;
     int proc_var;
+    int time_run = 0;
     // Add execution here
     // For every simple command fork a new process
 
@@ -271,7 +272,7 @@ void PipeCommand::execute() {
                 args[j] = (std::to_string(getpid() - 2)).c_str();
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
-                args[j] = glob;
+                if (time_run == 1) { args[j] = glob};
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
                 //args[j] = (std::to_string(glob)).c_str();
@@ -296,6 +297,7 @@ void PipeCommand::execute() {
         exit(1);
       }
       glob = _simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size() - 1]->c_str();
+      time_run++;
       //fprintf(stderr, glob);
                 fprintf(stderr, "Glob val: %s", glob);
     }
