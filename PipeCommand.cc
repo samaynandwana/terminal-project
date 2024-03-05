@@ -272,7 +272,7 @@ void PipeCommand::execute() {
                 args[j] = (std::to_string(getpid() - 2)).c_str();
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
-                if (time_run == 1) { args[j] = glob};
+                if (time_run == 1) { args[j] = glob;}
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
                 //args[j] = (std::to_string(glob)).c_str();
