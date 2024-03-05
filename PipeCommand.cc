@@ -121,7 +121,7 @@ void PipeCommand::execute() {
     //print();
     int pid;
     int exit_status;
-    std::string glob;
+    char* glob;
     int proc_var;
     int time_run = 0;
     // Add execution here
