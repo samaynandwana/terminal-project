@@ -139,6 +139,6 @@ void myunputc(int c) {
   yylval.cpp_string = new std::string(yytext);
   std::string original(**yylval.cpp_string);
   std::string str = original.substr(2);
-  fprintf(stderr, str.c_str();
+  fprintf(stderr, str.c_str());
 
 }
