@@ -121,7 +121,7 @@ void PipeCommand::execute() {
     //print();
     int pid;
     int exit_status;
-    int glob;
+    const char * glob;
     int proc_var;
     // Add execution here
     // For every simple command fork a new process
