@@ -1041,8 +1041,8 @@ YY_RULE_SETUP
   char* temp;
   temp = strdup(yytext + 1);
   temp[yyleng - 2] = '\0';
-  yllval.cpp_string = new std::string(temp);
-  return WORD:
+  yylval.cpp_string = new std::string(temp);
+  return WORD;
 }
 	YY_BREAK
 case 26:
