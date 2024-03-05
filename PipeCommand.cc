@@ -270,6 +270,7 @@ void PipeCommand::execute() {
                 args[j] = (std::to_string(getpid() - 2)).c_str();
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
+                args[j] = glob;
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
                 //args[j] = (std::to_string(glob)).c_str();
@@ -293,6 +294,7 @@ void PipeCommand::execute() {
         perror("execvp");
         exit(1);
       }
+      glob = args[args.size() - 1];
     }
     //close temps
     dup2(tmpin, 0);
