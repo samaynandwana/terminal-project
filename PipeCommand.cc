@@ -279,7 +279,7 @@ void PipeCommand::execute() {
         perror("execvp");
         exit(1);
       }
-      Shell::TheShell->glob = new std::string(_simpleCommands[i]->_arguments.back()->c_str());
+      Shell::TheShell->glob = std::string(_simpleCommands[i]->_arguments.back()->c_str());
       //fprintf(stderr, glob);
                 //fprintf(stderr, "Glob val: %s %d", glob, time_run);
     }
