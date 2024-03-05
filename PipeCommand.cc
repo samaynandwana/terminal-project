@@ -121,7 +121,7 @@ void PipeCommand::execute() {
     //print();
     int pid;
     int exit_status;
-    char* glob;
+    std::string glob;
     int proc_var;
     int time_run = 0;
     // Add execution here
@@ -272,7 +272,7 @@ void PipeCommand::execute() {
                 args[j] = (std::to_string(getpid() - 2)).c_str();
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
-                args[j] = glob;
+                args[j] = glob.c_str();
                 time_run++;
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
