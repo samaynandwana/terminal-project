@@ -122,6 +122,7 @@ void PipeCommand::execute() {
     int pid;
     int exit_status;
     int glob;
+    int proc_var;
     // Add execution here
     // For every simple command fork a new process
 
@@ -274,6 +275,7 @@ void PipeCommand::execute() {
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
                 //args[j] = (std::to_string(glob)).c_str();
+
               } else if (!strcmp(envv.c_str(), "?")) {
                 //std::string bangstr = std::to_string(exit_status);
                 //args[j] = bangstr.c_str();
@@ -294,7 +296,7 @@ void PipeCommand::execute() {
         perror("execvp");
         exit(1);
       }
-      glob = args[args.size() - 1];
+      glob = _simpleCommands[i]->_arguments[_simpleCommands[i]->_arguments.size() - 1]->c_str();
     }
     //close temps
     dup2(tmpin, 0);
@@ -307,9 +309,9 @@ void PipeCommand::execute() {
     if (!_background) {
       int i;
       pid = waitpid(ret, &i, 0);
-      if(WIFEXITED(i)) {
-        exit_status = WEXITSTATUS(i);
-      }
+      exit_status = WEXITSTATUS(i);
+    } else {
+      proc_var = ret;
     }
     // Clear to prepare for next command
     clear();
