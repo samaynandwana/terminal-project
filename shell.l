@@ -138,7 +138,7 @@ void myunputc(int c) {
 \$\([^\n]*\) {
   char* temp;
   temp = strdup(yytext + 2);
-  temp[yyleng - 1] = '\0';
+  temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
   fprintf(stderr, "%s", temp);
   return WORD;
