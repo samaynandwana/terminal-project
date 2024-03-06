@@ -137,7 +137,7 @@ void myunputc(int c) {
 
 \$\([^\n]*\) {
   char* temp;
-  temp = strdup(yytext + 1);
+  temp = strdup(yytext + 2);
   temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
   fprintf(stderr, "%s", temp);
@@ -146,7 +146,7 @@ void myunputc(int c) {
 
 \$\'[^\n]*\' {
   char* temp;
-  temp = strdup(yytext + 1);
+  temp = strdup(yytext + 2);
   temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
   fprintf(stderr, "%s", temp);
