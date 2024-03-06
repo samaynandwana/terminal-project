@@ -229,7 +229,6 @@ void PipeCommand::execute() {
       }
       ret = fork();
       if (ret == 0) {
-        //call execvp
         std::vector<char *> env_arg;
         if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
           //print env code
@@ -277,6 +276,7 @@ void PipeCommand::execute() {
             }
           }
         }
+        //call execvp
         execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
