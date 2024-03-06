@@ -236,14 +236,16 @@ void PipeCommand::execute() {
             modify = true;
             fprintf(stderr, "Check: %s", str.c_str());
         } else {
-          if (!modify) {  continue};
+          if (!modify) {  
+              continue;
+           }
         }
         if (str.front() == '\'' && str.back() == '\'') {
             str = str.substr(1, str.length() - 2);
             modify = true;
             fprintf(stderr, "Check: %s", str.c_str());
         } else {
-          if (!modify) {  continue};
+          if (!modify) {  continue;  }
         }
         if (modify) {
           fprintf(stderr,"WILL MODIFY");
