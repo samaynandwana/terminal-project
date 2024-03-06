@@ -141,7 +141,7 @@ void myunputc(int c) {
   temp[yyleng - 3] = '\0';
   yylval.cpp_string = new std::string(temp);
   //fprintf(stderr, "%s", temp);
-  return WORD;
+  return WORD2;
 }
 
 \'[^\n]*\' {
@@ -150,7 +150,7 @@ void myunputc(int c) {
   temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
   //fprintf(stderr, "%s", temp);
-  return WORD;
+  return WORD2;
 }
 
 
