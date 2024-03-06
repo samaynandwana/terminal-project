@@ -227,6 +227,26 @@ void PipeCommand::execute() {
         unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
         continue;
       }
+
+      for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
+        bool modify = false;
+        std::string& str = *_simpleCommands[i]->_arguments[j];
+        if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
+            str = str.substr(2, str.length() - 3);
+            modify = true;
+        } else {
+            continue;
+        }
+        if (str.front() == '\'' && str.back() == '\'') {
+            str = str.substr(1, str.length() - 2);
+            modify = true;
+        } else {
+          continue;
+        }
+        if (modify) {
+          fprintf(stderr,"WILL MODIFY");
+        }
+      }
       ret = fork();
       if (ret == 0) {
         std::vector<char *> env_arg;
