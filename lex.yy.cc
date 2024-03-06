@@ -1059,7 +1059,7 @@ YY_RULE_SETUP
 #line 138 "shell.l"
 {
   char* temp;
-  temp = strdup(yytext + 1);
+  temp = strdup(yytext + 2);
   temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
   fprintf(stderr, "%s", temp);
@@ -1071,7 +1071,7 @@ YY_RULE_SETUP
 #line 147 "shell.l"
 {
   char* temp;
-  temp = strdup(yytext + 1);
+  temp = strdup(yytext + 2);
   temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
   fprintf(stderr, "%s", temp);
