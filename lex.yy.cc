@@ -1042,7 +1042,7 @@ YY_RULE_SETUP
   temp = strdup(yytext + 1);
   temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
-  fprintf(stderr, "%s", temp->c_str());
+  fprintf(stderr, "%s", temp);
   return WORD;
 }
 	YY_BREAK
