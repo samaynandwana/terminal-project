@@ -1058,8 +1058,8 @@ case 25:
 YY_RULE_SETUP
 #line 138 "shell.l"
 {
- y yylval.cpp_string = new std::string(yytext);
-  std::string temp(**yylval.cpp_string);
+  yylval.cpp_string = new std::string(yytext);
+  std::string temp(*yylval.cpp_string);
   yylval.cpp_string = new std::string(temp);
   return WORD;
 }
@@ -1069,7 +1069,7 @@ YY_RULE_SETUP
 #line 145 "shell.l"
 {
   yylval.cpp_string = new std::string(yytext);
-  std::string temp(**yylval.cpp_string);
+  std::string temp(*yylval.cpp_string);
   yylval.cpp_string = new std::string(temp);
   return WORD;
 
