@@ -245,7 +245,12 @@ void PipeCommand::execute() {
             continue;
         }
         if (modify) {
-          fprintf(stderr,"WILL MODIFY");
+          //fprintf(stderr,"WILL MODIFY");
+          int pin[2];
+          int pout[2];
+          pipe(pin);
+          pipe(pout);
+          int sub_ret = fork();
         }
       }
 
