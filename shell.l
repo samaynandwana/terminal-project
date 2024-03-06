@@ -144,10 +144,10 @@ void myunputc(int c) {
   return WORD;
 }
 
-\$\'[^\n]*\' {
+\'[^\n]*\' {
   char* temp;
-  temp = strdup(yytext + 2);
-  temp[yyleng - 3] = '\0';
+  temp = strdup(yytext + 1);
+  temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
   fprintf(stderr, "%s", temp);
   return WORD;
