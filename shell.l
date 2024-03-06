@@ -136,21 +136,18 @@ void myunputc(int c) {
 
 
 \$\([^\n]*\) {
-  char* temp;
-  temp = strdup(yytext + 2);
-  temp[yyleng - 3] = '\0';
+ y yylval.cpp_string = new std::string(yytext);
+  std::string temp(**yylval.cpp_string);
   yylval.cpp_string = new std::string(temp);
-  //fprintf(stderr, "%s", temp);
-  return WORD2;
+  return WORD;
 }
 
 \'[^\n]*\' {
-  char* temp;
-  temp = strdup(yytext + 1);
-  temp[yyleng - 2] = '\0';
+  yylval.cpp_string = new std::string(yytext);
+  std::string temp(**yylval.cpp_string);
   yylval.cpp_string = new std::string(temp);
-  //fprintf(stderr, "%s", temp);
-  return WORD2;
+  return WORD;
+
 }
 
 

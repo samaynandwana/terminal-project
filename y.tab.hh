@@ -65,27 +65,28 @@ extern int yydebug;
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
     WORD = 258,                    /* WORD  */
-    NOTOKEN = 259,                 /* NOTOKEN  */
-    GREAT = 260,                   /* GREAT  */
-    GREATGREAT = 261,              /* GREATGREAT  */
-    GREATAMPERSAND = 262,          /* GREATAMPERSAND  */
-    GREATGREATAMPERSAND = 263,     /* GREATGREATAMPERSAND  */
-    AMPERSAND = 264,               /* AMPERSAND  */
-    PIPE = 265,                    /* PIPE  */
-    LESS = 266,                    /* LESS  */
-    NEWLINE = 267,                 /* NEWLINE  */
-    IF = 268,                      /* IF  */
-    FI = 269,                      /* FI  */
-    THEN = 270,                    /* THEN  */
-    LBRACKET = 271,                /* LBRACKET  */
-    RBRACKET = 272,                /* RBRACKET  */
-    SEMI = 273,                    /* SEMI  */
-    DO = 274,                      /* DO  */
-    DONE = 275,                    /* DONE  */
-    WHILE = 276,                   /* WHILE  */
-    FOR = 277,                     /* FOR  */
-    IN = 278,                      /* IN  */
-    TWOGREAT = 279                 /* TWOGREAT  */
+    WORD2 = 259,                   /* WORD2  */
+    NOTOKEN = 260,                 /* NOTOKEN  */
+    GREAT = 261,                   /* GREAT  */
+    GREATGREAT = 262,              /* GREATGREAT  */
+    GREATAMPERSAND = 263,          /* GREATAMPERSAND  */
+    GREATGREATAMPERSAND = 264,     /* GREATGREATAMPERSAND  */
+    AMPERSAND = 265,               /* AMPERSAND  */
+    PIPE = 266,                    /* PIPE  */
+    LESS = 267,                    /* LESS  */
+    NEWLINE = 268,                 /* NEWLINE  */
+    IF = 269,                      /* IF  */
+    FI = 270,                      /* FI  */
+    THEN = 271,                    /* THEN  */
+    LBRACKET = 272,                /* LBRACKET  */
+    RBRACKET = 273,                /* RBRACKET  */
+    SEMI = 274,                    /* SEMI  */
+    DO = 275,                      /* DO  */
+    DONE = 276,                    /* DONE  */
+    WHILE = 277,                   /* WHILE  */
+    FOR = 278,                     /* FOR  */
+    IN = 279,                      /* IN  */
+    TWOGREAT = 280                 /* TWOGREAT  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -95,27 +96,28 @@ extern int yydebug;
 #define YYerror 256
 #define YYUNDEF 257
 #define WORD 258
-#define NOTOKEN 259
-#define GREAT 260
-#define GREATGREAT 261
-#define GREATAMPERSAND 262
-#define GREATGREATAMPERSAND 263
-#define AMPERSAND 264
-#define PIPE 265
-#define LESS 266
-#define NEWLINE 267
-#define IF 268
-#define FI 269
-#define THEN 270
-#define LBRACKET 271
-#define RBRACKET 272
-#define SEMI 273
-#define DO 274
-#define DONE 275
-#define WHILE 276
-#define FOR 277
-#define IN 278
-#define TWOGREAT 279
+#define WORD2 259
+#define NOTOKEN 260
+#define GREAT 261
+#define GREATGREAT 262
+#define GREATAMPERSAND 263
+#define GREATGREATAMPERSAND 264
+#define AMPERSAND 265
+#define PIPE 266
+#define LESS 267
+#define NEWLINE 268
+#define IF 269
+#define FI 270
+#define THEN 271
+#define LBRACKET 272
+#define RBRACKET 273
+#define SEMI 274
+#define DO 275
+#define DONE 276
+#define WHILE 277
+#define FOR 278
+#define IN 279
+#define TWOGREAT 280
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -127,7 +129,7 @@ union YYSTYPE
   // Example of using a c++ type in yacc
   std::string *cpp_string;
 
-#line 131 "y.tab.hh"
+#line 133 "y.tab.hh"
 
 };
 typedef union YYSTYPE YYSTYPE;

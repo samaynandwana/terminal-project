@@ -1063,7 +1063,7 @@ YY_RULE_SETUP
   temp[yyleng - 3] = '\0';
   yylval.cpp_string = new std::string(temp);
   //fprintf(stderr, "%s", temp);
-  return WORD;
+  return WORD2;
 }
 	YY_BREAK
 case 26:
@@ -1075,7 +1075,7 @@ YY_RULE_SETUP
   temp[yyleng - 2] = '\0';
   yylval.cpp_string = new std::string(temp);
   //fprintf(stderr, "%s", temp);
-  return WORD;
+  return WORD2;
 }
 	YY_BREAK
 case 27:
