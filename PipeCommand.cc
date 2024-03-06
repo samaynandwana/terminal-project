@@ -118,7 +118,7 @@ void PipeCommand::execute() {
 
 
     // Print contents of PipeCommand data structure
-    print();
+    //print();
     int pid;
     int exit_status;
     //std::string glob;
@@ -228,6 +228,7 @@ void PipeCommand::execute() {
         continue;
       }
 
+      //Subshell Implementation
       for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
         bool modify = false;
         std::string& str = *_simpleCommands[i]->_arguments[k];
