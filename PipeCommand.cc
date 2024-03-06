@@ -236,19 +236,21 @@ void PipeCommand::execute() {
             modify = true;
             fprintf(stderr, "Check: %s", str.c_str());
         } else {
-            continue;
+          if (!modify) {  continue};
         }
         if (str.front() == '\'' && str.back() == '\'') {
             str = str.substr(1, str.length() - 2);
             modify = true;
             fprintf(stderr, "Check: %s", str.c_str());
         } else {
-          continue;
+          if (!modify) {  continue};
         }
         if (modify) {
           fprintf(stderr,"WILL MODIFY");
         }
       }
+
+
       ret = fork();
       if (ret == 0) {
         std::vector<char *> env_arg;
