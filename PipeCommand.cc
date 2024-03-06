@@ -241,7 +241,7 @@ void PipeCommand::execute() {
            }
         }
         if (str.front() == '\'' && str.back() == '\'') {
-            str = str.substr(1, str.length() - 2);
+            str = str.substr(2, str.length() - 3);
             modify = true;
             fprintf(stderr, "Check: %s", str.c_str());
         } else {
