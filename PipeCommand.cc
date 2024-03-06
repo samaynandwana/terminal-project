@@ -230,7 +230,7 @@ void PipeCommand::execute() {
 
       for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
         bool modify = false;
-        std::string& str = *_simpleCommands[i]->_arguments[j];
+        std::string& str = *_simpleCommands[i]->_arguments[k];
         if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
             str = str.substr(2, str.length() - 3);
             modify = true;
