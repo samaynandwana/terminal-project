@@ -234,6 +234,7 @@ void PipeCommand::execute() {
         if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
             str = str.substr(2, str.length() - 3);
             modify = true;
+            fprintf(stderr, "Check: %s", str->c_str());
         } else {
             continue;
         }
