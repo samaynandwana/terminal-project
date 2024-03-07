@@ -246,7 +246,6 @@ void PipeCommand::execute() {
             continue;
         }
         if (modify) {
-          //fprintf(stderr,"WILL MODIFY");
           int pin[2];
           int pout[2];
           pipe(pin);
@@ -281,13 +280,9 @@ void PipeCommand::execute() {
             /*for (int j = buffer.size() - 1; j >= 0; j--) {
               unputc(buffer[j]);
             }*/
-
-            //args[k] = (std::to_string(buffer)).c_str();
             args[k] = std::string(buffer.begin(), buffer.end()).c_str();
           }
-
-
-          }
+         }
       }
 
 
