@@ -112,13 +112,13 @@ void PipeCommand::execute() {
         return;
     }
     if (strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0) {
-      fprintf(stderr, "Good bye!!\n");
+      //fprintf(stderr, "Good bye!!\n");
       exit(1);
     }
 
 
     // Print contents of PipeCommand data structure
-    print();
+    //print();
     int pid;
     int exit_status;
     //std::string glob;
