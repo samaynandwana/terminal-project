@@ -281,8 +281,8 @@ void PipeCommand::execute() {
             /*for (int j = buffer.size() - 1; j >= 0; j--) {
               unputc(buffer[j]);
             }*/
-            const char *buffstr = buffer;
-            _simpleCommands[i]->_arguments[k] = buffstr;
+            
+            _simpleCommands[i]->_arguments[k] = buffer;
           }
 
 
