@@ -259,8 +259,7 @@ void PipeCommand::execute() {
             close(pout[0]);
             close(pin[0]);
             close(pout[1]);
-            char *argv[0] = {"/proc/self/exe"};
-            argv[1] = NULL;
+            char *argv[] = {"/proc/self/exe", NULL};
             execvp(argv[0], argv);
           } else {
             write(pin[1], str.c_str(), str.size());
@@ -279,9 +278,10 @@ void PipeCommand::execute() {
               }
             }
             buffer.push_back('\0');
-            for (int j = buffer.size() - 1; j >= 0; j--) {
+            /*for (int j = buffer.size() - 1; j >= 0; j--) {
               unputc(buffer[j]);
-            }
+            }*/
+            _simpleCommands[i]->_arguments[k] = buffer->c_str();
           }
 
 
