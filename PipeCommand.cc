@@ -251,7 +251,24 @@ void PipeCommand::execute() {
           int pout[2];
           pipe(pin);
           pipe(pout);
+
+          int tmpinsub = dup(0);
+          int tmpoutsub = dup(1);
+          write(pin[1], str, strlen(str));
+          write(pin[1], "\n", 1);
+          close(pin[1]);
+          dup2(pin[0], 0);
+          close(pin[0]);
+          dup2(pin[1], 1);
+          close(pin[1]);
           int sub_ret = fork();
+          if (ret == 0) {
+            execvp("/proc/self/exe", NULL);
+          }
+          dup2(tmpinsub, 0);
+          dup2(tmpoutsub, 1);
+          close(tmpin);
+          close(tmpout);
         }
       }
 
