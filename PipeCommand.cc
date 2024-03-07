@@ -284,6 +284,7 @@ void PipeCommand::execute() {
               words.push_back(word);
             }
             int track = 0;
+            fprintf(stderr, "%ld", _simpleCommands[i]->_arguments.size());
             for (int a = 1; a < words.size(); a++) {
                 std::cout << words[a] << std::endl;
                 _simpleCommands[i]->_arguments[k + track] = new std::string(words[a]);
@@ -291,6 +292,7 @@ void PipeCommand::execute() {
                 track++;
 
             }
+            fprintf(stderr, "%ld", _simpleCommands[i]->_arguments.size());
             /*for (const auto& w: words) {
               args[k]=w.c_str();
             }*/
