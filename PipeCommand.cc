@@ -31,6 +31,7 @@
 #include "PipeCommand.hh"
 #include "Shell.hh"
 #include "y.tab.hh"
+#include "shell.l"
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
