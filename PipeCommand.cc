@@ -297,7 +297,7 @@ void PipeCommand::execute() {
             for (int a = 1; a < words.size(); a++) {
                //_simpleCommands[i]->_arguments.insert(new std::string(words[a]));
                std::string* newString = new std::string(words[a]);
-_simpleCommands[i]->_arguments.insert(newString);
+_simpleCommands[i]->_arguments.insert(&newString);
 
             }
             /*for (const auto& w: words) {
