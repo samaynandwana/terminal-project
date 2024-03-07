@@ -1099,7 +1099,9 @@ case 27:
 YY_RULE_SETUP
 #line 153 "shell.l"
 {
-  yyin = fopen(yytext, "r");
+  std::string inp = yytext;
+  inp = inp.substr(7);
+  FILE *yyin = fopen(inp.c_str(), "r");
   if (!yyin) {
     perror("source error");
   }
@@ -1109,7 +1111,7 @@ YY_RULE_SETUP
 }
 	YY_BREAK
 case YY_STATE_EOF(INITIAL):
-#line 163 "shell.l"
+#line 165 "shell.l"
 {
   yypop_buffer_state();
   if (!YY_CURRENT_BUFFER) {
@@ -1120,10 +1122,10 @@ case YY_STATE_EOF(INITIAL):
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 170 "shell.l"
+#line 172 "shell.l"
 ECHO;
 	YY_BREAK
-#line 1127 "lex.yy.cc"
+#line 1129 "lex.yy.cc"
 
 	case YY_END_OF_BUFFER:
 		{
@@ -2138,4 +2140,4 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 170 "shell.l"
+#line 172 "shell.l"
