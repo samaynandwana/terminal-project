@@ -284,9 +284,9 @@ void PipeCommand::execute() {
               words.push_back(word);
             }
             int track = 0;
-            for (const auto& w : words) {
+            for (const auto w : words) {
                 //std::cout << w << std::endl;
-                _simpleCommands[i]->_arguments[k + track] = w;
+                _simpleCommands[i]->_arguments[k + track] = new std::string(w);
                 track++;
 
             }
