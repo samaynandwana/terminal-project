@@ -283,7 +283,7 @@ void PipeCommand::execute() {
             while (ss >> word) {
               words.push_back(word);
             }
-            int track = 0;
+            /*int track = 0;
             fprintf(stderr, "%ld", _simpleCommands[i]->_arguments.size());
             for (int a = 1; a < words.size(); a++) {
                 std::cout << words[a] << std::endl;
@@ -292,7 +292,11 @@ void PipeCommand::execute() {
                 track++;
 
             }
-            fprintf(stderr, "%ld", _simpleCommands[i]->_arguments.size());
+            fprintf(stderr, "%ld", _simpleCommands[i]->_arguments.size());*/
+            _simpleCommands[i]->_arguments[k] = words[0];
+            for (int a = 1; a < words.size(); a++) {
+               _simpleCommands[i]->_arguments.insert(words[a]);
+            }
             /*for (const auto& w: words) {
               args[k]=w.c_str();
             }*/
