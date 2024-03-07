@@ -150,4 +150,20 @@ void myunputc(int c) {
 
 }
 
+"source "[^ \t\n]+ {
+  yyin = fopen(yytext, "r");
+  if (!yyin) {
+    perror("source error");
+  }
+  yypush_buffer_state(yy_create_buffer( yyin, YY_BUF_SIZE ));
+  BEGIN(INITIAL);
 
+}
+
+<<EOF>> {
+  yypop_buffer_state();
+  if (!YY_CURRENT_BUFFER) {
+    yyterminate();
+  }
+
+}
