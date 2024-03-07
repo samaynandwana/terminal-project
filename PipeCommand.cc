@@ -264,6 +264,7 @@ void PipeCommand::execute() {
           int sub_ret = fork();
           if (ret == 0) {
             execvp("/proc/self/exe", NULL);
+            exit(1);
           }
           dup2(tmpinsub, 0);
           dup2(tmpoutsub, 1);
