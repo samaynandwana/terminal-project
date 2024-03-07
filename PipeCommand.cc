@@ -291,7 +291,7 @@ void PipeCommand::execute() {
             int track = 0;
             for (const auto& w : words) {
                 //std::cout << w << std::endl;
-                args[k + track] = w;
+                args[k + track] = w.c_str();
                 track++;
 
             }
