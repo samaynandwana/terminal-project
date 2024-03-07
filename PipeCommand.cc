@@ -213,12 +213,7 @@ void PipeCommand::execute() {
       }
       extern char ** environ;
       //child process create with fork
-      const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
-      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-        args[j] = _simpleCommands[i]->_arguments[j]->c_str();
-      }
-      args[_simpleCommands[i]->_arguments.size()] = NULL;
-      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
+            if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
         setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
         continue;
         //exit(0);
@@ -289,19 +284,24 @@ void PipeCommand::execute() {
               words.push_back(word);
             }
             int track = 0;
-            /*for (const auto& w : words) {
+            for (const auto& w : words) {
                 //std::cout << w << std::endl;
-                args[k + track] = strdup(w.c_str());
+                _simpleCommands[i]->_arguments[k + track] = strdup(w.c_str());
                 track++;
 
-            }*/
-            for (const auto& w: words) {
-              args[k]=w.c_str();
             }
+            /*for (const auto& w: words) {
+              args[k]=w.c_str();
+            }*/
             //args[k] = std::string(buffer.begin(), buffer.end()).c_str();
           }
          }
       }
+      const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+        args[j] = _simpleCommands[i]->_arguments[j]->c_str();
+      }
+      args[_simpleCommands[i]->_arguments.size()] = NULL;
 
 
       ret = fork();
