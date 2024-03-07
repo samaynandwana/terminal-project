@@ -255,7 +255,7 @@ void PipeCommand::execute() {
           int tmpinsub = dup(0);
           int tmpoutsub = dup(1);
           write(pin[1], str.c_str(), str.size());
-          write(pin[1], "\n", 1);
+          write(pin[1], "exit\n", 1);
           close(pin[1]);
           dup2(pin[0], 0);
           close(pin[0]);
