@@ -282,7 +282,7 @@ void PipeCommand::execute() {
               unputc(buffer[j]);
             }*/
             
-            _simpleCommands[i]->_arguments[k] = buffer;
+            _simpleCommands[i]->_arguments[k] = new std::string(buffer).c_str();
           }
 
 
