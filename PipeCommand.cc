@@ -281,8 +281,8 @@ void PipeCommand::execute() {
             }
           }
           buffer.push_back('\0');
-          for (char x: buffer) {
-            myunputc(x);
+          for (int j = buffer.size() - 1; j >= 0; j--) {
+            unputc(x);
           }
 
           }
