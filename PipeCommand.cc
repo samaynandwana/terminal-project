@@ -281,6 +281,16 @@ void PipeCommand::execute() {
             /*for (int j = buffer.size() - 1; j >= 0; j--) {
               unputc(buffer[j]);
             }*/
+            std::string buffstr(buffer.begin(), buffer.end());
+            std::vector<std::string> words;
+            std::stringstream ss(buffstr);
+            std::string word;
+            while (ss >> word) {
+              words.push_back(word);
+            }
+            for (const auto& w : words) {
+                std::cout << w << std::endl;
+            }
             args[k] = std::string(buffer.begin(), buffer.end()).c_str();
           }
          }
