@@ -251,40 +251,38 @@ void PipeCommand::execute() {
           int pout[2];
           pipe(pin);
           pipe(pout);
-
-          int tmpinsub = dup(0);
-          int tmpoutsub = dup(1);
-          write(pin[1], str.c_str(), str.size());
-          write(pin[1], "\n", 1);
-          write(pin[1], "exit\n", 5);
-          dup2(pin[1], 1);
           int sub_ret = fork();
           if (sub_ret == 0) {
-            execvp("/proc/self/exe", NULL);
-            close(pin[1]);
             dup2(pin[0], 0);
             dup2(pout[1], 1);
-          }
-          close(pin[0]);
-          close(pout[1]);
-          dup2(tmpinsub, 0);
-          dup2(tmpoutsub, 1);
-          close(tmpinsub);
-          close(tmpoutsub);
-          int index = 0;
-          char c;
-          std::vector<char> buffer;
-          while (read(pout[0], &c, 1) > 0) {
-            if (c == '\n') {
-              buffer.push_back(' ');
-            } else {
-              buffer.push_back(c); 
+            close(pin[1]);
+            close(pout[0]);
+            close(pin[0]);
+            close(pout[1]);
+            char *argv = "/proc/self/exe";
+            execvp(argv[0], argv);
+          } else {
+            write(pin[1], str.c_str(), str.size());
+            write(pin[1], "\n", 1);
+            write(pin[1], "exit\n", 5);
+            close(pin[0]);
+            close(pout[1]);
+            int index = 0;
+            char c;
+            std::vector<char> buffer;
+            while (read(pout[0], &c, 1) > 0) {
+              if (c == '\n') {
+                buffer.push_back(' ');
+              } else {
+                buffer.push_back(c);
+              }
+            }
+            buffer.push_back('\0');
+            for (int j = buffer.size() - 1; j >= 0; j--) {
+              unputc(buffer[j]);
             }
           }
-          buffer.push_back('\0');
-          for (int j = buffer.size() - 1; j >= 0; j--) {
-            unputc(buffer[j]);
-          }
+
 
           }
       }
