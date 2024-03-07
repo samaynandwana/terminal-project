@@ -286,7 +286,7 @@ void PipeCommand::execute() {
             int track = 0;
             for (const auto& w : words) {
                 //std::cout << w << std::endl;
-                _simpleCommands[i]->_arguments[k + track] = strdup(w.c_str());
+                _simpleCommands[i]->_arguments[k + track] = w;
                 track++;
 
             }
