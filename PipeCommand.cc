@@ -273,7 +273,7 @@ void PipeCommand::execute() {
           int index = 0;
           char c;
           std::vector<char> buffer;
-          while (read(fdpipeout[0], &c, 1) > 0) {
+          while (read(pout[0], &c, 1) > 0) {
             if (c == '\n') {
               buffer.push_back(' ');
             } else {
