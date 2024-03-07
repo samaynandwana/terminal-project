@@ -30,7 +30,7 @@
 #include <sstream>
 #include "PipeCommand.hh"
 #include "Shell.hh"
-
+#include "y.tab.hh"
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
