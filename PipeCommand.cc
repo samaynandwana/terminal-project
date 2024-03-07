@@ -295,7 +295,10 @@ void PipeCommand::execute() {
             fprintf(stderr, "%ld", _simpleCommands[i]->_arguments.size());*/
             _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
             for (int a = 1; a < words.size(); a++) {
-               _simpleCommands[i]->_arguments.insert(new std::string(words[a]));
+               //_simpleCommands[i]->_arguments.insert(new std::string(words[a]));
+               std::string* newString = new std::string(words[a]);
+_simpleCommands[i]->_arguments.insert(_simpleCommands[i]->_arguments.begin() + pos, newString);
+
             }
             /*for (const auto& w: words) {
               args[k]=w.c_str();
