@@ -292,7 +292,7 @@ void PipeCommand::execute() {
                 std::cout << w << std::endl;
             }*/
             for (const auto& w: words) {
-              args[k]=w;
+              args[k]=w.c_str();
             }
             //args[k] = std::string(buffer.begin(), buffer.end()).c_str();
           }
