@@ -188,9 +188,6 @@ void PipeCommand::execute() {
       dup2(fderr, 2);
       close(fderr);
       //env
-      if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "source")) {
-
-      }
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
         if (_simpleCommands[0]->_arguments[1]) {
           int is_error = 0;
@@ -293,8 +290,8 @@ void PipeCommand::execute() {
 
             }*/
             //fprintf(stderr, "First: %ld\n", _simpleCommands[i]->_arguments.size());
-            _simpleCommands[i]->_arguments[k] = new std::string(words[2]);
-            for (int a = 3; a < words.size(); a++) {
+            _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
+            for (int a = 1; a < words.size(); a++) {
                _simpleCommands[i]->insertArgument(new std::string(words[a]));
                //_simpleCommands[i]->_arguments.insert(std::to_string(words[a]));
 
