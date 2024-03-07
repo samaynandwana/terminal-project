@@ -259,7 +259,7 @@ void PipeCommand::execute() {
             close(pout[0]);
             close(pin[0]);
             close(pout[1]);
-            char *argv[0] = "/proc/self/exe";
+            char *argv[0] = {"/proc/self/exe"};
             argv[1] = NULL;
             execvp(argv[0], argv);
           } else {
