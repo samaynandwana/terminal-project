@@ -265,6 +265,7 @@ void PipeCommand::execute() {
             write(pin[1], "\n", 1);
             write(pin[1], "exit\n", 5);
             close(pin[0]);
+            close(pin[1]);
             close(pout[1]);
             int index = 0;
             char c;
