@@ -256,16 +256,16 @@ void PipeCommand::execute() {
           int tmpoutsub = dup(1);
           write(pin[1], str.c_str(), str.size());
           write(pin[1], "exit\n", 1);
-          close(pin[1]);
-          dup2(pin[0], 0);
-          close(pin[0]);
           dup2(pin[1], 1);
-          close(pin[1]);
           int sub_ret = fork();
           if (sub_ret == 0) {
             execvp("/proc/self/exe", NULL);
-            exit(1);
+            close(pin[1]);
+            dup2(pin[0], 0);
+            close(pin[0]);
           }
+          close(pin[0]);
+          close(pout[1]);
           dup2(tmpinsub, 0);
           dup2(tmpoutsub, 1);
           close(tmpin);
@@ -281,6 +281,10 @@ void PipeCommand::execute() {
             }
           }
           buffer.push_back('\0');
+          for (char x: buffer) {
+            myunputc(x);
+          }
+
           }
       }
 
