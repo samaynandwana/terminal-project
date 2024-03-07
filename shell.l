@@ -151,7 +151,9 @@ void myunputc(int c) {
 }
 
 "source "[^ \t\n]+ {
-  yyin = fopen(yytext, "r");
+  std::string inp = yytext;
+  inp = inp.substr(7);
+  FILE *yyin = fopen(inp.c_str(), "r");
   if (!yyin) {
     perror("source error");
   }
