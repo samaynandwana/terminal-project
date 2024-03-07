@@ -288,10 +288,13 @@ void PipeCommand::execute() {
             while (ss >> word) {
               words.push_back(word);
             }
-            for (const auto& w : words) {
+            /*for (const auto& w : words) {
                 std::cout << w << std::endl;
+            }*/
+            for (const auto& w: words) {
+              args[k].push_back(w);
             }
-            args[k] = std::string(buffer.begin(), buffer.end()).c_str();
+            //args[k] = std::string(buffer.begin(), buffer.end()).c_str();
           }
          }
       }
