@@ -262,7 +262,7 @@ void PipeCommand::execute() {
             while (read(pout[0], &c, 1) > 0) {
               if (c == '\n') {
                 buffer.push_back(' ');
-              } else if (c != '\0') {
+              } else {
                 buffer.push_back(c);
               }
             }
@@ -276,9 +276,7 @@ void PipeCommand::execute() {
             }
             _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
             for (int a = 1; a < words.size(); a++) {
-                if (!words[a].empty()) {
                   _simpleCommands[i]->insertArgument(new std::string(words[a]));
-               }
 
             }
           }
