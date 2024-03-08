@@ -367,8 +367,8 @@ void PipeCommand::execute() {
                 args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
               } else {
                 if (env_val != NULL) {
-                  //args[j] = env_val;
-                  _simpleCommands[i]->_arguments[j]->replace(start_pos, end_pos - start_pos, env_val);
+                  args[j] = env_val;
+                  //_simpleCommands[i]->_arguments[j]->replace(start_pos, end_pos - start_pos, env_val);
                 }
               }
               std::string copy = envv.c_str();
