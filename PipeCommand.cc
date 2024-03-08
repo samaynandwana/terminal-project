@@ -112,7 +112,7 @@ void PipeCommand::execute() {
         return;
     }
     if (strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0) {
-      //fprintf(stderr, "Good bye!!\n");
+      fprintf(stderr, "Good bye!!\n");
       exit(1);
     }
 
@@ -252,10 +252,11 @@ void PipeCommand::execute() {
             close(pout[1]);
             char *argv[] = {"/proc/self/exe", NULL};
             execvp(argv[0], argv);
+            _exit(1);
           } else {
             write(pin[1], str.c_str(), str.size());
             write(pin[1], "\n", 1);
-            write(pin[1], "exit", 5);
+            //write(pin[1], "exit", 5);
             close(pin[0]);
             close(pin[1]);
             close(pout[1]);
