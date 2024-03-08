@@ -266,7 +266,7 @@ void PipeCommand::execute() {
             while (read(pout[0], &c, 1) > 0) {
               if (c == '\n') {
                 buffer.push_back(' ');
-              } else if (c != '') {
+              } else if (c != '\0') {
                 buffer.push_back(c);
               }
             }
