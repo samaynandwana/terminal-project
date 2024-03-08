@@ -227,13 +227,9 @@ void PipeCommand::execute() {
         if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
             str = str.substr(2, str.length() - 3);
             modify = true;
-            //fprintf(stderr, "Check: %s", str.c_str());
         } else if (str.front() == '\'' && str.back() == '\'') {
-            //fprintf(stderr, "%s", str.c_str());
             str = str.substr(2, str.length() - 3);
-            //fprintf(stderr, "%s", str.c_str());
             modify = true;
-            //fprintf(stderr, "Check: %s", str.c_str());
         } else {
             continue;
         }
@@ -271,9 +267,6 @@ void PipeCommand::execute() {
               }
             }
             buffer.push_back('\0');
-            /*for (int j = buffer.size() - 1; j >= 0; j--) {
-              unputc(buffer[j]);
-            }*/
             std::string buffstr(buffer.begin(), buffer.end());
             std::vector<std::string> words;
             std::stringstream ss(buffstr);
@@ -281,28 +274,13 @@ void PipeCommand::execute() {
             while (ss >> word) {
               words.push_back(word);
             }
-            /*int track = 0;
-            fprintf(stderr, "%ld", _simpleCommands[i]->_arguments.size());
-            for (int a = 1; a < words.size(); a++) {
-                std::cout << words[a] << std::endl;
-                _simpleCommands[i]->_arguments[k + track] = new std::string(words[a]);
-                
-                track++;
-
-            }*/
-            //fprintf(stderr, "First: %ld\n", _simpleCommands[i]->_arguments.size());
             _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
             for (int a = 1; a < words.size(); a++) {
                 if (!words[a].empty()) {
-               _simpleCommands[i]->insertArgument(new std::string(words[a]));}
-               //_simpleCommands[i]->_arguments.insert(std::to_string(words[a]));
+                  _simpleCommands[i]->insertArgument(new std::string(words[a]));
+               }
 
             }
-            //fprintf(stderr, "Second: %ld\n", _simpleCommands[i]->_arguments.size());
-            /*for (const auto& w: words) {
-              args[k]=w.c_str();
-            }*/
-            //args[k] = std::string(buffer.begin(), buffer.end()).c_str();
           }
          }
       }
