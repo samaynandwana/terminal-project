@@ -302,43 +302,6 @@ void PipeCommand::execute() {
           exit(0);
         }
         //Environment Variable Expansion
-        /*for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          std::string& arg = *_simpleCommands[i]->_arguments[j];
-          std::size_t start_pos = 0;
-          while ((start_pos = arg.find("${", start_pos)) != std::string::npos) {
-            std::size_t end_pos = arg.find("}", start_pos);
-            if (end_pos != std::string::npos) {
-              std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
-              std::string replacement;
-              char *env_val = getenv(envv.c_str());
-              std::string tok;
-              if (!strcmp(envv.c_str(), "SHELL")) {
-                char *path = realpath("../lab3-src/shell", NULL);
-                args[j] = path;
-              } else if (!strcmp(envv.c_str(), "$")) {
-                args[j] = (std::to_string(getpid() - 2)).c_str();
-                //fprintf(stderr, args[j]);
-              } else if (!strcmp(envv.c_str(), "_")) {
-                //std::cout << "From loop " << glob;
-                args[j] = Shell::TheShell->glob.c_str();
-                time_run++;
-              } else if (!strcmp(envv.c_str(), "!")) {
-                //args[j] = glob;
-                //args[j] = (std::to_string(glob)).c_str();
-                args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
-              } else if (!strcmp(envv.c_str(), "?")) {
-                //args[j] = (std::to_string(proc_var)).c_str();
-                args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
-              } else {
-                if (env_val != NULL) {
-                  args[j] = env_val;
-                }
-              }
-              std::string copy = envv.c_str();
-              start_pos = arg.find("${", start_pos + copy.length());
-            }
-          }
-        }*/
         for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           std::size_t start_pos = arg.find("${");
