@@ -266,7 +266,7 @@ void PipeCommand::execute() {
                 buffer.push_back(c);
               }
             }
-            buffer.push_back('\0');
+            //buffer.push_back('\0');
             std::string buffstr(buffer.begin(), buffer.end());
             std::vector<std::string> words;
             std::stringstream ss(buffstr);
