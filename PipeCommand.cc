@@ -340,6 +340,26 @@ void PipeCommand::execute() {
           }
         }
 
+        //Tilde Expansion
+        for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+          //std::string& arg = *_simpleCommands[i]->_arguments[j];
+          std::string& arg = _simpleCommands[i]->_arguments[j];
+          if (arg[0] == '~') {
+
+            if (arg.length() == 1 || arg[1] == '/') {
+              const char* homeDir = getenv("HOME");
+              if (homeDir != nullptr) {
+                arg = std::string(homeDir) + arg.substr(1);
+              }
+            } else {
+              size_t slashPos = arg.find('/');
+              std::string username = arg.substr(1, slashPos - 1);
+              struct passwd* pw = getpwnam(username.c_str());
+              if (pw != nullptr) {
+                arg = std::string(pw->pw_dir) + arg.substr(slashPos);
+            }
+            }
+         }
         //call execvp
         execvp(args[0], (char* const*)args);
         perror("execvp");
