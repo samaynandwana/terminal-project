@@ -345,7 +345,7 @@ void PipeCommand::execute() {
         //Tilde Expansion
         for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           //std::string& arg = *_simpleCommands[i]->_arguments[j];
-          std::string& arg = _simpleCommands[i]->_arguments[j];
+          std::string& arg = *_simpleCommands[i]->_arguments[j];
           if (arg[0] == '~') {
 
             if (arg.length() == 1 || arg[1] == '/') {
