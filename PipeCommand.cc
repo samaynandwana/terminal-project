@@ -353,7 +353,26 @@ void PipeCommand::execute() {
               if (homeDir != nullptr) {
                 arg = std::string(homeDir) + arg.substr(1);
               }
+            } else {
+            size_t slashPos = arg.find('/');
+            std::string username;
+            if (slashPos != std::string::npos) {
+                username = arg.substr(1, slashPos - 1);
+            } else {
+                username = arg.substr(1);
             }
+            
+            struct passwd* pw = getpwnam(username.c_str());
+            if (pw != nullptr) {
+                if (slashPos != std::string::npos) {
+                    arg = std::string(pw->pw_dir) + arg.substr(slashPos);
+                } else {
+                    arg = std::string(pw->pw_dir);
+                }
+            } else {
+                std::cerr << "User '" << username << "' not found." << std::endl;
+            }
+        }
             }
          }
          
