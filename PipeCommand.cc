@@ -372,6 +372,7 @@ void PipeCommand::execute() {
                }
             }
          }
+         }
         //call execvp
         execvp(args[0], (char* const*)args);
         perror("execvp");
