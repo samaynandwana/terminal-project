@@ -255,7 +255,7 @@ void PipeCommand::execute() {
 
       //Subshell Implementation
       for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
-        fprintf(stderr, "%s\n", _simpleCommands[i]->_arguments[k]->c_str());
+        //fprintf(stderr, "%s\n", _simpleCommands[i]->_arguments[k]->c_str());
         bool modify = false;
         std::string& str = *_simpleCommands[i]->_arguments[k];
         if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
