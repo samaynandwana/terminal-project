@@ -289,7 +289,6 @@ void PipeCommand::execute() {
             close(pin[0]);
             close(pin[1]);
             close(pout[1]);
-            close(pout[0]);
             char c;
             std::vector<char> buffer;
             while (read(pout[0], &c, 1) > 0) {
