@@ -121,11 +121,7 @@ void PipeCommand::execute() {
 
     // Print contents of PipeCommand data structure
     //print();
-    int pid;
-    int exit_status;
-    //std::string glob;
     int proc_var;
-    int time_run = 0;
     // Add execution here
     // For every simple command fork a new process
 
@@ -258,7 +254,6 @@ void PipeCommand::execute() {
             close(pin[0]);
             close(pin[1]);
             close(pout[1]);
-            int index = 0;
             char c;
             std::vector<char> buffer;
             while (read(pout[0], &c, 1) > 0) {
