@@ -350,10 +350,10 @@ void PipeCommand::execute() {
               std::string username;
               if (slashPos != std::string::npos) {
                 username = arg.substr(1, slashPos - 1);
-                fprintf(stderr, "IF:%s\n", username.c_str());
+                //fprintf(stderr, "IF:%s\n", username.c_str());
               } else {
                 username = arg.substr(1);
-                fprintf(stderr, "ELSE:%s\n", username.c_str());
+                //fprintf(stderr, "ELSE:%s\n", username.c_str());
               }
               struct passwd* pw = getpwnam(username.c_str());
               if (pw != nullptr) {
@@ -362,10 +362,10 @@ void PipeCommand::execute() {
                 if (slashPos != std::string::npos) {
                     ss << arg.substr(slashPos);
                     //arg = std::string(pw->pw_dir) + arg.substr(slashPos);
-                    fprintf(stderr, "A:%s\n", arg.c_str());
+                    //fprintf(stderr, "A:%s\n", arg.c_str());
                 } else {
                     arg = std::string(pw->pw_dir);
-                    fprintf(stderr, "B:%s\n", arg.c_str());
+                    //fprintf(stderr, "B:%s\n", arg.c_str());
                 }
                }
             }
