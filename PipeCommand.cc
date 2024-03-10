@@ -387,7 +387,7 @@ void PipeCommand::execute() {
 
     if (!_background) {
       int i;
-      pid = waitpid(ret, &i, 0);
+      waitpid(ret, &i, 0);
       Shell::TheShell->return_last_exit = WEXITSTATUS(i);
     } else {
       Shell::TheShell->pid_background = ret;
