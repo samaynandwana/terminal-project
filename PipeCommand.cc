@@ -312,6 +312,9 @@ void PipeCommand::execute() {
                   _simpleCommands[i]->insertArgument(new std::string(words[a]));
 
             }
+            for (unsigned long p = 0; p < _simpleCommands[i]->_arguments.size(); p++) {
+              fprintf(stderr, "Arg: %s\n", _simpleCommands[i]->_arguments[p]);
+            }
           }
          }
       }
