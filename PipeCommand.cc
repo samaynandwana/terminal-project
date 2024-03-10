@@ -313,7 +313,7 @@ void PipeCommand::execute() {
 
             }
             for (unsigned long p = 0; p < _simpleCommands[i]->_arguments.size(); p++) {
-              fprintf(stderr, "Arg: %s\n", _simpleCommands[i]->_arguments[p]);
+              fprintf(stderr, "Arg: %s\n", _simpleCommands[i]->_arguments[p]->c_str());
             }
           }
          }
