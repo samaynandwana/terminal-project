@@ -277,7 +277,7 @@ void PipeCommand::execute() {
               words.push_back(word);
             }
             _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
-            for (int a = 1; a < words.size(); a++) {
+            for (unsigned long a = 1; a < words.size(); a++) {
                   _simpleCommands[i]->insertArgument(new std::string(words[a]));
 
             }
