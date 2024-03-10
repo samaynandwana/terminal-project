@@ -359,10 +359,10 @@ void PipeCommand::execute() {
               if (pw != nullptr) {
                 if (slashPos != std::string::npos) {
                     arg = std::string(pw->pw_dir) + arg.substr(slashPos);
-                    fprintf(stderr, "%s\n", arg);
+                    fprintf(stderr, "%s\n", arg.c_str());
                 } else {
                     arg = std::string(pw->pw_dir);
-                    fprintf(stderr, "%s\n", arg);
+                    fprintf(stderr, "%s\n", arg.c_str());
                 }
                }
             }
