@@ -243,7 +243,7 @@ void PipeCommand::execute() {
                     ss << arg.substr(slashPos);
                     arg = ss.str();
                     //arg = "/homes/cs180/share";
-                    fprintf(stderr, "B:%s\n", arg.c_str());
+                    //fprintf(stderr, "B:%s\n", arg.c_str());
                 } else {
                     arg = std::string(pw->pw_dir);
                     //fprintf(stderr, "B:%s\n", arg.c_str());
