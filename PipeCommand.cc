@@ -347,7 +347,6 @@ void PipeCommand::execute() {
           //std::string& arg = *_simpleCommands[i]->_arguments[j];
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           if (arg[0] == '~') {
-
             if (arg.length() == 1 || arg[1] == '/') {
               const char* homeDir = getenv("HOME");
               if (homeDir != nullptr) {
@@ -356,7 +355,7 @@ void PipeCommand::execute() {
             } else {
               size_t slashPos = arg.find('/');
               std::string username;
-              fprintf(stderr, "%s\n", username);
+              fprintf(stderr, "%s\n", username.c_str());
               if (slashPos != std::string::npos) {
                 username = arg.substr(1, slashPos - 1);
               } else {
