@@ -356,19 +356,26 @@ void PipeCommand::execute() {
                 //fprintf(stderr, "ELSE:%s\n", username.c_str());
               }
               struct passwd* pw = getpwnam(username.c_str());
-              if (pw != nullptr) {
+              /*if (pw != nullptr) {
                 std::stringstream ss;
                 ss << pw->pw_dir;
                 if (slashPos != std::string::npos) {
                     ss << arg.substr(slashPos);
-                arg = ss.str();
-                    //arg = std::string(pw->pw_dir) + arg.substr(slashPos);
-                    //fprintf(stderr, "A:%s\n", arg.c_str());
+                    arg = ss.str();
                 } else {
                     arg = std::string(pw->pw_dir);
                     //fprintf(stderr, "B:%s\n", arg.c_str());
                 }
-               }
+               }*/
+               if (pw != nullptr) {
+    std::stringstream ss;
+    ss << pw->pw_dir; 
+
+    if (slashPos != std::string::npos) {
+        ss << arg.substr(slashPos);
+    }
+
+    arg = ss.str(); }
             }
          }
          }
