@@ -121,7 +121,6 @@ void PipeCommand::execute() {
 
     // Print contents of PipeCommand data structure
     //print();
-    int proc_var;
     // Add execution here
     // For every simple command fork a new process
 
@@ -317,7 +316,6 @@ void PipeCommand::execute() {
               } else if (!strcmp(envv.c_str(), "_")) {
                 //std::cout << "From loop " << glob;
                 args[j] = Shell::TheShell->glob.c_str();
-                time_run++;
               } else if (!strcmp(envv.c_str(), "!")) {
                 //args[j] = glob;
                 //args[j] = (std::to_string(glob)).c_str();
