@@ -389,6 +389,12 @@ void PipeCommand::execute() {
           perror("compile");
           return;
         }
+        DIR *dir = opendir(".");
+        if (dir == NULL) {
+          perror("opendir);
+          return;
+        }
+
       }
 
       ret = fork();
