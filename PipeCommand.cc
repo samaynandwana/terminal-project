@@ -35,6 +35,7 @@
 #include <pwd.h>
 #include <regex.h>
 #include <dirent.h>
+#include <algorithm>
 
 
 PipeCommand::PipeCommand() {
@@ -427,7 +428,7 @@ for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); ) {
 }
 
 if (wildcard) {
-    std::qsort(matchingFilenames.begin(), matchingFilenames.end());
+    std::sort(matchingFilenames.begin(), matchingFilenames.end());
 
     for (const auto& filename : matchingFilenames) {
         _simpleCommands[i]->insertArgument(new std::string(filename));
