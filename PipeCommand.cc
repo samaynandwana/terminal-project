@@ -371,7 +371,7 @@ void PipeCommand::execute() {
           break;
         }
         char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
-        char * a = arg.c_str();
+        const char * a = arg.c_str();
         char * r = reg;
         *r = '^'; r++; // match beginning of line
         while (*a) {
