@@ -397,8 +397,9 @@ void PipeCommand::execute() {
           return;
         }
         struct dirent *ent;
+        regmatch_t match;
         while ((ent = readdir(dir)) != NULL) {
-          if (regexec(ent->d_name, expbuf) == 0) {
+          if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
             _simpleCommands[i]->insertArgument(strdup(ent->d_name));
           }
         }
