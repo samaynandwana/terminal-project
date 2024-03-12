@@ -34,6 +34,8 @@
 #include <sys/types.h>
 #include <pwd.h>
 #include <regex.h>
+#include <dirent.h>
+
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
@@ -391,7 +393,7 @@ void PipeCommand::execute() {
         }
         DIR *dir = opendir(".");
         if (dir == NULL) {
-          perror("opendir);
+          perror("opendir");
           return;
         }
 
