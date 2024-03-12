@@ -370,9 +370,18 @@ void PipeCommand::execute() {
         if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
           break;
         }
-        char * reg = (char *)malloc(2 * strlen(arg->c_str()) + 10);
-        char * a = arg->c_str();
-        char * r = reg; 
+        char * reg = (char*)malloc(2*strlen(arg)+10);
+        char * a = arg;
+        char * r = reg;
+        *r = ‘^’; r++; // match beginning of line
+        while (*a) {
+          if (*a == ‘*’) { *r=‘.’; r++; *r=‘*’; r++; }
+          else if (*a == ‘?’) { *r=‘.’ r++;}
+          else if (*a == ‘.’) { *r=‘\\’; r++; *r=‘.’; r++;}
+          else { *r=*a; r++;}
+          a++;
+        }
+        *r=‘$’; r++; *r=0;
       }
 
       ret = fork();
