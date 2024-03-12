@@ -33,6 +33,7 @@
 #include "y.tab.hh"
 #include <sys/types.h>
 #include <pwd.h>
+#include <regex.h>
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
@@ -382,6 +383,12 @@ void PipeCommand::execute() {
           a++;
         }
         *r='$'; r++; *r=0;
+        regex_t re;
+        char * expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+        if (expbuf == NULL) {
+          perror("compile");
+          return;
+        }
       }
 
       ret = fork();
