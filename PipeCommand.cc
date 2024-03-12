@@ -324,21 +324,7 @@ void PipeCommand::execute() {
       }
       args[_simpleCommands[i]->_arguments.size()] = NULL;
 
-
-      ret = fork();
-      if (ret == 0) {
-        std::vector<char *> env_arg;
-        if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
-          //print env code
-          char **p = environ;
-          while (*p != NULL) {
-            printf("%s\n", *p);
-            p++;
-          }
-          exit(0);
-        }
-        //Environment Variable Expansion
-        for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           std::size_t start_pos = arg.find("${");
           while (start_pos != std::string::npos) {
@@ -374,6 +360,58 @@ void PipeCommand::execute() {
             }
           }
         }
+
+
+
+      ret = fork();
+      if (ret == 0) {
+        std::vector<char *> env_arg;
+        if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
+          //print env code
+          char **p = environ;
+          while (*p != NULL) {
+            printf("%s\n", *p);
+            p++;
+          }
+          exit(0);
+        }
+        //Environment Variable Expansion
+        /*for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+          std::string& arg = *_simpleCommands[i]->_arguments[j];
+          std::size_t start_pos = arg.find("${");
+          while (start_pos != std::string::npos) {
+            std::size_t end_pos = arg.find("}", start_pos);
+            if (end_pos != std::string::npos) {
+              std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
+              char *env_val = getenv(envv.c_str());
+              std::string tok;
+              if (!strcmp(envv.c_str(), "SHELL")) {
+                char *path = realpath("../lab3-src/shell", NULL);
+                args[j] = path;
+              } else if (!strcmp(envv.c_str(), "$")) {
+                args[j] = (std::to_string(getpid() - 2)).c_str();
+                //fprintf(stderr, args[j]);
+              } else if (!strcmp(envv.c_str(), "_")) {
+                //std::cout << "From loop " << glob;
+                args[j] = Shell::TheShell->glob.c_str();
+              } else if (!strcmp(envv.c_str(), "!")) {
+                //args[j] = glob;
+                //args[j] = (std::to_string(glob)).c_str();
+                args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
+              } else if (!strcmp(envv.c_str(), "?")) {
+                //args[j] = (std::to_string(proc_var)).c_str();
+                args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
+              } else {
+                if (env_val != NULL) {
+                  args[j] = env_val;
+                  //_simpleCommands[i]->_arguments[j]->replace(start_pos, end_pos - start_pos, env_val);
+                }
+              }
+              std::string copy = envv.c_str();
+              start_pos = arg.find("${", start_pos + copy.length());
+            }
+          }
+        }*/
 
         //Tilde Expansion
                //call execvp
