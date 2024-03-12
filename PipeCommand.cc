@@ -370,12 +370,9 @@ void PipeCommand::execute() {
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
         std::string& arg = *_simpleCommands[i]->_arguments[j];
         //input arg does not contain a * or ?, so no wildcard expansion required
-        if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
-          fprintf(stderr, "Arg:%s\n", arg.c_str());
-          break;
-        }
-        char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
-        const char * a = arg.c_str();
+        if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
+          char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
+          const char * a = arg.c_str();
         char * r = reg;
         *r = '^'; r++; // match beginning of line
         while (*a) {
@@ -405,6 +402,8 @@ void PipeCommand::execute() {
           }
         }
         closedir(dir);
+
+        }
 
       }
 
