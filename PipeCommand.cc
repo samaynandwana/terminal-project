@@ -384,7 +384,7 @@ void PipeCommand::execute() {
         }
         *r='$'; r++; *r=0;
         regex_t re;
-        char * expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+        int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
         if (expbuf == NULL) {
           perror("compile");
           return;
