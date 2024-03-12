@@ -427,7 +427,7 @@ for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); ) {
 }
 
 if (wildcard) {
-    std::sort(matchingFilenames.begin(), matchingFilenames.end());
+    std::qsort(matchingFilenames.begin(), matchingFilenames.end());
 
     for (const auto& filename : matchingFilenames) {
         _simpleCommands[i]->insertArgument(new std::string(filename));
