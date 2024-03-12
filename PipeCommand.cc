@@ -205,8 +205,6 @@ void PipeCommand::execute() {
           char *dir = getenv("HOME");
           chdir(dir);
         }
-        //clear();
-        //Shell::TheShell->prompt();
         continue;
       }
       //implementation for setenv, set an environment variable with C's setenv function
@@ -363,8 +361,9 @@ void PipeCommand::execute() {
               start_pos = arg.find("${", start_pos + copy.length());
             }
           }
-        }
+      }
 
+      //Wildcarding Implementation
 
 
       ret = fork();
