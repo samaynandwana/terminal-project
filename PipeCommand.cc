@@ -396,6 +396,13 @@ void PipeCommand::execute() {
           perror("opendir");
           return;
         }
+        struct dirent *ent;
+        while ((ent = readdir(dir)) != NULL) {
+          if (regexec(ent->d_name, expbuf) == 0) {
+            _simpleCommands[i]->insertArgument(strdup(ent->d_name));
+          }
+        }
+        closedir(dir);
 
       }
 
