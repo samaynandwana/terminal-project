@@ -286,7 +286,7 @@ void PipeCommand::execute() {
             close(pout[0]);
             close(pin[0]);
             close(pout[1]);
-            char *argv[] = {"/proc/self/exe", NULL};
+            const char *argv[] = {"/proc/self/exe", NULL};
             execvp(argv[0], argv); //call execvp child process
             _exit(1); //exit the new subshell process
           } else {
