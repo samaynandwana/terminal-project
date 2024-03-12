@@ -337,7 +337,7 @@ void PipeCommand::execute() {
                 char *path = realpath("../lab3-src/shell", NULL);
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
-                args[j] = (std::to_string(getpid() - 2)).c_str();
+                args[j] = (std::to_string(getpid())).c_str();
                 //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
                 //std::cout << "From loop " << glob;
