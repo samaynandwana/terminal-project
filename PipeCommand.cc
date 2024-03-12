@@ -400,7 +400,7 @@ void PipeCommand::execute() {
         regmatch_t match;
         while ((ent = readdir(dir)) != NULL) {
           if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
-            _simpleCommands[i]->insertArgument(strdup(ent->d_name));
+            _simpleCommands[i]->insertArgument(ent->d_name);
           }
         }
         closedir(dir);
