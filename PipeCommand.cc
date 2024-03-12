@@ -184,19 +184,23 @@ void PipeCommand::execute() {
       close(fdout);
       dup2(fderr, 2);
       close(fderr);
-      //env
+      //implementation of CD
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
         if (_simpleCommands[0]->_arguments[1]) {
-          int is_error = 0;
+          int is_error = 0; //variable for storing the return of chdir
+          //case for trying to cd into the expanded env variable of ${HOME}
           if(strcmp(_simpleCommands[0]->_arguments[1]->c_str(),"${HOME}") == 0) {
             char *dir = getenv("HOME");
             is_error = chdir(dir);
+          //cd to the specified directory
           } else {
             is_error = chdir(_simpleCommands[0]->_arguments[1]->c_str());
           }
+          //error directory not found
           if (is_error != 0 ) {
             fprintf(stderr, "cd: can't cd to %s", _simpleCommands[0]->_arguments[1]->c_str());
           }
+        //cd home, because no directory was specified
         } else {
           char *dir = getenv("HOME");
           chdir(dir);
@@ -205,6 +209,7 @@ void PipeCommand::execute() {
         //Shell::TheShell->prompt();
         continue;
       }
+      //implementation for setenv, set an environment variable with C's setenv function
       extern char ** environ;
       //child process create with fork
             if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
@@ -212,28 +217,30 @@ void PipeCommand::execute() {
         continue;
         //exit(0);
       }
+      //implementation for unsetenv, unset a passed in environment variable
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")) {
         unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
         continue;
       }
- for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          //std::string& arg = *_simpleCommands[i]->_arguments[j];
+      //Tilde Expansion
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
+          //check if there is a tilde
           if (arg[0] == '~') {
+            //case where nothing is specified, expand to current user's home
             if (arg.length() == 1 || arg[1] == '/') {
               const char* homeDir = getenv("HOME");
               if (homeDir != nullptr) {
                 arg = std::string(homeDir) + arg.substr(1);
               }
+            //case where you expand the tilde to the specified user's home
             } else {
               size_t slashPos = arg.find('/');
               std::string username;
               if (slashPos != std::string::npos) {
                 username = arg.substr(1, slashPos - 1);
-                //fprintf(stderr, "IF:%s\n", username.c_str());
               } else {
                 username = arg.substr(1);
-                //fprintf(stderr, "ELSE:%s\n", username.c_str());
               }
               struct passwd* pw = getpwnam(username.c_str());
               if (pw != nullptr) {
@@ -242,11 +249,8 @@ void PipeCommand::execute() {
                 if (slashPos != std::string::npos) {
                     ss << arg.substr(slashPos);
                     arg = ss.str();
-                    //arg = "/homes/cs180/share";
-                    //fprintf(stderr, "B:%s\n", arg.c_str());
                 } else {
                     arg = std::string(pw->pw_dir);
-                    //fprintf(stderr, "B:%s\n", arg.c_str());
                 }
                }
             }
@@ -255,12 +259,13 @@ void PipeCommand::execute() {
 
       //Subshell Implementation
       for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
-        //fprintf(stderr, "%s\n", _simpleCommands[i]->_arguments[k]->c_str());
-        bool modify = false;
+        bool modify = false; //will be updated if we need to parse subshell
         std::string& str = *_simpleCommands[i]->_arguments[k];
+        //parsing for the $() case
         if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
             str = str.substr(2, str.length() - 3);
             modify = true;
+        //parsing for the '' case
         } else if (str.front() == '\'' && str.back() == '\'') {
             str = str.substr(2, str.length() - 3);
             modify = true;
@@ -268,11 +273,12 @@ void PipeCommand::execute() {
             continue;
         }
         if (modify) {
+          //set up pipes for subshell
           int pin[2];
           int pout[2];
           pipe(pin);
           pipe(pout);
-          int sub_ret = fork();
+          int sub_ret = fork(); //subshell fork call
           if (sub_ret == 0) {
             dup2(pin[0], 0);
             dup2(pout[1], 1);
@@ -281,17 +287,18 @@ void PipeCommand::execute() {
             close(pin[0]);
             close(pout[1]);
             char *argv[] = {"/proc/self/exe", NULL};
-            execvp(argv[0], argv);
-            _exit(1);
+            execvp(argv[0], argv); //call execvp child process
+            _exit(1); //exit the new subshell process
           } else {
+            //read in the contents of the subshell output
             write(pin[1], str.c_str(), str.size());
             write(pin[1], "\n", 1);
-            //write(pin[1], "exit", 5);
             close(pin[0]);
             close(pin[1]);
             close(pout[1]);
             char c;
             std::vector<char> buffer;
+            //push contents into a buffer array
             while (read(pout[0], &c, 1) > 0) {
               if (c == '\n') {
                 buffer.push_back(' ');
@@ -299,7 +306,7 @@ void PipeCommand::execute() {
                 buffer.push_back(c);
               }
             }
-            //buffer.push_back('\0');
+            //split the buffer array by space
             std::string buffstr(buffer.begin(), buffer.end());
             std::vector<std::string> words;
             std::stringstream ss(buffstr);
@@ -307,14 +314,12 @@ void PipeCommand::execute() {
             while (ss >> word) {
               words.push_back(word);
             }
+            //pass in the arguments one by one from buffer
             _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
             for (unsigned long a = 1; a < words.size(); a++) {
                   _simpleCommands[i]->insertArgument(new std::string(words[a]));
 
             }
-            /*for (unsigned long p = 0; p < _simpleCommands[i]->_arguments.size(); p++) {
-              fprintf(stderr, "Arg: %s\n", _simpleCommands[i]->_arguments[p]->c_str());
-            }*/
           }
          }
       }
@@ -324,37 +329,36 @@ void PipeCommand::execute() {
       }
       args[_simpleCommands[i]->_arguments.size()] = NULL;
 
+      //Environment Variable Expansion
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
+          //parsing to see if there is an env variable
           std::size_t start_pos = arg.find("${");
           while (start_pos != std::string::npos) {
             std::size_t end_pos = arg.find("}", start_pos);
             if (end_pos != std::string::npos) {
+              //get the contents of the env variable
               std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
               char *env_val = getenv(envv.c_str());
-              std::string tok;
+              //Special cases for expansion
               if (!strcmp(envv.c_str(), "SHELL")) {
                 char *path = realpath("../lab3-src/shell", NULL);
                 args[j] = path;
               } else if (!strcmp(envv.c_str(), "$")) {
                 args[j] = (std::to_string(getpid())).c_str();
-                //fprintf(stderr, args[j]);
               } else if (!strcmp(envv.c_str(), "_")) {
-                //std::cout << "From loop " << glob;
                 args[j] = Shell::TheShell->glob.c_str();
               } else if (!strcmp(envv.c_str(), "!")) {
-                //args[j] = glob;
-                //args[j] = (std::to_string(glob)).c_str();
                 args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
               } else if (!strcmp(envv.c_str(), "?")) {
-                //args[j] = (std::to_string(proc_var)).c_str();
                 args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
               } else {
+                //base case for expansion
                 if (env_val != NULL) {
                   args[j] = env_val;
-                  //_simpleCommands[i]->_arguments[j]->replace(start_pos, end_pos - start_pos, env_val);
                 }
               }
+              //update the starting position
               std::string copy = envv.c_str();
               start_pos = arg.find("${", start_pos + copy.length());
             }
@@ -366,8 +370,8 @@ void PipeCommand::execute() {
       ret = fork();
       if (ret == 0) {
         std::vector<char *> env_arg;
+        //print env implementation
         if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
-          //print env code
           char **p = environ;
           while (*p != NULL) {
             printf("%s\n", *p);
@@ -375,53 +379,12 @@ void PipeCommand::execute() {
           }
           exit(0);
         }
-        //Environment Variable Expansion
-        /*for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          std::string& arg = *_simpleCommands[i]->_arguments[j];
-          std::size_t start_pos = arg.find("${");
-          while (start_pos != std::string::npos) {
-            std::size_t end_pos = arg.find("}", start_pos);
-            if (end_pos != std::string::npos) {
-              std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
-              char *env_val = getenv(envv.c_str());
-              std::string tok;
-              if (!strcmp(envv.c_str(), "SHELL")) {
-                char *path = realpath("../lab3-src/shell", NULL);
-                args[j] = path;
-              } else if (!strcmp(envv.c_str(), "$")) {
-                args[j] = (std::to_string(getpid() - 2)).c_str();
-                //fprintf(stderr, args[j]);
-              } else if (!strcmp(envv.c_str(), "_")) {
-                //std::cout << "From loop " << glob;
-                args[j] = Shell::TheShell->glob.c_str();
-              } else if (!strcmp(envv.c_str(), "!")) {
-                //args[j] = glob;
-                //args[j] = (std::to_string(glob)).c_str();
-                args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
-              } else if (!strcmp(envv.c_str(), "?")) {
-                //args[j] = (std::to_string(proc_var)).c_str();
-                args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
-              } else {
-                if (env_val != NULL) {
-                  args[j] = env_val;
-                  //_simpleCommands[i]->_arguments[j]->replace(start_pos, end_pos - start_pos, env_val);
-                }
-              }
-              std::string copy = envv.c_str();
-              start_pos = arg.find("${", start_pos + copy.length());
-            }
-          }
-        }*/
-
-        //Tilde Expansion
-               //call execvp
+        //call execvp
         execvp(args[0], (char* const*)args);
         perror("execvp");
         exit(1);
       }
       Shell::TheShell->glob = std::string(_simpleCommands[i]->_arguments.back()->c_str());
-      //fprintf(stderr, glob);
-                //fprintf(stderr, "Glob val: %s %d", glob, time_run);
     }
     //close temps
     dup2(tmpin, 0);
