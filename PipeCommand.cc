@@ -379,6 +379,7 @@ void PipeCommand::execute() {
       if (wildcard) {
           for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
+          fprintf(stderr, "ARG:%s\n", arg.c_str());
           if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
             continue;
           }
