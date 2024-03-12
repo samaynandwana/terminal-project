@@ -373,37 +373,36 @@ void PipeCommand::execute() {
         if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
           char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
           const char * a = arg.c_str();
-        char * r = reg;
-        *r = '^'; r++; // match beginning of line
-        while (*a) {
-          if (*a == '*') { *r='.'; r++; *r='*'; r++; }
-          else if (*a == '?') { *r='.'; r++;}
-          else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
-          else { *r=*a; r++;}
-          a++;
-        }
-        *r='$'; r++; *r=0;
-        regex_t re;
-        int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
-        if (expbuf != 0) {
-          perror("compile");
-          return;
-        }
-        DIR *dir = opendir(".");
-        if (dir == NULL) {
-          perror("opendir");
-          return;
-        }
-        struct dirent *ent;
-        regmatch_t match;
-        while ((ent = readdir(dir)) != NULL) {
-          if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
-            _simpleCommands[i]->insertArgument(new std::string(ent->d_name));
+          char * r = reg;
+          *r = '^'; r++; // match beginning of line
+          while (*a) {
+            if (*a == '*') { *r='.'; r++; *r='*'; r++; }
+            else if (*a == '?') { *r='.'; r++;}
+            else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
+            else { *r=*a; r++;}
+            a++;
           }
-        }
-        closedir(dir);
-
-        }
+          *r='$'; r++; *r=0;
+          regex_t re;
+          int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+          if (expbuf != 0) {
+            perror("compile");
+            return;
+          }
+          DIR *dir = opendir(".");
+          if (dir == NULL) {
+            perror("opendir");
+            return;
+          }
+          struct dirent *ent;
+          regmatch_t match;
+          while ((ent = readdir(dir)) != NULL) {
+            if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
+              _simpleCommands[i]->insertArgument(new std::string(ent->d_name));
+            }
+          }
+          closedir(dir);
+          }
 
       }
 
