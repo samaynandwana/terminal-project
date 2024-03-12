@@ -326,7 +326,7 @@ void PipeCommand::execute() {
          }
       }
       //Wildcarding Implementation
-      bool wildcard = false;
+      /*bool wildcard = false;
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
         std::string& arg = *_simpleCommands[i]->_arguments[j];
         if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
@@ -373,7 +373,67 @@ void PipeCommand::execute() {
           }
           closedir(dir);
           }
-      }
+      }*/
+      bool wildcard = false;
+std::vector<std::string> matchingFilenames;
+
+for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); ) {
+    std::string& arg = *_simpleCommands[i]->_arguments[j];
+    if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
+        wildcard = true;
+
+        char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
+        const char * a = arg.c_str();
+        char * r = reg;
+        *r = '^'; r++;
+        while (*a) {
+            if (*a == '*') { *r='.'; r++; *r='*'; r++; }
+            else if (*a == '?') { *r='.'; r++;}
+            else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
+            else { *r=*a; r++;}
+            a++;
+        }
+        *r='$'; r++; *r=0;
+
+        regex_t re;
+        if (regcomp(&re, reg, REG_EXTENDED|REG_NOSUB) != 0) {
+            perror("compile");
+            free(reg);
+            return;
+        }
+
+        DIR *dir = opendir(".");
+        if (dir == NULL) {
+            perror("opendir");
+            regfree(&re);
+            free(reg);
+            return;
+        }
+
+        struct dirent *ent;
+        while ((ent = readdir(dir)) != NULL) {
+            if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
+                matchingFilenames.push_back(ent->d_name);
+            }
+        }
+        closedir(dir);
+        regfree(&re);
+        free(reg);
+
+        _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+    } else {
+        ++j;
+    }
+}
+
+if (wildcard) {
+    std::sort(matchingFilenames.begin(), matchingFilenames.end());
+
+    for (const auto& filename : matchingFilenames) {
+        _simpleCommands[i]->insertArgument(new std::string(filename));
+    }
+}
+
 
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
