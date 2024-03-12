@@ -371,7 +371,7 @@ void PipeCommand::execute() {
         std::string& arg = *_simpleCommands[i]->_arguments[j];
         //input arg does not contain a * or ?, so no wildcard expansion required
         if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
-          continue;
+          break;
         }
         char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
         const char * a = arg.c_str();
