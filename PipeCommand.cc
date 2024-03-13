@@ -380,7 +380,7 @@ void PipeCommand::execute() {
                 }
               }
             }
-          }
+         // }
           closedir(dir);
           }
       }
