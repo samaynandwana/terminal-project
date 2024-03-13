@@ -510,7 +510,58 @@ PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
             }
           }
       }
-      args[simpleCommandNumber->_arguments.size()] = NULL;
+     bool wildcard = false;
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+        std::string& arg = *_simpleCommands[i]->_arguments[j];
+        if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
+          wildcard = true;
+          break;
+        }
+      }
+      if (wildcard) {
+          for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+          std::string& arg = *_simpleCommands[i]->_arguments[j];
+          //fprintf(stderr, "ARG:%s\n", arg.c_str());
+          if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
+            continue;
+          }
+          char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
+          const char * a = arg.c_str();
+          char * r = reg;
+          *r = '^'; r++; // match beginning of line
+          while (*a) {
+            if (*a == '*') { *r='.'; r++; *r='*'; r++; }
+            else if (*a == '?') { *r='.'; r++;}
+            else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
+            else { *r=*a; r++;}
+            a++;
+          }
+          *r='$'; r++; *r=0;
+          regex_t re;
+          int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+          if (expbuf != 0) {
+            perror("compile");
+            return;
+          }
+          DIR *dir = opendir(".");
+          if (dir == NULL) {
+            perror("opendir");
+            return;
+          }
+          struct dirent *ent;
+          regmatch_t match;
+                  _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+
+          while ((ent = readdir(dir)) != NULL) {
+            if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
+              _simpleCommands[i]->insertArgument(new std::string(ent->d_name));
+            }
+          }
+          closedir(dir);
+          }
+      }
+
+      //args[simpleCommandNumber->_arguments.size()] = NULL;
       return (char **) args;
 
 }
