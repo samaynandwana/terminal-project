@@ -476,8 +476,8 @@ PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
       args[simpleCommandNumber->_arguments.size()] = NULL;
 
       //Environment Variable Expansion
-      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          std::string& arg = *_simpleCommands[i]->_arguments[j];
+      for (unsigned long j = 0; j < simpleCommandNumber->_arguments.size(); j++) {
+          std::string& arg = *simpleCommandNumber->_arguments[j];
           //parsing to see if there is an env variable
           std::size_t start_pos = arg.find("${");
           while (start_pos != std::string::npos) {
@@ -510,7 +510,7 @@ PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
             }
           }
       }
-      return args;
+      return (char *) args;
 
 }
 
