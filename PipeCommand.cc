@@ -390,10 +390,10 @@ void PipeCommand::execute() {
               }
             }
           closedir(dir);
-          sortArray(array, nEntries);
+          /*sortArray(array, nEntries);
           for (int b = 0; b < nEntries; b++) {
             _simpleCommands[i]->_insertArgument(new std::string(array[i]));
-          }
+          }*/
           }
       }
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
@@ -479,7 +479,7 @@ void PipeCommand::execute() {
     // Print new prompt
     //Shell::TheShell->prompt();
 }
-void sortArray(char **array, int nEntries) {
+/*void sortArray(char **array, int nEntries) {
     int i, j;
     for (i = 0; i < nEntries - 1; i++) {
         for (j = 0; j < nEntries - i - 1; j++) {
@@ -491,7 +491,7 @@ void sortArray(char **array, int nEntries) {
             }
         }
     }
-}
+}*/
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
 char ** 
