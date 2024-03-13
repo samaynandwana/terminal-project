@@ -391,7 +391,10 @@ void PipeCommand::execute() {
             }
           closedir(dir);
           sortArray(array, nEntries);
-          _simpleCommands[i]->_arguments.clear();
+std::string commandName = *_simpleCommands[i]->_arguments[0];
+
+_simpleCommands[i]->_arguments.clear();
+_simpleCommands[i]->_arguments.push_back(new std::string(commandName));
 
           for (int b = 0; b < nEntries; b++) {
             _simpleCommands[i]->insertArgument(new std::string(array[b]));
