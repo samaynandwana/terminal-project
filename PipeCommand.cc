@@ -325,48 +325,12 @@ void PipeCommand::execute() {
             }
           }
          }
-      } 
-      const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
+      }
+      //Wildcarding Implementation
+      /*bool wildcard = false;
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-        args[j] = _simpleCommands[i]->_arguments[j]->c_str();bool wildcard = false;
-      //for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) { //Environment Variable Expansion
-       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          std::string& arg = *_simpleCommands[i]->_arguments[j];
-          //parsing to see if there is an env variable
-          std::size_t start_pos = arg.find("${");
-          while (start_pos != std::string::npos) {
-            std::size_t end_pos = arg.find("}", start_pos);
-            if (end_pos != std::string::npos) {
-              //get the contents of the env variable
-              std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
-              char *env_val = getenv(envv.c_str());
-              //Special cases for expansion
-              if (!strcmp(envv.c_str(), "SHELL")) {
-                char *path = realpath("../lab3-src/shell", NULL);
-                args[j] = path;
-              } else if (!strcmp(envv.c_str(), "$")) {
-                args[j] = (std::to_string(getpid())).c_str();
-              } else if (!strcmp(envv.c_str(), "_")) {
-                args[j] = Shell::TheShell->glob.c_str();
-              } else if (!strcmp(envv.c_str(), "!")) {
-                args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
-              } else if (!strcmp(envv.c_str(), "?")) {
-                args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
-              } else {
-                //base case for expansion
-                if (env_val != NULL) {
-                  args[j] = env_val;
-                }
-              }
-              //update the starting position
-              std::string copy = envv.c_str();
-              start_pos = arg.find("${", start_pos + copy.length());
-            }
-          }
-     // }
-
-        //std::string& arg = *_simpleCommands[i]->_arguments[j];
-        if (*_simpleCommands[i]->_arguments[j]->find('*') != std::string::npos || _simpleCommands[i]->_arguments[j]->find('?') != std::string::npos) {
+        std::string& arg = *_simpleCommands[i]->_arguments[j];
+        if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
           wildcard = true;
           break;
         }
@@ -412,14 +376,49 @@ void PipeCommand::execute() {
           }
           closedir(dir);
           }
+      }*/
+      const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+        args[j] = _simpleCommands[i]->_arguments[j]->c_str();
       }
-           
-    }
       args[_simpleCommands[i]->_arguments.size()] = NULL;
 
+      //Environment Variable Expansion
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+          std::string& arg = *_simpleCommands[i]->_arguments[j];
+          //parsing to see if there is an env variable
+          std::size_t start_pos = arg.find("${");
+          while (start_pos != std::string::npos) {
+            std::size_t end_pos = arg.find("}", start_pos);
+            if (end_pos != std::string::npos) {
+              //get the contents of the env variable
+              std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
+              char *env_val = getenv(envv.c_str());
+              //Special cases for expansion
+              if (!strcmp(envv.c_str(), "SHELL")) {
+                char *path = realpath("../lab3-src/shell", NULL);
+                args[j] = path;
+              } else if (!strcmp(envv.c_str(), "$")) {
+                args[j] = (std::to_string(getpid())).c_str();
+              } else if (!strcmp(envv.c_str(), "_")) {
+                args[j] = Shell::TheShell->glob.c_str();
+              } else if (!strcmp(envv.c_str(), "!")) {
+                args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
+              } else if (!strcmp(envv.c_str(), "?")) {
+                args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
+              } else {
+                //base case for expansion
+                if (env_val != NULL) {
+                  args[j] = env_val;
+                }
+              }
+              //update the starting position
+              std::string copy = envv.c_str();
+              start_pos = arg.find("${", start_pos + copy.length());
+            }
+          }
+      }
 
-      //Wildcarding Implementation
-      
 
       ret = fork();
       if (ret == 0) {
