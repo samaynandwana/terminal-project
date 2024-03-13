@@ -390,10 +390,10 @@ void PipeCommand::execute() {
               }
             }
           closedir(dir);
-          /*sortArray(array, nEntries);
+          sortArray(array, nEntries);
           for (int b = 0; b < nEntries; b++) {
             _simpleCommands[i]->_insertArgument(new std::string(array[i]));
-          }*/
+          }
           }
       }
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
