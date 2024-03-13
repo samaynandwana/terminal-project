@@ -328,9 +328,6 @@ void PipeCommand::execute() {
       }
       //Wildcarding Implementation
       bool wildcard = false;
-      int maxEntries = 20;
-      int nEntries = 0;
-      char **array;
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
         std::string& arg = *_simpleCommands[i]->_arguments[j];
         if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
@@ -339,8 +336,9 @@ void PipeCommand::execute() {
         }
       }
       if (wildcard) {
-          /*for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+          for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
+          //fprintf(stderr, "ARG:%s\n", arg.c_str());
           if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
             continue;
           }
@@ -397,8 +395,8 @@ void PipeCommand::execute() {
 
           for (int b = 0; b < nEntries; b++) {
             _simpleCommands[i]->insertArgument(new std::string(array[b]));
-          }*/
-         // }
+          }
+          }
       }
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
@@ -497,59 +495,6 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 }
 
 void PipeCommand::expandWildcard(char *prefix, char* suffix) {
-
-          std::string& arg = *prefix;
-          if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
-          char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
-          const char * a = arg.c_str();
-          char * r = reg;
-          *r = '^'; r++; // match beginning of line
-          while (*a) {
-            if (*a == '*') { *r='.'; r++; *r='*'; r++; }
-            else if (*a == '?') { *r='.'; r++;}
-            else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
-            else { *r=*a; r++;}
-            a++;
-          }
-          *r='$'; r++; *r=0;
-          regex_t re;
-          int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
-          if (expbuf != 0) {
-            perror("compile");
-            return;
-          }
-          DIR *dir = opendir(".");
-          if (dir == NULL) {
-            perror("opendir");
-            return;
-          }
-          struct dirent *ent;
-          //int maxEntries = 20;
-          //int nEntries = 0;
-          regmatch_t match;
-          //_simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
-          array = (char **) malloc(maxEntries*sizeof(char *));
-          while ((ent = readdir(dir)) != NULL) {
-            if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
-              if (nEntries == maxEntries) {
-                maxEntries *= 2;
-                array = (char **)realloc(array, maxEntries*sizeof(char *));
-                assert(array != NULL);
-              }
-              if (ent->d_name[0] == '.') {
-                if (arg[0] == '.') {
-                  array[nEntries] = strdup(ent->d_name);
-                  nEntries++;
-
-                }
-              } else {
-                 array[nEntries] = strdup(ent->d_name);
-                 nEntries++;
-                }
-              }
-            }
-          closedir(dir);
-         }
 
 }
 // Expands environment vars and wildcards of a SimpleCommand and
