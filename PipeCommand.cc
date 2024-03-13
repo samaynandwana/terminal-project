@@ -328,6 +328,9 @@ void PipeCommand::execute() {
       }
       //Wildcarding Implementation
       bool wildcard = false;
+      int maxEntries = 20;
+      int nEntries = 0;
+      char **array;
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
         std::string& arg = *_simpleCommands[i]->_arguments[j];
         if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
@@ -497,8 +500,6 @@ void PipeCommand::expandWildcard(char *prefix, char* suffix) {
 
           std::string& arg = prefix;
           if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
-            continue;
-          }
           char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
           const char * a = arg.c_str();
           char * r = reg;
@@ -523,11 +524,11 @@ void PipeCommand::expandWildcard(char *prefix, char* suffix) {
             return;
           }
           struct dirent *ent;
-          int maxEntries = 20;
-          int nEntries = 0;
+          //int maxEntries = 20;
+          //int nEntries = 0;
           regmatch_t match;
-          _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
-          char ** array = (char **) malloc(maxEntries*sizeof(char *));
+          //_simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+          array = (char **) malloc(maxEntries*sizeof(char *));
           while ((ent = readdir(dir)) != NULL) {
             if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
               if (nEntries == maxEntries) {
@@ -548,7 +549,7 @@ void PipeCommand::expandWildcard(char *prefix, char* suffix) {
               }
             }
           closedir(dir);
-
+         }
 
 }
 // Expands environment vars and wildcards of a SimpleCommand and
