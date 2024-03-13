@@ -470,9 +470,9 @@ PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
     //simpleCommandNumber->print();
     //return NULL;
      const char ** args = (const char **) malloc ((simpleCommandNumber->_arguments.size() + 1)*sizeof(char*));
-      /*for (unsigned long j = 0; j < simpleCommandNumber->_arguments.size(); j++) {
+      for (unsigned long j = 0; j < simpleCommandNumber->_arguments.size(); j++) {
         args[j] = simpleCommandNumber->_arguments[j]->c_str();
-      }*/
+      }
       args[simpleCommandNumber->_arguments.size()] = NULL;
 
       //Environment Variable Expansion
