@@ -23,6 +23,7 @@ public:
   void print();
   void execute();
   void sortArray(char **array, int nEntries);
+  void expandWildcard(char *prefix, char* suffix);
   // Expands environment vars and wildcards of a SimpleCommand and
   // returns the arguments to pass to execvp.
   char ** expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber);

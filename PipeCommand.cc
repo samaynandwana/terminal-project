@@ -380,13 +380,11 @@ void PipeCommand::execute() {
               }
               if (ent->d_name[0] == '.') {
                 if (arg[0] == '.') {
-                  //_simpleCommands[i]->insertArgument(new std::string(ent->d_name));
                   array[nEntries] = strdup(ent->d_name);
                   nEntries++;
 
                 }
               } else {
-                 //_simpleCommands[i]->insertArgument(new std::string(ent->d_name));
                  array[nEntries] = strdup(ent->d_name);
                  nEntries++;
                 }
@@ -488,13 +486,16 @@ void PipeCommand::sortArray(char **array, int nEntries) {
     for (i = 0; i < nEntries - 1; i++) {
         for (j = 0; j < nEntries - i - 1; j++) {
             if (strcmp(array[j], array[j + 1]) > 0) {
-                // Swap array[j] and array[j+1]
                 char *temp = array[j];
                 array[j] = array[j + 1];
                 array[j + 1] = temp;
             }
         }
     }
+}
+
+void PipeCommand::expandWildcard(char *prefix, char* suffix) {
+
 }
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
