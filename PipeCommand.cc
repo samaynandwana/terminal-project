@@ -110,7 +110,9 @@ void PipeCommand::print() {
             _background?"YES":"NO");
     printf( "\n\n" );
 }
-
+int maxEntries = 20;
+int nEntries = 0;
+char ** array;
 void PipeCommand::execute() {
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
@@ -336,7 +338,7 @@ void PipeCommand::execute() {
         }
       }
       if (wildcard) {
-          for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+          /*for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           //fprintf(stderr, "ARG:%s\n", arg.c_str());
           if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
@@ -396,7 +398,8 @@ void PipeCommand::execute() {
           for (int b = 0; b < nEntries; b++) {
             _simpleCommands[i]->insertArgument(new std::string(array[b]));
           }
-          }
+          }*/
+
       }
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
