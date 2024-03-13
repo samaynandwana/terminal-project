@@ -392,7 +392,7 @@ void PipeCommand::execute() {
           closedir(dir);
           sortArray(array, nEntries);
           for (int b = 0; b < nEntries; b++) {
-            _simpleCommands[i]->insertArgument(new std::string(array[i]));
+            _simpleCommands[i]->insertArgument(new std::string(array[b]));
           }
           }
       }
