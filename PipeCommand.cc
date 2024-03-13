@@ -479,7 +479,7 @@ void PipeCommand::execute() {
     // Print new prompt
     //Shell::TheShell->prompt();
 }
-/*void sortArray(char **array, int nEntries) {
+void PipeCommand::sortArray(char **array, int nEntries) {
     int i, j;
     for (i = 0; i < nEntries - 1; i++) {
         for (j = 0; j < nEntries - i - 1; j++) {
@@ -491,7 +491,7 @@ void PipeCommand::execute() {
             }
         }
     }
-}*/
+}
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
 char ** 
