@@ -366,11 +366,20 @@ void PipeCommand::execute() {
             return;
           }
           struct dirent *ent;
+          int maxEntries = 20;
+          int nEntries = 0;
           regmatch_t match;
-                  _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
-
+          _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+          char ** array = (char **) malloc(maxEntries*sizeof(char *));
           while ((ent = readdir(dir)) != NULL) {
             if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
+              if (nEntries == maxEntries) {
+                maxEntries *= 2;
+                array = realloc(array, maxEntries*sizeof(char *));
+                assert(array != NULL);
+              }
+              array[nEntries] = strdup(ent->d_name);
+              nEntries++;
               if (ent->d_name[0] == '.') {
                 if (arg[0] == '.') {
                   _simpleCommands[i]->insertArgument(new std::string(ent->d_name));
@@ -380,8 +389,11 @@ void PipeCommand::execute() {
                 }
               }
             }
-         // }
           closedir(dir);
+          sortArray(array, nEntries);
+          for (int b = 0; b < nEntries; b++) {
+            _simpleCommands[i]->_insertArgument(new std::string(array[i]));
+          }
           }
       }
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
@@ -467,7 +479,19 @@ void PipeCommand::execute() {
     // Print new prompt
     //Shell::TheShell->prompt();
 }
-
+void sortArray(char **array, int nEntries) {
+    int i, j;
+    for (i = 0; i < nEntries - 1; i++) {
+        for (j = 0; j < nEntries - i - 1; j++) {
+            if (strcmp(array[j], array[j + 1]) > 0) {
+                // Swap array[j] and array[j+1]
+                char *temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+        }
+    }
+}
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
 char ** 
