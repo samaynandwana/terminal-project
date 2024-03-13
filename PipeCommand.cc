@@ -398,7 +398,7 @@ void PipeCommand::execute() {
           for (int b = 0; b < nEntries; b++) {
             _simpleCommands[i]->insertArgument(new std::string(array[b]));
           }*/
-          }
+         // }
       }
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
