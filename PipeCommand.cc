@@ -375,7 +375,7 @@ void PipeCommand::execute() {
             if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
               if (nEntries == maxEntries) {
                 maxEntries *= 2;
-                array = realloc(array, maxEntries*sizeof(char *));
+                array = (char **)realloc(array, maxEntries*sizeof(char *));
                 assert(array != NULL);
               }
               array[nEntries] = strdup(ent->d_name);
