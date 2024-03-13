@@ -36,7 +36,7 @@
 #include <regex.h>
 #include <dirent.h>
 #include <algorithm>
-
+#include <cassert>
 
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
