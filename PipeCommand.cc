@@ -365,8 +365,8 @@ void PipeCommand::execute() {
           }
      // }
 
-        std::string& arg = *_simpleCommands[i]->_arguments[j];
-        if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
+        //std::string& arg = *_simpleCommands[i]->_arguments[j];
+        if (*_simpleCommands[i]->_arguments[j].find('*') != std::string::npos || _simpleCommands[i]->_arguments[j].find('?') != std::string::npos) {
           wildcard = true;
           break;
         }
