@@ -378,14 +378,17 @@ void PipeCommand::execute() {
                 array = (char **)realloc(array, maxEntries*sizeof(char *));
                 assert(array != NULL);
               }
-              array[nEntries] = strdup(ent->d_name);
-              nEntries++;
               if (ent->d_name[0] == '.') {
                 if (arg[0] == '.') {
                   //_simpleCommands[i]->insertArgument(new std::string(ent->d_name));
+                  array[nEntries] = strdup(ent->d_name);
+                  nEntries++;
+
                 }
               } else {
                  //_simpleCommands[i]->insertArgument(new std::string(ent->d_name));
+                 array[nEntries] = strdup(ent->d_name);
+                 nEntries++;
                 }
               }
             }
