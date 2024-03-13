@@ -511,16 +511,16 @@ PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
           }
       }
      bool wildcard = false;
-      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-        std::string& arg = *_simpleCommands[i]->_arguments[j];
+      for (unsigned long j = 0; j < simpleCommandNumber->_arguments.size(); j++) {
+        std::string& arg = *simpleCommandNumber>_arguments[j];
         if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
           wildcard = true;
           break;
         }
       }
       if (wildcard) {
-          for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          std::string& arg = *_simpleCommands[i]->_arguments[j];
+          for (unsigned long j = 0; j < simpleCommandNumber->_arguments.size(); j++) {
+          std::string& arg = *simpleCommandNumber->_arguments[j];
           //fprintf(stderr, "ARG:%s\n", arg.c_str());
           if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
             continue;
@@ -550,11 +550,11 @@ PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
           }
           struct dirent *ent;
           regmatch_t match;
-                  _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+                  simpleCommandNumber->_arguments.erase(simpleCommandNumber->_arguments.begin() + j);
 
           while ((ent = readdir(dir)) != NULL) {
             if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
-              _simpleCommands[i]->insertArgument(new std::string(ent->d_name));
+              simpleCommandNumber->insertArgument(new std::string(ent->d_name));
             }
           }
           closedir(dir);
