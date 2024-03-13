@@ -382,19 +382,15 @@ void PipeCommand::execute() {
               nEntries++;
               if (ent->d_name[0] == '.') {
                 if (arg[0] == '.') {
-                  _simpleCommands[i]->insertArgument(new std::string(ent->d_name));
+                  //_simpleCommands[i]->insertArgument(new std::string(ent->d_name));
                 }
               } else {
-                 _simpleCommands[i]->insertArgument(new std::string(ent->d_name));
+                 //_simpleCommands[i]->insertArgument(new std::string(ent->d_name));
                 }
               }
             }
           closedir(dir);
           sortArray(array, nEntries);
-std::string commandName = *_simpleCommands[i]->_arguments[0];
-
-_simpleCommands[i]->_arguments.clear();
-_simpleCommands[i]->_arguments.push_back(new std::string(commandName));
 
           for (int b = 0; b < nEntries; b++) {
             _simpleCommands[i]->insertArgument(new std::string(array[b]));
