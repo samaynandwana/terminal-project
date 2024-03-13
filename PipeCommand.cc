@@ -377,7 +377,7 @@ void PipeCommand::execute() {
           closedir(dir);
           }
       }*/
-      //char ** args = this->expandEnvVarsAndWildcards(_simpleCommands[i]);
+      char ** args = this->expandEnvVarsAndWildcards(_simpleCommands[i]);
      /* const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
         args[j] = _simpleCommands[i]->_arguments[j]->c_str();
