@@ -510,7 +510,7 @@ PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
             }
           }
       }
-      return (char *) args;
+      return (char **) args;
 
 }
 
