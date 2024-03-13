@@ -498,7 +498,7 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 
 void PipeCommand::expandWildcard(char *prefix, char* suffix) {
 
-          std::string& arg = prefix;
+          std::string& arg = *prefix;
           if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
           char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
           const char * a = arg.c_str();
