@@ -328,13 +328,7 @@ void PipeCommand::execute() {
       } 
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-        args[j] = _simpleCommands[i]->_arguments[j]->c_str();
-      }
-      args[_simpleCommands[i]->_arguments.size()] = NULL;
-
-
-      //Wildcarding Implementation
-      bool wildcard = false;
+        args[j] = _simpleCommands[i]->_arguments[j]->c_str();bool wildcard = false;
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
         std::string& arg = *_simpleCommands[i]->_arguments[j];
         if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
@@ -420,6 +414,12 @@ void PipeCommand::execute() {
           }
       }
 
+      }
+      args[_simpleCommands[i]->_arguments.size()] = NULL;
+
+
+      //Wildcarding Implementation
+      
 
       ret = fork();
       if (ret == 0) {
