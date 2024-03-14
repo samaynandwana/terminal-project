@@ -110,9 +110,11 @@ void PipeCommand::print() {
             _background?"YES":"NO");
     printf( "\n\n" );
 }
+//Global variable declaration for wildcarding
 int maxEntries = 20;
 int nEntries = 0;
 char ** array;
+
 void PipeCommand::execute() {
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
@@ -344,7 +346,7 @@ void PipeCommand::execute() {
           if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
             continue;
           }
-          char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
+          /*char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
           const char * a = arg.c_str();
           char * r = reg;
           *r = '^'; r++; // match beginning of line
@@ -371,7 +373,7 @@ void PipeCommand::execute() {
           maxEntries = 20;
           nEntries = 0;
           regmatch_t match;
-          _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+          //_simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
           array = (char **) malloc(maxEntries*sizeof(char *));
           while ((ent = readdir(dir)) != NULL) {
             if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
@@ -392,7 +394,8 @@ void PipeCommand::execute() {
                 }
               }
             }
-          closedir(dir);
+          closedir(dir);*/
+          expandWildCard(NULL, NULL);
           sortArray(array, nEntries);
 
           for (int b = 0; b < nEntries; b++) {
@@ -498,6 +501,55 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 }
 
 void PipeCommand::expandWildcard(char *prefix, char* suffix) {
+char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
+          const char * a = arg.c_str();
+          char * r = reg;
+          *r = '^'; r++; // match beginning of line
+          while (*a) {
+            if (*a == '*') { *r='.'; r++; *r='*'; r++; }
+            else if (*a == '?') { *r='.'; r++;}
+            else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
+            else { *r=*a; r++;}
+            a++;
+          }
+          *r='$'; r++; *r=0;
+          regex_t re;
+          int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+          if (expbuf != 0) {
+            perror("compile");
+            return;
+          }
+          DIR *dir = opendir(".");
+          if (dir == NULL) {
+            perror("opendir");
+            return;
+          }
+          struct dirent *ent;
+          maxEntries = 20;
+          nEntries = 0;
+          regmatch_t match;
+          //_simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+          array = (char **) malloc(maxEntries*sizeof(char *));
+          while ((ent = readdir(dir)) != NULL) {
+            if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
+              if (nEntries == maxEntries) {
+                maxEntries *= 2;
+                array = (char **)realloc(array, maxEntries*sizeof(char *));
+                assert(array != NULL);
+              }
+              if (ent->d_name[0] == '.') {
+                if (arg[0] == '.') {
+                  array[nEntries] = strdup(ent->d_name);
+                  nEntries++;
+
+                }
+              } else {
+                 array[nEntries] = strdup(ent->d_name);
+                 nEntries++;
+                }
+              }
+            }
+          closedir(dir);
 
 }
 // Expands environment vars and wildcards of a SimpleCommand and
