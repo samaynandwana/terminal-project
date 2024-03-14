@@ -395,7 +395,7 @@ void PipeCommand::execute() {
               }
             }
           closedir(dir);*/
-          expandWildCard(NULL, NULL);
+          expandWildcard(NULL, *_simpleCommands[i]->_arguments[j]);
           sortArray(array, nEntries);
 
           for (int b = 0; b < nEntries; b++) {
@@ -502,7 +502,7 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 
 void PipeCommand::expandWildcard(char *prefix, char* suffix) {
 char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
-          const char * a = arg.c_str();
+          const char * a = suffix.c_str();
           char * r = reg;
           *r = '^'; r++; // match beginning of line
           while (*a) {
