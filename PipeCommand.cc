@@ -341,8 +341,15 @@ void PipeCommand::execute() {
           for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           //fprintf(stderr, "ARG:%s\n", arg.c_str());
-          if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
+          if ((arg.find('*') == std::string::npos && arg.find('?') == std::string::npos)) {
             continue;
+          } else {
+            expandWildcard(NULL, arg.c_str());
+            _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+            sortArray(array, nEntries);
+            for (int b = 0; b < nEntries; b++) {
+              _simpleCommands[i]->insertArgument(
+            }
           }
           char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
           const char * a = arg.c_str();
