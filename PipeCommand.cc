@@ -339,20 +339,18 @@ void PipeCommand::execute() {
       }
       if (wildcard) {
           for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          std::string& arg = *_simpleCommands[i]->_arguments[j];
-          //fprintf(stderr, "ARG:%s\n", arg.c_str());
-          if ((arg.find('*') == std::string::npos && arg.find('?') == std::string::npos)) {
-            continue;
-          } else {
-            expandWildcard(NULL, (char *) arg.c_str());
-            _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
-            sortArray(array, nEntries);
-            for (int b = 0; b < nEntries; b++) {
-              _simpleCommands[i]->insertArgument(new std::string(array[b]));
+            std::string& arg = *_simpleCommands[i]->_arguments[j];
+            if ((arg.find('*') == std::string::npos && arg.find('?') == std::string::npos)) {
+              continue;
+            } else {
+              expandWildcard(NULL, (char *) arg.c_str());
+              _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+              sortArray(array, nEntries);
+              for (int b = 0; b < nEntries; b++) {
+                _simpleCommands[i]->insertArgument(new std::string(array[b]));
+              }
             }
           }
-          }
-
       }
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
@@ -450,6 +448,8 @@ void PipeCommand::sortArray(char **array, int nEntries) {
     }
 }
 
+//Function for expanding a wildcard, where prefix is already expanded
+//and suffix may still contain wildcards
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           char * reg = (char*)malloc(2*strlen(suffix)+10);
           const char * a = suffix;
