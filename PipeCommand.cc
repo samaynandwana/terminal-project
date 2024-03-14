@@ -53,7 +53,7 @@ void PipeCommand::insertSimpleCommand( SimpleCommand * simplePipeCommand ) {
     // add the simple command to the vector
     _simpleCommands.push_back(simplePipeCommand);
 }
-
+int maxEntries = 20;
 void PipeCommand::clear() {
     // deallocate all the simple commands in the command vector
     for (auto simplePipeCommand : _simpleCommands) {
@@ -368,7 +368,7 @@ void PipeCommand::execute() {
             return;
           }
           struct dirent *ent;
-          int maxEntries = 20;
+          maxEntries = 20;
           int nEntries = 0;
           regmatch_t match;
           _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
