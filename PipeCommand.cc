@@ -483,7 +483,7 @@ char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
           maxEntries = 20;
           nEntries = 0;
           regmatch_t match;
-          _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+          //_simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
           array = (char **) malloc(maxEntries*sizeof(char *));
           while ((ent = readdir(dir)) != NULL) {
             if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
