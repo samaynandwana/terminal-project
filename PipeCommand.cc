@@ -500,9 +500,9 @@ void PipeCommand::sortArray(char **array, int nEntries) {
     }
 }
 
-void PipeCommand::expandWildcard(char *prefix, char* suffix) {
+void PipeCommand::expandWildcard(char *prefix, char* arg) {
 char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
-          const char * a = suffix.c_str();
+          const char * a = arg.c_str();
           char * r = reg;
           *r = '^'; r++; // match beginning of line
           while (*a) {
