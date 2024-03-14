@@ -351,11 +351,6 @@ void PipeCommand::execute() {
               _simpleCommands[i]->insertArgument(new std::string(array[b]));
             }
           }
-          //          sortArray(array, nEntries);
-
-         /* for (int b = 0; b < nEntries; b++) {
-            _simpleCommands[i]->insertArgument(new std::string(array[b]));
-          }*/
           }
 
       }
@@ -455,9 +450,9 @@ void PipeCommand::sortArray(char **array, int nEntries) {
     }
 }
 
-void PipeCommand::expandWildcard(char *prefix, char* arg) {
-char * reg = (char*)malloc(2*strlen(arg)+10);
-          const char * a = arg;
+void PipeCommand::expandWildcard(char *prefix, char *suffix) {
+          char * reg = (char*)malloc(2*strlen(suffix)+10);
+          const char * a = suffix;
           char * r = reg;
           *r = '^'; r++; // match beginning of line
           while (*a) {
@@ -483,7 +478,6 @@ char * reg = (char*)malloc(2*strlen(arg)+10);
           maxEntries = 20;
           nEntries = 0;
           regmatch_t match;
-          //_simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
           array = (char **) malloc(maxEntries*sizeof(char *));
           while ((ent = readdir(dir)) != NULL) {
             if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
@@ -493,7 +487,7 @@ char * reg = (char*)malloc(2*strlen(arg)+10);
                 assert(array != NULL);
               }
               if (ent->d_name[0] == '.') {
-                if (arg[0] == '.') {
+                if (suffix[0] == '.') {
                   array[nEntries] = strdup(ent->d_name);
                   nEntries++;
 
