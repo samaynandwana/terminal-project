@@ -348,7 +348,7 @@ void PipeCommand::execute() {
             _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
             sortArray(array, nEntries);
             for (int b = 0; b < nEntries; b++) {
-              _simpleCommands[i]->insertArgument(new std::string(array[b]);
+              _simpleCommands[i]->insertArgument(new std::string(array[b]));
             }
           }
           //          sortArray(array, nEntries);
