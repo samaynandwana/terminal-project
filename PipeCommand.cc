@@ -37,7 +37,7 @@
 #include <dirent.h>
 #include <algorithm>
 #include <cassert>
-
+#define MAXFILENAME 1024
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
     _simpleCommands = std::vector<SimpleCommand *>();
@@ -451,6 +451,34 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 //Function for expanding a wildcard, where prefix is already expanded
 //and suffix may still contain wildcards
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
+          if (suffix[0] == 0) {
+            array[nEntries] = strdup(suffix);
+            nEntries++;
+            return;
+          }
+          char * s = strchr(suffix, '/');
+          char component[MAXFILENAME];
+          if (s != NULL) {
+            strncpy(component, suffix, s - suffix);
+            suffix = s + 1;
+          } else {
+            strcpy(component, suffix);
+            suffix = suffix + strlen(suffix);
+          }
+          char newPrefix[MAXFILENAME];
+          bool containsSpecialChar = false;
+          for(int i = 0; component[i] != '\0'; i++) {
+            if(component[i] == '*' || component[i] == '?') {
+              containsSpecialChar = true;
+              break;
+            }
+          }
+
+          if(!containsSpecialChar) {
+            sprintf(newPrefix, "%s/%s", prefix, component);
+            expandWildcard(newPrefix, suffix);
+            return;
+          }
           char * reg = (char*)malloc(2*strlen(suffix)+10);
           const char * a = suffix;
           char * r = reg;
