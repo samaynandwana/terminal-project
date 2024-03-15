@@ -37,7 +37,7 @@
 #include <dirent.h>
 #include <algorithm>
 #include <cassert>
-#define MAXFILENAME 1024
+
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
     _simpleCommands = std::vector<SimpleCommand *>();
@@ -53,7 +53,7 @@ void PipeCommand::insertSimpleCommand( SimpleCommand * simplePipeCommand ) {
     // add the simple command to the vector
     _simpleCommands.push_back(simplePipeCommand);
 }
-//int maxEntries = 20;
+
 void PipeCommand::clear() {
     // deallocate all the simple commands in the command vector
     for (auto simplePipeCommand : _simpleCommands) {
@@ -110,9 +110,7 @@ void PipeCommand::print() {
             _background?"YES":"NO");
     printf( "\n\n" );
 }
-int maxEntries = 20;
-int nEntries = 0;
-char ** array;
+
 void PipeCommand::execute() {
     // Don't do anything if there are no simple commands
     if ( _simpleCommands.size() == 0 ) {
@@ -339,17 +337,65 @@ void PipeCommand::execute() {
       }
       if (wildcard) {
           for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-            std::string& arg = *_simpleCommands[i]->_arguments[j];
-            if ((arg.find('*') == std::string::npos && arg.find('?') == std::string::npos)) {
-              continue;
-            } else {
-              expandWildcard(NULL, (char *) arg.c_str());
-              _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
-              sortArray(array, nEntries);
-              for (int b = 0; b < nEntries; b++) {
-                _simpleCommands[i]->insertArgument(new std::string(array[b]));
+          std::string& arg = *_simpleCommands[i]->_arguments[j];
+          //fprintf(stderr, "ARG:%s\n", arg.c_str());
+          if (arg.find('*') == std::string::npos && arg.find('?') == std::string::npos) {
+            continue;
+          }
+          char * reg = (char*)malloc(2*strlen(arg.c_str())+10);
+          const char * a = arg.c_str();
+          char * r = reg;
+          *r = '^'; r++; // match beginning of line
+          while (*a) {
+            if (*a == '*') { *r='.'; r++; *r='*'; r++; }
+            else if (*a == '?') { *r='.'; r++;}
+            else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
+            else { *r=*a; r++;}
+            a++;
+          }
+          *r='$'; r++; *r=0;
+          regex_t re;
+          int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+          if (expbuf != 0) {
+            perror("compile");
+            return;
+          }
+          DIR *dir = opendir(".");
+          if (dir == NULL) {
+            perror("opendir");
+            return;
+          }
+          struct dirent *ent;
+          int maxEntries = 20;
+          int nEntries = 0;
+          regmatch_t match;
+          _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+          char ** array = (char **) malloc(maxEntries*sizeof(char *));
+          while ((ent = readdir(dir)) != NULL) {
+            if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
+              if (nEntries == maxEntries) {
+                maxEntries *= 2;
+                array = (char **)realloc(array, maxEntries*sizeof(char *));
+                assert(array != NULL);
+              }
+              if (ent->d_name[0] == '.') {
+                if (arg[0] == '.') {
+                  array[nEntries] = strdup(ent->d_name);
+                  nEntries++;
+
+                }
+              } else {
+                 array[nEntries] = strdup(ent->d_name);
+                 nEntries++;
+                }
               }
             }
+          closedir(dir);
+          sortArray(array, nEntries);
+
+          for (int b = 0; b < nEntries; b++) {
+            _simpleCommands[i]->insertArgument(new std::string(array[b]));
+          }
           }
       }
       const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
@@ -448,86 +494,7 @@ void PipeCommand::sortArray(char **array, int nEntries) {
     }
 }
 
-//Function for expanding a wildcard, where prefix is already expanded
-//and suffix may still contain wildcards
-void PipeCommand::expandWildcard(char *prefix, char *suffix) {
-          /*if (suffix[0] == 0) {
-            array[nEntries] = strdup(suffix);
-            nEntries++;
-            return;
-          }
-          char * s = strchr(suffix, '/');
-          char component[MAXFILENAME];
-          if (s != NULL) {
-            strncpy(component, suffix, s - suffix);
-            suffix = s + 1;
-          } else {*/
-            strcpy(component, suffix);
-            suffix = suffix + strlen(suffix);
-          //}
-          /*char newPrefix[MAXFILENAME];
-          bool containsSpecialChar = false;
-          for(int i = 0; component[i] != '\0'; i++) {
-            if(component[i] == '*' || component[i] == '?') {
-              containsSpecialChar = true;
-              break;
-            }
-          }
-
-          if(!containsSpecialChar) {
-            sprintf(newPrefix, "%s/%s", prefix, component);
-            expandWildcard(newPrefix, suffix);
-            return;
-          }*/
-          char * reg = (char*)malloc(2*strlen(suffix)+10);
-          const char * a = suffix;
-          char * r = reg;
-          *r = '^'; r++; // match beginning of line
-          while (*a) {
-            if (*a == '*') { *r='.'; r++; *r='*'; r++; }
-            else if (*a == '?') { *r='.'; r++;}
-            else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
-            else { *r=*a; r++;}
-            a++;
-          }
-          *r='$'; r++; *r=0;
-          regex_t re;
-          int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
-          if (expbuf != 0) {
-            perror("compile");
-            return;
-          }
-          char * prefixOpen = strdup((prefix)?prefix:".");
-          DIR *dir = opendir(prefixOpen);
-          if (dir == NULL) {
-            perror("opendir");
-            return;
-          }
-          struct dirent *ent;
-          maxEntries = 20;
-          nEntries = 0;
-          regmatch_t match;
-          array = (char **) malloc(maxEntries*sizeof(char *));
-          while ((ent = readdir(dir)) != NULL) {
-            if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
-              if (nEntries == maxEntries) {
-                maxEntries *= 2;
-                array = (char **)realloc(array, maxEntries*sizeof(char *));
-                assert(array != NULL);
-              }
-              if (ent->d_name[0] == '.') {
-                if (suffix[0] == '.') {
-                  array[nEntries] = strdup(ent->d_name);
-                  nEntries++;
-
-                }
-              } else {
-                 array[nEntries] = strdup(ent->d_name);
-                 nEntries++;
-                }
-              }
-            }
-          closedir(dir);
+void PipeCommand::expandWildcard(char *prefix, char* suffix) {
 
 }
 // Expands environment vars and wildcards of a SimpleCommand and
