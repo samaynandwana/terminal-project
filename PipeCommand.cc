@@ -114,7 +114,6 @@ void PipeCommand::print() {
     printf( "\n\n" );
 }
 
-int maxEntries = 20;
 
 void PipeCommand::execute() {
     // Don't do anything if there are no simple commands
