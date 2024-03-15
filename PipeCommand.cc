@@ -37,7 +37,7 @@
 #include <dirent.h>
 #include <algorithm>
 #include <cassert>
-
+#define MAXFILENAME 1024
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
     _simpleCommands = std::vector<SimpleCommand *>();
@@ -49,6 +49,9 @@ PipeCommand::PipeCommand() {
     //question = NULL;
 }
 
+int maxEntries = 20;
+int nEntries = 0;
+char **array;
 void PipeCommand::insertSimpleCommand( SimpleCommand * simplePipeCommand ) {
     // add the simple command to the vector
     _simpleCommands.push_back(simplePipeCommand);
@@ -110,6 +113,8 @@ void PipeCommand::print() {
             _background?"YES":"NO");
     printf( "\n\n" );
 }
+
+int maxEntries = 20;
 
 void PipeCommand::execute() {
     // Don't do anything if there are no simple commands
