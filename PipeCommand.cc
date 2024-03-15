@@ -451,7 +451,7 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 //Function for expanding a wildcard, where prefix is already expanded
 //and suffix may still contain wildcards
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
-          if (suffix[0] == 0) {
+          /*if (suffix[0] == 0) {
             array[nEntries] = strdup(suffix);
             nEntries++;
             return;
@@ -461,11 +461,11 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           if (s != NULL) {
             strncpy(component, suffix, s - suffix);
             suffix = s + 1;
-          } else {
+          } else {*/
             strcpy(component, suffix);
             suffix = suffix + strlen(suffix);
-          }
-          char newPrefix[MAXFILENAME];
+          //}
+          /*char newPrefix[MAXFILENAME];
           bool containsSpecialChar = false;
           for(int i = 0; component[i] != '\0'; i++) {
             if(component[i] == '*' || component[i] == '?') {
@@ -478,7 +478,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             sprintf(newPrefix, "%s/%s", prefix, component);
             expandWildcard(newPrefix, suffix);
             return;
-          }
+          }*/
           char * reg = (char*)malloc(2*strlen(suffix)+10);
           const char * a = suffix;
           char * r = reg;
@@ -497,7 +497,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             perror("compile");
             return;
           }
-          DIR *dir = opendir(".");
+          char * prefixOpen = strdup((prefix)?prefix:".");
+          DIR *dir = opendir(prefixOpen);
           if (dir == NULL) {
             perror("opendir");
             return;
