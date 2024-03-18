@@ -343,7 +343,7 @@ void PipeCommand::execute() {
             if ((arg.find('*') == std::string::npos && arg.find('?') == std::string::npos)) {
               continue;
             } else {
-              expandWildcard("", (char *) arg.c_str());
+              expandWildcard(NULL, (char *) arg.c_str());
               _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
               sortArray(array, nEntries);
               for (int b = 0; b < nEntries; b++) {
@@ -526,10 +526,12 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
         }
         } else { //component does not contain any wildcarding characters
           char newPrefix[MAXFILENAME];
+          if (prefix == NULL) {
+             sprintf(newPrefix, "%s", component);
+          }
           sprintf(newPrefix, "%s/%s", prefix, component);
           expandWildcard(newPrefix, suffix);
           return;
-        expandWildcard(newPrefix, suffix);
     }
 
 }
