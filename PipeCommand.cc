@@ -509,10 +509,10 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                     }
                     char newPrefix[MAXFILENAME];
                     if (prefix && prefix[0]) {
-                      snprintf(newPrefix, MAXFILENAME, "%s/%s", prefix, ent->d_name);
+                      sprintf(newPrefix, "%s/%s", prefix, ent->d_name);
                     }
                     else {
-                      snprintf(newPrefix, MAXFILENAME, "%s", ent->d_name);
+                      sprintf(newPrefix, "%s", ent->d_name);
                     }
                     expandWildcard(newPrefix, suffix);
                 }
@@ -520,11 +520,6 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
         }
         } else { //component does not contain any wildcarding characters
           char newPrefix[MAXFILENAME];
-          /*if (prefix[0] != '\0') {
-            snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix, component);
-          } else {
-            strncpy(newPrefix, component, sizeof(newPrefix));
-          }*/
           sprintf(newPrefix, "%s/%s", prefix, component);
           expandWildcard(newPrefix, suffix);
           return;
