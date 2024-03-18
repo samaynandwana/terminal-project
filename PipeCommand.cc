@@ -507,6 +507,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
 
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
+              fprintf(stderr, "null dir");
               perror("opendir");
               return;
             }
