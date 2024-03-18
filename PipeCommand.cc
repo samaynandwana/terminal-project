@@ -465,8 +465,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           }
           *r='$'; r++; *r=0;
           regex_t re;
-          char * expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
-          if (expbuf == NULL) {
+          int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+          if (expbuf != 0) {
             perror("compile");
             return;
           }
