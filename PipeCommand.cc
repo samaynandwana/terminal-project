@@ -448,10 +448,9 @@ void PipeCommand::sortArray(char **array, int nEntries) {
     }
 }
 
-/* Function for expanding a wildcard, where prefix is already expanded 
-and suffix may still contain wildcards
-*/
-void PipeCommand::expandWildcard(char *prefix, char *suffix) {
+/*Function for expanding a wildcard, where prefix is already expanded 
+and suffix may still contain wildcards*/
+void PipeCommand::expandWildcard2(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
           if (suffix[0] == 0) {
             array[nEntries] = strdup(prefix);
@@ -549,6 +548,95 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
         expandWildcard(newPrefix, suffix);
     }
 
+}
+
+void PipeCommand::expandWildcard(char *prefix, char *suffix) {
+    char safePrefix[MAXFILENAME];
+    if (prefix == NULL || prefix[0] == '\0') {
+        strcpy(safePrefix, ".");
+    } else {
+        strncpy(safePrefix, prefix, MAXFILENAME);
+        safePrefix[MAXFILENAME - 1] = '\0';
+    }
+
+    if (suffix[0] == '\0') {
+        if (nEntries == maxEntries) {
+            maxEntries *= 2;
+            array = (char **)realloc(array, maxEntries * sizeof(char *));
+            assert(array != NULL);
+        }
+        array[nEntries++] = strdup(safePrefix);
+        return;
+    }
+
+    char component[MAXFILENAME];
+    char *s = strchr(suffix, '/');
+    if (s != NULL) {
+        strncpy(component, suffix, s - suffix);
+        component[s - suffix] = '\0';
+        suffix = s + 1;
+    } else {
+        strcpy(component, suffix);
+        suffix += strlen(suffix);
+    }
+
+    if (strchr(component, '*') != NULL || strchr(component, '?') != NULL) {
+        char *reg = (char *)malloc(2 * strlen(component) + 10);
+        char *a = component, *r = reg;
+        *r++ = '^';
+        while (*a) {
+            if (*a == '*') { *r++ = '.'; *r++ = '*'; }
+            else if (*a == '?') { *r++ = '.'; }
+            else if (*a == '.') { *r++ = '\\'; *r++ = '.'; }
+            else { *r++ = *a; }
+            a++;
+        }
+        *r++ = '$'; *r = '\0';
+
+        regex_t re;
+        if (regcomp(&re, reg, REG_EXTENDED | REG_NOSUB) != 0) {
+            perror("compile");
+            free(reg);
+            return;
+        }
+
+        DIR *dir = opendir(safePrefix);
+        if (dir == NULL) {
+            perror("opendir");
+            free(reg);
+            regfree(&re);
+            return;
+        }
+
+        struct dirent *ent;
+        while ((ent = readdir(dir)) != NULL) {
+            if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
+                char newPrefix[MAXFILENAME];
+                if (strcmp(safePrefix, ".") != 0) {
+                    snprintf(newPrefix, MAXFILENAME, "%s/%s", safePrefix, ent->d_name);
+                } else {
+                    strncpy(newPrefix, ent->d_name, MAXFILENAME);
+                }
+                newPrefix[MAXFILENAME - 1] = '\0';
+
+                expandWildcard(newPrefix, suffix);
+            }
+        }
+
+        closedir(dir);
+        free(reg);
+        regfree(&re);
+    } else {
+        char newPrefix[MAXFILENAME];
+        if (strcmp(safePrefix, ".") != 0) {
+            snprintf(newPrefix, MAXFILENAME, "%s/%s", safePrefix, component);
+        } else {
+            strncpy(newPrefix, component, MAXFILENAME);
+        }
+        newPrefix[MAXFILENAME - 1] = '\0';
+
+        expandWildcard(newPrefix, suffix);
+    }
 }
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
