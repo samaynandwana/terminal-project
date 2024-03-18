@@ -472,10 +472,6 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           }
           //if the component contains wildcard characters that we need to expand
           if (strchr(component, '*') != NULL || strchr(component, '?') != NULL) {
-            if (!prefix && component[0] == '/') {
-              fprintf(stderr, "added /");
-              prefix = strdup("/");
-            }
             //regex computation
             char * reg = (char*)malloc(2*strlen(component)+10);
             const char * a = component;
