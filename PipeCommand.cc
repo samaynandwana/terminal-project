@@ -37,7 +37,7 @@
 #include <dirent.h>
 #include <algorithm>
 #include <cassert>
-
+#define MAXFILENAME 1024
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
     _simpleCommands = std::vector<SimpleCommand *>();
@@ -452,8 +452,14 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 and suffix may still contain wildcards
 */
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
+          if (suffix[0] == 0) {
+            array[nEntries] = strdup(prefix);
+            nEntries++;
+            return;
+          }
           char * reg = (char*)malloc(2*strlen(suffix)+10);
-          const char * a = suffix;
+          //const char * a = suffix;
+          char * a = strchr(suffix, '/');
           char * r = reg;
           *r = '^'; r++; // match beginning of line
           while (*a) {
