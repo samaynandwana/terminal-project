@@ -520,12 +520,14 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
         }
         } else { //component does not contain any wildcarding characters
           char newPrefix[MAXFILENAME];
-          if (prefix[0] != '\0') {
+          /*if (prefix[0] != '\0') {
             snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix, component);
           } else {
             strncpy(newPrefix, component, sizeof(newPrefix));
-          }
+          }*/
+          sprintf(newPrefix, "%s/%s", prefix, component);
           expandWildcard(newPrefix, suffix);
+          return;
     }
 
 }
