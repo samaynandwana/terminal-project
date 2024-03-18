@@ -470,7 +470,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             suffix = suffix + strlen(suffix);
           }
           if (strchr(component, '*') != NULL || strchr(component, '?') != NULL) {
-          char * reg = (char*)malloc(2*strlen(component)+10);
+          //char * reg = (char*)malloc(2*strlen(component)+10);
+          char reg[2 * strlen(component) + 10];
           const char * a = component;
           char * r = reg;
           *r = '^'; r++; // match beginning of line
@@ -503,7 +504,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           nEntries = 0;
           regmatch_t match;
           array = (char **) malloc(maxEntries*sizeof(char *));
-          while ((ent = readdir(dir)) != NULL) {
+          /*while ((ent = readdir(dir)) != NULL) {
             if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
               if (nEntries == maxEntries) {
                 maxEntries *= 2;
@@ -522,7 +523,23 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                 }
               }
             }
-          closedir(dir);
+          closedir(dir);*/
+          while ((ent = readdir(dir)) != NULL) {
+            if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
+                if (ent->d_name[0] != '.' || component[0] == '.') {
+                    if (nEntries == maxEntries) {
+                        maxEntries *= 2;
+                        array = (char **)realloc(array, maxEntries * sizeof(char *));
+                        assert(array != NULL);
+                    }
+                    char newPrefix[MAXFILENAME];
+                    if (prefix && prefix[0]) snprintf(newPrefix, MAXFILENAME, "%s/%s", prefix, ent->d_name);
+                    else snprintf(newPrefix, MAXFILENAME, "%s", ent->d_name);
+
+                    expandWildcard(newPrefix, suffix);
+                }
+            }
+        }
      } else {
         char newPrefix[MAXFILENAME];
         if (prefix[0] != '\0') {
