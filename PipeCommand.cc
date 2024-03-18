@@ -474,6 +474,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           if (strchr(component, '*') != NULL || strchr(component, '?') != NULL) {
             if (!prefix && component[0] == '/') {
               prefix = strdup("/");
+              component++;
             }
             //regex computation
             char * reg = (char*)malloc(2*strlen(component)+10);
