@@ -518,6 +518,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                     else {
                       sprintf(newPrefix, "%s", ent->d_name);
                     }
+                    fprintf(stderr, "if:%s\n", suffix);
                     expandWildcard(newPrefix, suffix);
                 }
             }
@@ -529,6 +530,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           } else {
              sprintf(newPrefix, "%s/%s", prefix, component);
           }
+          fprintf(stderr, "else:%s\n", suffix);
           expandWildcard(newPrefix, suffix);
           return;
     }
