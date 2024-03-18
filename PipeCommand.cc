@@ -457,6 +457,10 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
             nEntries++;
+            if (nEntries >= maxEntries) {
+              maxEntries *= 2;
+              array = (char **)realloc(array, maxEntries * sizeof(char*));
+            }
             return;
           }
           //modify suffix based on subpaths
