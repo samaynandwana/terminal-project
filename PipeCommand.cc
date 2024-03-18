@@ -454,6 +454,7 @@ and suffix may still contain wildcards
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
           if (suffix[0] == 0) {
+            fprintf(stderr, "here");
             array[nEntries] = strdup(prefix);
             nEntries++;
             return;
