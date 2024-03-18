@@ -454,7 +454,6 @@ and suffix may still contain wildcards
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
           if (suffix[0] == 0) {
-            fprintf(stderr, "here");
             array[nEntries] = strdup(prefix);
             nEntries++;
             return;
@@ -464,6 +463,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           char component[MAXFILENAME];
           if (s != NULL) { //copy up to '/'
             strncpy(component, suffix, s - suffix);
+            component[s - suffix] = '\0';
             suffix = s + 1;
           } else { //whole thing
             strcpy(component, suffix);
