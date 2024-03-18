@@ -523,7 +523,15 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
               }
             }
           closedir(dir);
-     }
+     } else {
+        char newPrefix[MAXFILENAME];
+        if (prefix[0] != '\0') {
+            snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix, component);
+        } else {
+            strncpy(newPrefix, component, sizeof(newPrefix));
+        }
+        expandWildcard(newPrefix, suffix);
+    }
 
 }
 // Expands environment vars and wildcards of a SimpleCommand and
