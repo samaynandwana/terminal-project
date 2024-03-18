@@ -507,10 +507,9 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             nEntries = 0;
             array = (char **) malloc(maxEntries*sizeof(char *));
             while ((ent = readdir(dir)) != NULL) {
+              fprintf(stderr, "%s\n", ent->d_name);
               if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
-                 char newPrefix[MAXFILENAME];
-                 sprintf(newPrefix, "%s/%s", prefix, ent->d_name);
-                /*if (ent->d_name[0] != '.' || component[0] == '.') {
+                if (ent->d_name[0] != '.' || component[0] == '.') {
                   if (nEntries == maxEntries) {
                         maxEntries *= 2;
                         array = (char **)realloc(array, maxEntries * sizeof(char *));
@@ -524,11 +523,6 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                       sprintf(newPrefix, "%s", ent->d_name);
                     }
                     expandWildcard(newPrefix, suffix);
-                }*/
-                if (reg[1] == '.' && ent->d_name[0] != '.') {
-                  expandWildcard(newPrefix, suffix);
-                } else if (reg[1] != '.') {
-                  expandWildcard(newPrefix, suffix);
                 }
 
             }
