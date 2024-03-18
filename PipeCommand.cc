@@ -472,6 +472,9 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           }
           //if the component contains wildcard characters that we need to expand
           if (strchr(component, '*') != NULL || strchr(component, '?') != NULL) {
+            if (!prefix && component[0] == '/') {
+              prefix = strdup("/");
+            }
             //regex computation
             char * reg = (char*)malloc(2*strlen(component)+10);
             const char * a = component;
@@ -494,11 +497,9 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             }
             //open the directory
             const char *dirPath = strdup((prefix)?prefix:".");
-            //const char *dirPath = (prefix && prefix[0]) ? prefix : ".";
 
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
-              fprintf(stderr, "null dir");
               perror("opendir");
               return;
             }
