@@ -452,10 +452,21 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 and suffix may still contain wildcards
 */
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
+          //recursion base case when the whole thing is expanded
           if (suffix[0] == 0) {
             array[nEntries] = strdup(prefix);
             nEntries++;
             return;
+          }
+          //modify suffix based on subpaths
+          char * s = strchr(suffix, '/');
+          char component[MAXFILENAME];
+          if (s != NULL) { //copy up to '/'
+            strncpy(component, suffix, s - suffix);
+            suffix = s + 1;
+          } else { //whole thing
+            strcpy(component, suffix);
+            suffix = suffix + strlen(suffix);
           }
           char * reg = (char*)malloc(2*strlen(suffix)+10);
           const char * a = suffix;
