@@ -494,7 +494,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             }
             //open the directory
             const char *dirPath = strdup((prefix)?prefix:".");
-            fprintf(stderr, "%s\n", dirPath);
+            //fprintf(stderr, "%s\n", dirPath);
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
               return;
