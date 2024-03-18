@@ -497,8 +497,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
 
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
-              //fprintf(stderr, "%s\n", dirPath);
-              //perror("opendir");
+              fprintf(stderr, "%s\n", dirPath);
+              perror("opendir");
               return;
             }
             struct dirent *ent;
