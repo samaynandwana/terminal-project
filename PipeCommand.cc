@@ -495,11 +495,11 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             //open the directory
             const char *dirPath = strdup((prefix)?prefix:".");
 
-              fprintf(stderr, "%s\n", dirPath);
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
-              //fprintf(stderr, "%s\n", dirPath);
+              /*fprintf(stderr, "%s\n", dirPath);
               perror("opendir");
+              return;*/
               return;
             }
             struct dirent *ent;
@@ -507,7 +507,6 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             nEntries = 0;
             array = (char **) malloc(maxEntries*sizeof(char *));
             while ((ent = readdir(dir)) != NULL) {
-              fprintf(stderr, "%s\n", ent->d_name);
               if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
                 if (ent->d_name[0] != '.' || component[0] == '.') {
                   if (nEntries == maxEntries) {
@@ -524,7 +523,6 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                     }
                     expandWildcard(newPrefix, suffix);
                 }
-
             }
         }
         } else { //component does not contain any wildcarding characters
