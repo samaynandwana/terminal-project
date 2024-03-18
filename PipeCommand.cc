@@ -500,8 +500,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
               return;
             }
             struct dirent *ent;
-            //maxEntries = 20;
-            //nEntries = 0;
+            maxEntries = 20;
+            nEntries = 0;
             array = (char **) malloc(maxEntries*sizeof(char *));
             while ((ent = readdir(dir)) != NULL) {
               if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
