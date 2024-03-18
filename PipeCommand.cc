@@ -453,12 +453,10 @@ and suffix may still contain wildcards
 */
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
-          int matchCount = 0;
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
             nEntries++;
-            matchCount++;
             return;
           }
           //modify suffix based on subpaths
@@ -496,7 +494,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             }
             //open the directory
             const char *dirPath = strdup((prefix)?prefix:".");
-            //fprintf(stderr, "%s\n", dirPath);
+
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
               return;
@@ -511,7 +509,6 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                   if (nEntries == maxEntries) {
                         maxEntries *= 2;
                         array = (char **)realloc(array, maxEntries * sizeof(char *));
-                        matchCount++;
                         assert(array != NULL);
                     }
                     char newPrefix[MAXFILENAME];
@@ -533,9 +530,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
              sprintf(newPrefix, "%s/%s", prefix, component);
           }
           expandWildcard(newPrefix, suffix);
-    }
-    if (matchCount == 0) {
-      fprintf(stderr, suffix);
+          return;
     }
 
 }
