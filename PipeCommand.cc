@@ -505,7 +505,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                 assert(array != NULL);
               }
               if (ent->d_name[0] == '.') {
-                if (suffix[0] == '.') {
+                if (component[0] == '.') {
                   array[nEntries] = strdup(ent->d_name);
                   nEntries++;
 
