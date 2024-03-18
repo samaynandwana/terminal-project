@@ -493,7 +493,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
               return;
             }
             //open the directory
-            const char *dirPath = strdup((prefix)?prefix:".");
+            //const char *dirPath = strdup((prefix)?prefix:".");
+            const char *dirPath = (prefix && prefix[0]) ? prefix : ".";
 
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
