@@ -469,8 +469,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             strcpy(component, suffix);
             suffix = suffix + strlen(suffix);
           }
-          char * reg = (char*)malloc(2*strlen(suffix)+10);
-          const char * a = suffix;
+          char * reg = (char*)malloc(2*strlen(component)+10);
+          const char * a = component;
           char * r = reg;
           *r = '^'; r++; // match beginning of line
           while (*a) {
