@@ -453,9 +453,6 @@ and suffix may still contain wildcards
 */
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
-            maxEntries = 20;
-            nEntries = 0;
-            array = (char **) malloc(maxEntries*sizeof(char *));
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
@@ -503,6 +500,9 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
               return;
             }
             struct dirent *ent;
+            maxEntries = 20;
+            nEntries = 0;
+            array = (char **) malloc(maxEntries*sizeof(char *));
             while ((ent = readdir(dir)) != NULL) {
               if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
                 if (ent->d_name[0] != '.' || component[0] == '.') {
