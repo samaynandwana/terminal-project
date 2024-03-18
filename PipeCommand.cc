@@ -453,26 +453,11 @@ and suffix may still contain wildcards
 */
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
-          /*if (suffix[0] == 0) {
+          if (suffix[0] == 0) {
             array[nEntries] = strdup(prefix);
             nEntries++;
             return;
-          }*/
-    char safePrefix[MAXFILENAME] = "";
-    if (prefix != NULL) {
-        strncpy(safePrefix, prefix, MAXFILENAME - 1);
-    }
-
-    if (suffix[0] == '\0') {
-        array[nEntries] = strdup(safePrefix);
-        nEntries++;
-        if (nEntries >= maxEntries) {
-            maxEntries *= 2;
-            array = (char **)realloc(array, maxEntries * sizeof(char *));
-            assert(array);
-        }
-        return;
-    }
+          }
           //modify suffix based on subpaths
           char * s = strchr(suffix, '/');
           char component[MAXFILENAME];
