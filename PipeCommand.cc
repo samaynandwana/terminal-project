@@ -489,6 +489,11 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             return;
           }
           DIR *dir = opendir(".");
+          if (prefix[0] != '\0') {
+            dir = opendir(prefix);
+          } else {
+            dir = opendir(".");
+          }
           if (dir == NULL) {
             perror("opendir");
             return;
