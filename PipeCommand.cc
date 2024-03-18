@@ -512,7 +512,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                         assert(array != NULL);
                     }
                     char newPrefix[MAXFILENAME];
-                    if (prefix && *prefix) {
+                    if (prefix && prefix[0]) {
                       sprintf(newPrefix, "%s/%s", prefix, ent->d_name);
                     }
                     else {
