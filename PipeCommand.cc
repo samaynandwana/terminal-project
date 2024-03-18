@@ -453,17 +453,6 @@ and suffix may still contain wildcards
 */
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
-          if (suffix[0] == '\0') {
-        array[nEntries++] = strdup(prefix ? prefix : ".");
-        if (nEntries >= maxEntries) {
-            maxEntries *= 2;
-            array = (char **)realloc(array, maxEntries * sizeof(char*));
-            assert(array);
-        }
-        return;
-    }
-
-    char component[MAXFILENAME] = {0};
           if (suffix[0] == 0) {
             array[nEntries] = strdup(prefix);
             nEntries++;
@@ -471,7 +460,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           }
           //modify suffix based on subpaths
           char * s = strchr(suffix, '/');
-          //char component[MAXFILENAME];
+          char component[MAXFILENAME];
           if (s != NULL) { //copy up to '/'
             strncpy(component, suffix, s - suffix);
             component[s - suffix] = '\0';
@@ -514,6 +503,26 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           nEntries = 0;
           regmatch_t match;
           array = (char **) malloc(maxEntries*sizeof(char *));
+          /*while ((ent = readdir(dir)) != NULL) {
+            if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
+              if (nEntries == maxEntries) {
+                maxEntries *= 2;
+                array = (char **)realloc(array, maxEntries*sizeof(char *));
+                assert(array != NULL);
+              }
+              if (ent->d_name[0] == '.') {
+                if (component[0] == '.') {
+                  array[nEntries] = strdup(ent->d_name);
+                  nEntries++;
+
+                }
+              } else {
+                 array[nEntries] = strdup(ent->d_name);
+                 nEntries++;
+                }
+              }
+            }
+          closedir(dir);*/
           while ((ent = readdir(dir)) != NULL) {
             if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
                 if (ent->d_name[0] != '.' || component[0] == '.') {
