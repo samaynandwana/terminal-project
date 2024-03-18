@@ -469,84 +469,63 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             strcpy(component, suffix);
             suffix = suffix + strlen(suffix);
           }
+          //if the component contains wildcard characters that we need to expand
           if (strchr(component, '*') != NULL || strchr(component, '?') != NULL) {
-          char * reg = (char*)malloc(2*strlen(component)+10);
-          const char * a = component;
-          char * r = reg;
-          *r = '^'; r++; // match beginning of line
-          while (*a) {
-            if (*a == '*') { *r='.'; r++; *r='*'; r++; }
-            else if (*a == '?') { *r='.'; r++;}
-            else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
-            else { *r=*a; r++;}
-            a++;
-          }
-          *r='$'; r++; *r=0;
-          regex_t re;
-          int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
-          if (expbuf != 0) {
-            perror("compile");
-            return;
-          }
-          DIR *dir = opendir(".");
-          /*if (prefix[0] != '\0') {
-            dir = opendir(prefix);
-          } else {
-            dir = opendir(".");
-          }*/
-          if (dir == NULL) {
-            perror("opendir");
-            return;
-          }
-          struct dirent *ent;
-          maxEntries = 20;
-          nEntries = 0;
-          regmatch_t match;
-          array = (char **) malloc(maxEntries*sizeof(char *));
-          /*while ((ent = readdir(dir)) != NULL) {
-            if (regexec(&re, ent->d_name, 1, &match, 0) == 0) {
-              if (nEntries == maxEntries) {
-                maxEntries *= 2;
-                array = (char **)realloc(array, maxEntries*sizeof(char *));
-                assert(array != NULL);
-              }
-              if (ent->d_name[0] == '.') {
-                if (component[0] == '.') {
-                  array[nEntries] = strdup(ent->d_name);
-                  nEntries++;
-
-                }
-              } else {
-                 array[nEntries] = strdup(ent->d_name);
-                 nEntries++;
-                }
-              }
+            char * reg = (char*)malloc(2*strlen(component)+10);
+            const char * a = component;
+            char * r = reg;
+            *r = '^'; r++; // match beginning of line
+            while (*a) {
+              if (*a == '*') { *r='.'; r++; *r='*'; r++; }
+              else if (*a == '?') { *r='.'; r++;}
+              else if (*a == '.') { *r='\\'; r++; *r='.'; r++;}
+              else { *r=*a; r++;}
+              a++;
             }
-          closedir(dir);*/
-          while ((ent = readdir(dir)) != NULL) {
-            if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
+            *r='$'; r++; *r=0;
+            regex_t re;
+            int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
+            if (expbuf != 0) {
+              perror("compile");
+              return;
+            }
+            DIR *dir = opendir(".");
+            if (dir == NULL) {
+              perror("opendir");
+              return;
+            }
+            struct dirent *ent;
+            maxEntries = 20;
+            nEntries = 0;
+            regmatch_t match;
+            array = (char **) malloc(maxEntries*sizeof(char *));
+            while ((ent = readdir(dir)) != NULL) {
+              if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
                 if (ent->d_name[0] != '.' || component[0] == '.') {
-                    if (nEntries == maxEntries) {
+                  if (nEntries == maxEntries) {
                         maxEntries *= 2;
                         array = (char **)realloc(array, maxEntries * sizeof(char *));
                         assert(array != NULL);
                     }
                     char newPrefix[MAXFILENAME];
-                    if (prefix && prefix[0]) snprintf(newPrefix, MAXFILENAME, "%s/%s", prefix, ent->d_name);
-                    else snprintf(newPrefix, MAXFILENAME, "%s", ent->d_name);
-
+                    if (prefix && prefix[0]) {
+                      snprintf(newPrefix, MAXFILENAME, "%s/%s", prefix, ent->d_name);
+                    }
+                    else {
+                      snprintf(newPrefix, MAXFILENAME, "%s", ent->d_name);
+                    }
                     expandWildcard(newPrefix, suffix);
                 }
             }
         }
-     } else {
-        char newPrefix[MAXFILENAME];
-        if (prefix[0] != '\0') {
+        } else { //component does not contain any wildcarding characters
+          char newPrefix[MAXFILENAME];
+          if (prefix[0] != '\0') {
             snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix, component);
-        } else {
+          } else {
             strncpy(newPrefix, component, sizeof(newPrefix));
-        }
-        expandWildcard(newPrefix, suffix);
+          }
+          expandWildcard(newPrefix, suffix);
     }
 
 }
