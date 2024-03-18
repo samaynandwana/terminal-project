@@ -461,7 +461,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           }
           //modify suffix based on subpaths
           char * s = strchr(suffix, '/');
-          char component[MAXFILENAME];
+          //char component[MAXFILENAME];
+          char *component;
           if (s != NULL) { //copy up to '/'
             strncpy(component, suffix, s - suffix);
             component[s - suffix] = '\0';
