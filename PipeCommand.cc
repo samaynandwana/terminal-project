@@ -503,7 +503,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
               return;
             }
             //open the directory
-            const char *dirPath = (prefix && *prefix) ? prefix : ".";
+            const char *dirPath = strdup((prefix)?prefix:".");
 
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
