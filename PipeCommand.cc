@@ -452,11 +452,6 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 and suffix may still contain wildcards
 */
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
-          char dirPath[MAXFILENAME] = ".";
-          if (prefix && prefix[0] != '\0') {
-            strncpy(dirPath, prefix, MAXFILENAME);
-          }
-          dirPath[MAXFILENAME - 1] = '\0';
           //recursion base case when the whole thing is expanded
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
@@ -498,7 +493,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
               return;
             }
             //open the directory
-            //const char *dirPath = strdup((prefix)?prefix:".");
+            const char *dirPath = strdup((prefix)?prefix:".");
             //const char *dirPath = (prefix && prefix[0]) ? prefix : ".";
 
             DIR *dir = opendir(dirPath);
