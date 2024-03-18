@@ -448,8 +448,9 @@ void PipeCommand::sortArray(char **array, int nEntries) {
     }
 }
 
-//Function for expanding a wildcard, where prefix is already expanded
-//and suffix may still contain wildcards
+/* Function for expanding a wildcard, where prefix is already expanded 
+and suffix may still contain wildcards
+*/
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           char * reg = (char*)malloc(2*strlen(suffix)+10);
           const char * a = suffix;
