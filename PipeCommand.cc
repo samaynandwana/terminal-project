@@ -469,6 +469,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             strcpy(component, suffix);
             suffix = suffix + strlen(suffix);
           }
+          if (strchr(component, '*') != NULL || strchr(component, '?') != NULL) {
           char * reg = (char*)malloc(2*strlen(component)+10);
           const char * a = component;
           char * r = reg;
@@ -517,6 +518,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
               }
             }
           closedir(dir);
+     }
 
 }
 // Expands environment vars and wildcards of a SimpleCommand and
