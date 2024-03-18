@@ -453,7 +453,7 @@ and suffix may still contain wildcards
 */
 void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
-          if (suffix[0] == 0) {
+          if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
             nEntries++;
