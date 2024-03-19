@@ -144,7 +144,7 @@ void PipeCommand::execute() {
     }
     //fdin will contain -1 if file did not exist, so return error as follows
     if (fdin == -1) {
-      fprintf(stderr,"/bin/sh: 1: cannot open %s: No such file\n", _inFile->c_str()); 
+      //fprintf(stderr,"/bin/sh: 1: cannot open %s: No such file\n", _inFile->c_str()); 
       clear();
       return;
     }
