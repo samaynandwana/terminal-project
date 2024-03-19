@@ -213,20 +213,20 @@ void PipeCommand::execute() {
           char *dir = getenv("HOME");
           chdir(dir);
         }
-        continue;
+        break;
       }
       //implementation for setenv, set an environment variable with C's setenv function
       extern char ** environ;
       //child process create with fork
             if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
         setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
-        continue;
+        break;
         //exit(0);
       }
       //implementation for unsetenv, unset a passed in environment variable
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")) {
         unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
-        continue;
+        break;
       }
       //Tilde Expansion
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
