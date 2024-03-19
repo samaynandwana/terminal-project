@@ -347,7 +347,9 @@ void PipeCommand::execute() {
               _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
               fprintf(stderr, "%d\n", nEntries);
               sortArray(array, nEntries);
-
+              if (nEntries == 0) {
+                _simpleCommands[i]->insertArgument(new std::string(arg.c_str()));
+              }
               for (int b = 0; b < nEntries; b++) {
                 _simpleCommands[i]->insertArgument(new std::string(array[b]));
               }
@@ -504,7 +506,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
             }
             struct dirent *ent;
             maxEntries = 20;
-            //nEntries = 0;
+            nEntries = 0;
             array = (char **) malloc(maxEntries*sizeof(char *));
             while ((ent = readdir(dir)) != NULL) {
               if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
