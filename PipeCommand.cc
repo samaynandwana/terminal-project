@@ -350,8 +350,8 @@ void PipeCommand::execute() {
                 _simpleCommands[i]->insertArgument(new std::string(array[b]));
               }*/
               int b = 0;
-              while (array != '\0') {
-                _simpleCommands[i]->_insertArgument(new std::string(array[b]));
+              while (array[b] != '\0') {
+                _simpleCommands[i]->insertArgument(new std::string(array[b]));
                 b++;
               }
             }
