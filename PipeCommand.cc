@@ -455,6 +455,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           //recursion base case when the whole thing is expanded
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
+            fprintf(stderr, "reached");
             array[nEntries] = strdup(prefix ? prefix : ".");
             nEntries++;
             return;
