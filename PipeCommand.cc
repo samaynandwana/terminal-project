@@ -346,7 +346,7 @@ void PipeCommand::execute() {
               expandWildcard(NULL, (char *) arg.c_str());
               _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
               sortArray(array, nEntries);
-              for (int b = 0; b < nEntries; b++) {
+              for (int b = 0; b < array.size(); b++) {
                 _simpleCommands[i]->insertArgument(new std::string(array[b]));
               }
             }
@@ -456,7 +456,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
-            fprintf(stderr, "%s\n", array[nEntries]);
+            //fprintf(stderr, "%s\n", array[nEntries]);
             nEntries++;
             return;
           }
