@@ -456,8 +456,13 @@ void PipeCommand::sortArray(char **array, int nEntries) {
 /* Function for expanding a wildcard, where prefix is already expanded 
 and suffix may still contain wildcards
 */
-void PipeCommand::expandWildcard(char *prefix, char *suffix) {
+void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) {
           //recursion base case when the whole thing is expanded
+          if (first) {
+            maxEntries = 20;
+            nEntries = 0;
+            array = (char **) malloc(maxEntries*sizeof(char *));
+          }
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
@@ -506,9 +511,6 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
               return;
             }
             struct dirent *ent;
-            maxEntries = 20;
-            nEntries = 0;
-            array = (char **) malloc(maxEntries*sizeof(char *));
             while ((ent = readdir(dir)) != NULL) {
               if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
                 if (ent->d_name[0] != '.' || component[0] == '.') {
@@ -524,7 +526,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
                     else {
                       sprintf(newPrefix, "%s", ent->d_name);
                     }
-                    expandWildcard(newPrefix, suffix);
+                    expandWildcard(newPrefix, suffix, false);
                 }
             }
         }
@@ -535,7 +537,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           } else {
              sprintf(newPrefix, "%s/%s", prefix, component);
           }
-          expandWildcard(newPrefix, suffix);
+          expandWildcard(newPrefix, suffix, false);
           return;
     }
 
