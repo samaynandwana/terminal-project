@@ -150,6 +150,19 @@ void PipeCommand::execute() {
     int ret;
     int fdout;
     int fderr;
+      dup2(fderr, 2);
+      close(fderr);
+    if (_errFile) {
+          if (append_err) {
+            fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0777);
+          } else {
+            fderr = open(_errFile->c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0777);
+          }
+
+        } else {
+          fderr = dup(tmperr);
+        }
+
     //loop through the vector of simple commands
     for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
       dup2(fdin, 0);
@@ -167,7 +180,7 @@ void PipeCommand::execute() {
           fdout = dup(tmpout);
         }
         //open the error file and also check the append and error conditions
-        if (_errFile) {
+       /* if (_errFile) {
           if (append_err) {
             fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0777);
           } else {
@@ -176,7 +189,7 @@ void PipeCommand::execute() {
 
         } else {
           fderr = dup(tmperr);
-        }
+        }*/
       //not last argument, proceed with piping
       } else {
         int fdpipe[2];
@@ -188,8 +201,8 @@ void PipeCommand::execute() {
       //close file descriptors
       dup2(fdout, 1);
       close(fdout);
-      dup2(fderr, 2);
-      close(fderr);
+      /*dup2(fderr, 2);
+      close(fderr);*/
       //implementation of CD
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
         if (_simpleCommands[0]->_arguments[1]) {
