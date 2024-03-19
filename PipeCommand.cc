@@ -343,7 +343,7 @@ void PipeCommand::execute() {
             if ((arg.find('*') == std::string::npos && arg.find('?') == std::string::npos)) {
               continue;
             } else {
-              expandWildcard(NULL, (char *) arg.c_str());
+              expandWildcard(NULL, (char *) arg.c_str(), true);
               _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
               //fprintf(stderr, "%d\n", nEntries);
               //fprintf(stderr, "CHECK:%s\n", array[6]);
