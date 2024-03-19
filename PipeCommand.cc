@@ -345,7 +345,7 @@ void PipeCommand::execute() {
             } else {
               expandWildcard(NULL, (char *) arg.c_str());
               _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
-              fprintf(stderr, "%d\n", nEntries);
+              //fprintf(stderr, "%d\n", nEntries);
               sortArray(array, nEntries);
               if (nEntries == 0) {
                 _simpleCommands[i]->insertArgument(new std::string(arg.c_str()));
