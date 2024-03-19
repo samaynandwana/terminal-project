@@ -364,7 +364,7 @@ void PipeCommand::execute() {
       args[_simpleCommands[i]->_arguments.size()] = NULL;
 
       //Environment Variable Expansion
-      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+      /*for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           //parsing to see if there is an env variable
           std::size_t start_pos = arg.find("${");
@@ -397,7 +397,39 @@ void PipeCommand::execute() {
               start_pos = arg.find("${", start_pos + copy.length());
             }
           }
-      }
+      }*/
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+    std::string& arg = *_simpleCommands[i]->_arguments[j];
+    std::size_t start_pos = arg.find("${");
+    while (start_pos != std::string::npos) {
+        std::size_t end_pos = arg.find("}", start_pos);
+        if (end_pos != std::string::npos) {
+            std::string envVarName = arg.substr(start_pos + 2, end_pos - start_pos - 2);
+            std::string replacement;
+            if (envVarName == "SHELL") {
+                char *path = realpath("../lab3-src/shell", NULL);
+                replacement = path ? path : "";
+                free(path);
+            } else if (envVarName == "$") {
+                replacement = std::to_string(getpid());
+            } else if (envVarName == "_") {
+                replacement = Shell::TheShell->glob;
+            } else if (envVarName == "!") {
+                replacement = std::to_string(Shell::TheShell->pid_background);
+            } else if (envVarName == "?") {
+                replacement = std::to_string(Shell::TheShell->return_last_exit);
+            } else {
+                char *env_val = getenv(envVarName.c_str());
+                replacement = env_val ? env_val : "";
+            }
+            arg.replace(start_pos, end_pos - start_pos + 1, replacement);
+            start_pos = arg.find("${", start_pos + replacement.length());
+        } else {
+            start_pos = arg.find("${", start_pos + 1);
+        }
+    }
+}
+
 
 
       ret = fork();
