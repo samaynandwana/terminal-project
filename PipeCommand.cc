@@ -346,8 +346,13 @@ void PipeCommand::execute() {
               expandWildcard(NULL, (char *) arg.c_str());
               _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
               sortArray(array, nEntries);
-              for (int b = 0; b < array.size(); b++) {
+              /*for (int b = 0; b < nEntries; b++) {
                 _simpleCommands[i]->insertArgument(new std::string(array[b]));
+              }*/
+              int b = 0;
+              while (array != '\0') {
+                _simpleCommands[i]->_insertArgument(new std::string(array[b]));
+                b++;
               }
             }
           }
