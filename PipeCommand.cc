@@ -436,7 +436,7 @@ void PipeCommand::execute() {
         }
     }
     newArg += arg.substr(lastPos);
-    _simpleCommands[i]->_arguments[j] = newArg;
+    _simpleCommands[i]->insertArgument(new std::string(newArg));
 }
 
 
