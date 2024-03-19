@@ -460,7 +460,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
-            //fprintf(stderr, "%s\n", array[nEntries]);
+            fprintf(stderr, "%s\n", array[nEntries]);
             nEntries++;
             return;
           }
