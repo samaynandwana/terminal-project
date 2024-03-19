@@ -110,8 +110,8 @@ void PipeCommand::print() {
             _background?"YES":"NO");
     printf( "\n\n" );
 }
-int maxEntries = 20;
-int nEntries = 0;
+int maxEntries;
+int nEntries;
 char ** array;
 void PipeCommand::execute() {
     // Don't do anything if there are no simple commands
