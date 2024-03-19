@@ -353,7 +353,6 @@ void PipeCommand::execute() {
               for (int b = 0; b < nEntries; b++) {
                 _simpleCommands[i]->insertArgument(new std::string(array[b]));
               }
-              free(array);
             }
           }
       }
