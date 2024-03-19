@@ -151,19 +151,18 @@ void PipeCommand::execute() {
     int ret;
     int fdout;
     int fderr;
+    //open the error file and also check the append and error conditions
     if (_errFile) {
-          if (append_err) {
-            fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0777);
-          } else {
-            fderr = open(_errFile->c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0777);
-          }
-
-        } else {
-          fderr = dup(tmperr);
-        }
-
-      dup2(fderr, 2);
-      close(fderr);
+      if (append_err) {
+        fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0777);
+      } else {
+        fderr = open(_errFile->c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0777);
+      }
+      } else {
+        fderr = dup(tmperr);
+    }
+    dup2(fderr, 2);
+    close(fderr);
     //loop through the vector of simple commands
     for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
       dup2(fdin, 0);
@@ -180,17 +179,6 @@ void PipeCommand::execute() {
         } else {
           fdout = dup(tmpout);
         }
-        //open the error file and also check the append and error conditions
-       /* if (_errFile) {
-          if (append_err) {
-            fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0777);
-          } else {
-            fderr = open(_errFile->c_str(), O_CREAT | O_TRUNC | O_WRONLY, 0777);
-          }
-
-        } else {
-          fderr = dup(tmperr);
-        }*/
       //not last argument, proceed with piping
       } else {
         int fdpipe[2];
@@ -202,8 +190,8 @@ void PipeCommand::execute() {
       //close file descriptors
       dup2(fdout, 1);
       close(fdout);
-      /*dup2(fderr, 2);
-      close(fderr);*/
+
+
       //implementation of CD
       if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
         if (_simpleCommands[0]->_arguments[1]) {
@@ -243,7 +231,6 @@ void PipeCommand::execute() {
       //Tilde Expansion
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
-          //fprintf(stderr, "Arg:%s\n", arg.c_str());
           //check if there is a tilde
           if (arg[0] == '~') {
             //case where nothing is specified, expand to current user's home
@@ -359,8 +346,6 @@ void PipeCommand::execute() {
             } else {
               expandWildcard(NULL, (char *) arg.c_str(), true);
               _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
-              //fprintf(stderr, "%d\n", nEntries);
-              //fprintf(stderr, "CHECK:%s\n", array[6]);
               sortArray(array, nEntries);
               if (nEntries == 0) {
                 _simpleCommands[i]->insertArgument(new std::string(arg.c_str()));
