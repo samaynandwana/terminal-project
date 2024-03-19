@@ -500,7 +500,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             //compiling the regex
             int expbuf = regcomp(&re, reg, REG_EXTENDED|REG_NOSUB);
             if (expbuf != 0) {
-              perror("compile");
+              //perror("compile");
               return;
             }
             //open the directory
