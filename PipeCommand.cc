@@ -393,6 +393,7 @@ void PipeCommand::execute() {
               }
               //update the starting position
               std::string copy = envv.c_str();
+              fprintf(stderr, env.c_str());
               start_pos = arg.find("${", start_pos + copy.length());
             }
           }
