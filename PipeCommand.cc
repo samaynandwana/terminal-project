@@ -456,8 +456,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix) {
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
-            nEntries++;
             fprintf(stderr, "%s\n", array[nEntries]);
+            nEntries++;
             return;
           }
           //modify suffix based on subpaths
