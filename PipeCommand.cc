@@ -146,12 +146,11 @@ void PipeCommand::execute() {
     if (fdin == -1) {
       fprintf(stderr,"/bin/sh: 1: cannot open %s: No such file\n", _inFile->c_str()); 
       clear();
+      return;
     }
     int ret;
     int fdout;
     int fderr;
-      dup2(fderr, 2);
-      close(fderr);
     if (_errFile) {
           if (append_err) {
             fderr = open(_errFile->c_str(), O_APPEND | O_WRONLY, 0777);
@@ -163,6 +162,8 @@ void PipeCommand::execute() {
           fderr = dup(tmperr);
         }
 
+      dup2(fderr, 2);
+      close(fderr);
     //loop through the vector of simple commands
     for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
       dup2(fdin, 0);
