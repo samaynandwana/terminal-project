@@ -268,11 +268,11 @@ void PipeCommand::execute() {
         std::string& str = *_simpleCommands[i]->_arguments[k];
         //parsing for the $() case
         if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
-            str = str.substr(2, str.length() - 1);
+            str = str.substr(2, str.length() - 3);
             modify = true;
         //parsing for the '' case
         } else if (str.front() == '\'' && str.back() == '\'') {
-            str = str.substr(2, str.length() - 1);
+            str = str.substr(2, str.length() - 3);
             modify = true;
         } else {
             continue;
