@@ -352,6 +352,13 @@ void PipeCommand::execute() {
               }
               for (int b = 0; b < nEntries; b++) {
                  std::string* app = new std::string(array[b]);
+                 if (!app->empty() && (*app)[0] == '/') {
+                     *app = app->substr(1);
+                 }
+                  else if (app->size() >= 2 && (*app)[0] == '.' && (*app)[1] == '/') {
+                    *app = app->substr(2);
+                  }
+
                 _simpleCommands[i]->insertArgument(app);
               }
             }
@@ -468,10 +475,10 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             nEntries = 0;
             array = (char **) malloc(maxEntries*sizeof(char *));
             //first = false;
-            /*if (prefix == NULL) {
+            if (prefix == NULL) {
               prefix = (suffix && suffix[0] == '/') ? strdup("/") : strdup(".");
               suffix = (suffix && suffix[0] == '/') ? suffix + 1 : suffix;
-            }*/
+            }
           }
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
