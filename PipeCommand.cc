@@ -190,6 +190,48 @@ void PipeCommand::execute() {
       //close file descriptors
       dup2(fdout, 1);
       close(fdout);
+ //Environment Variable Expansion
+      bool replace = false;
+      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
+          std::string& arg = *_simpleCommands[i]->_arguments[j];
+          //parsing to see if there is an env variable
+          std::size_t start_pos = arg.find("${");
+          while (start_pos != std::string::npos) {
+            std::size_t end_pos = arg.find("}", start_pos);
+            if (end_pos != std::string::npos) {
+              //get the contents of the env variable
+              std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
+              char *env_val = getenv(envv.c_str());
+              //Special cases for expansion
+              if (!strcmp(envv.c_str(), "SHELL")) {
+                char *path = realpath("../lab3-src/shell", NULL);
+                args[j] = path;
+              } else if (!strcmp(envv.c_str(), "$")) {
+                args[j] = (std::to_string(getpid())).c_str();
+              } else if (!strcmp(envv.c_str(), "_")) {
+                args[j] = Shell::TheShell->glob.c_str();
+              } else if (!strcmp(envv.c_str(), "!")) {
+                args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
+              } else if (!strcmp(envv.c_str(), "?")) {
+                args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
+              } else {
+                //base case for expansion
+                if (env_val != NULL) {
+                  //args[j] = env_val;
+                  replace = true;
+                  arg.replace(start_pos, end_pos - start_pos + 1, env_val);
+                }
+              }
+              //update the starting position
+              std::string copy = envv.c_str();
+              start_pos = arg.find("${", start_pos + copy.length());
+            }
+            if (replace) {
+              args[j] = arg.c_str();
+            }
+          }
+      }
+
 
 
       //implementation of CD
@@ -362,49 +404,7 @@ void PipeCommand::execute() {
       }
       args[_simpleCommands[i]->_arguments.size()] = NULL;
 
-      //Environment Variable Expansion
-      bool replace = false;
-      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          std::string& arg = *_simpleCommands[i]->_arguments[j];
-          //parsing to see if there is an env variable
-          std::size_t start_pos = arg.find("${");
-          while (start_pos != std::string::npos) {
-            std::size_t end_pos = arg.find("}", start_pos);
-            if (end_pos != std::string::npos) {
-              //get the contents of the env variable
-              std::string envv = arg.substr(start_pos + 2, end_pos - start_pos - 2);
-              char *env_val = getenv(envv.c_str());
-              //Special cases for expansion
-              if (!strcmp(envv.c_str(), "SHELL")) {
-                char *path = realpath("../lab3-src/shell", NULL);
-                args[j] = path;
-              } else if (!strcmp(envv.c_str(), "$")) {
-                args[j] = (std::to_string(getpid())).c_str();
-              } else if (!strcmp(envv.c_str(), "_")) {
-                args[j] = Shell::TheShell->glob.c_str();
-              } else if (!strcmp(envv.c_str(), "!")) {
-                args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
-              } else if (!strcmp(envv.c_str(), "?")) {
-                args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
-              } else {
-                //base case for expansion
-                if (env_val != NULL) {
-                  //args[j] = env_val;
-                  replace = true;
-                  arg.replace(start_pos, end_pos - start_pos + 1, env_val);
-                }
-              }
-              //update the starting position
-              std::string copy = envv.c_str();
-              start_pos = arg.find("${", start_pos + copy.length());
-            }
-            if (replace) {
-              args[j] = arg.c_str();
-            }
-          }
-      }
-
-      ret = fork();
+          ret = fork();
       if (ret == 0) {
         std::vector<char *> env_arg;
         //print env implementation
