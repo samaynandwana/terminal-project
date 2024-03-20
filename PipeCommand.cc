@@ -467,10 +467,10 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             nEntries = 0;
             array = (char **) malloc(maxEntries*sizeof(char *));
             //first = false;
-            /*if (prefix == NULL) {
+            if (prefix == NULL) {
               prefix = (suffix && suffix[0] == '/') ? strdup("/") : strdup(".");
               suffix = (suffix && suffix[0] == '/') ? suffix + 1 : suffix;
-            }*/
+            }
           }
           if (suffix[0] == '\0') {
             //array[nEntries] = strdup(prefix);
