@@ -551,12 +551,12 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
           char newPrefix[MAXFILENAME];
 if (prefix && strcmp(prefix, "/") == 0) {
     if (prefix[strlen(prefix) - 1] == '/') {
-        snprintf(newPrefix, sizeof(newPrefix), "%s%s", prefix, ent->d_name); // Root directory
+        snprintf(newPrefix, sizeof(newPrefix), "%s%s", prefix, component); // Root directory
     } else {
-        snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix, ent->d_name);
+        snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix, component);
     }
 } else {
-    snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix ? prefix : ".", ent->d_name);
+    snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix ? prefix : ".", component);
 }
 
 expandWildcard(newPrefix, suffix, false);
