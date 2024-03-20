@@ -351,7 +351,7 @@ void PipeCommand::execute() {
                 _simpleCommands[i]->insertArgument(new std::string(arg.c_str()));
               }
               for (int b = 0; b < nEntries; b++) {
-                 std::string* app = array[b];
+                 std::string* app = new std::string(array[b]);
                 _simpleCommands[i]->insertArgument(app);
               }
             }
