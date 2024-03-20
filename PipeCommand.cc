@@ -221,7 +221,6 @@ void PipeCommand::execute() {
             if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
         setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
         break;
-        //exit(0);
       }
       //implementation for unsetenv, unset a passed in environment variable
       if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")) {
@@ -397,7 +396,6 @@ void PipeCommand::execute() {
               } else {
                 //base case for expansion
                 if (env_val != NULL) {
-                  //args[j] = env_val;
                   replace = true;
                   arg.replace(start_pos, end_pos - start_pos + 1, env_val);
                 }
@@ -439,6 +437,7 @@ void PipeCommand::execute() {
     close(tmpout);
     close(tmperr);
 
+    //background processes
     if (!_background) {
       int i;
       waitpid(ret, &i, 0);
@@ -452,6 +451,8 @@ void PipeCommand::execute() {
     // Print new prompt
     //Shell::TheShell->prompt();
 }
+
+//Helper Function for sorting an Array used in Wildcard Expansion
 void PipeCommand::sortArray(char **array, int nEntries) {
     int i, j;
     for (i = 0; i < nEntries - 1; i++) {
@@ -474,16 +475,13 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             maxEntries = 20;
             nEntries = 0;
             array = (char **) malloc(maxEntries*sizeof(char *));
-            //first = false;
             if (prefix == NULL) {
               prefix = (suffix && suffix[0] == '/') ? strdup("/") : strdup(".");
               suffix = (suffix && suffix[0] == '/') ? suffix + 1 : suffix;
             }
           }
           if (suffix[0] == '\0') {
-            //array[nEntries] = strdup(prefix);
             array[nEntries] = strdup(prefix ? prefix : ".");
-            //fprintf(stderr, "%s\n", array[nEntries]);
             nEntries++;
             return;
           }
@@ -505,6 +503,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             const char * a = component;
             char * r = reg;
             *r = '^'; r++; // match beginning of line
+            //compute the regex
             while (*a) {
               if (*a == '*') { *r='.'; r++; *r='*'; r++; }
               else if (*a == '?') { *r='.'; r++;}
@@ -527,6 +526,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             if (dir == NULL) {
               return;
             }
+            //checking for matches based on computed regex
             struct dirent *ent;
             while ((ent = readdir(dir)) != NULL) {
               if (regexec(&re, ent->d_name, 0, NULL, 0) == 0) {
