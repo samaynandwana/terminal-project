@@ -363,6 +363,7 @@ void PipeCommand::execute() {
       args[_simpleCommands[i]->_arguments.size()] = NULL;
 
       //Environment Variable Expansion
+      bool replace = false;
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           //parsing to see if there is an env variable
@@ -388,12 +389,17 @@ void PipeCommand::execute() {
               } else {
                 //base case for expansion
                 if (env_val != NULL) {
-                  args[j] = env_val;
+                  //args[j] = env_val;
+                  replace = true;
+                  arg.replace(start_pos, end_pos - start_pos + 1, env_val);
                 }
               }
               //update the starting position
               std::string copy = envv.c_str();
               start_pos = arg.find("${", start_pos + copy.length());
+            }
+            if (replace) {
+              args[j] = arg.c_str();
             }
           }
       }
