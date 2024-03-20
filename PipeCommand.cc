@@ -541,13 +541,25 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             }
         }
         } else { //component does not contain any wildcarding characters
-          char newPrefix[MAXFILENAME];
+          /*char newPrefix[MAXFILENAME];
           if (prefix == NULL) {
              sprintf(newPrefix, "%s", component);
           } else {
              sprintf(newPrefix, "%s/%s", prefix, component);
           }
-          expandWildcard(newPrefix, suffix, false);
+          expandWildcard(newPrefix, suffix, false);*/
+          char newPrefix[MAXFILENAME];
+if (prefix && strcmp(prefix, "/") == 0) {
+    if (prefix[strlen(prefix) - 1] == '/') {
+        snprintf(newPrefix, sizeof(newPrefix), "%s%s", prefix, ent->d_name); // Root directory
+    } else {
+        snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix, ent->d_name);
+    }
+} else {
+    snprintf(newPrefix, sizeof(newPrefix), "%s/%s", prefix ? prefix : ".", ent->d_name);
+}
+
+expandWildcard(newPrefix, suffix, false);
           return;
     }
 
