@@ -19,6 +19,7 @@ IfCommand::IfCommand() {
 // Run condition with command "test" and return the exit value.
 int
 IfCommand::runTest(SimpleCommand * condition) {
+    print();
     condition->print();
     return 1;
 }
