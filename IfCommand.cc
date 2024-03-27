@@ -66,8 +66,8 @@ int IfCommand::runTest(SimpleCommand * condition) {
         close(pin[0]);
         close(pout[1]);*/
         const char ** args = (const char **) malloc ((condition->_arguments.size() + 2)*sizeof(char*));
-        for (unsigned long j = 1; j < condition->_arguments.size(); j++) {
-          args[j] = condition->_arguments[j]->c_str();
+        for (unsigned long j = 0; j < condition->_arguments.size(); j++) {
+          args[j + 1] = condition->_arguments[j]->c_str();
         }
         std::string first = "test";
         args[0] = first.c_str();
