@@ -188,6 +188,7 @@ if_command:
 
 while_command:
     WHILE LBRACKET {
+
       Shell::TheShell->_level++;
       Shell::TheShell->_ifCommand = new IfCommand();
 

@@ -11,7 +11,7 @@ class IfCommand : public Command {
 public:
   SimpleCommand * _condition;
   ListCommands * _listCommands; 
-
+  bool isWhile;
   IfCommand();
   void insertCondition( SimpleCommand * condition );
   void insertListCommands( ListCommands * listCommands);
