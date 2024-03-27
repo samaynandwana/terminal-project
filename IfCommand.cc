@@ -67,7 +67,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
         close(pout[1]);*/
         const char ** args = (const char **) malloc ((condition->_arguments.size() + 2)*sizeof(char*));
         for (unsigned long j = 1; j < condition->_arguments.size(); j++) {
-          args[j] = condition>_arguments[j]->c_str();
+          args[j] = condition->_arguments[j]->c_str();
         }
         std::string first = "test";
         args[0] = first.c_str();
@@ -97,7 +97,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
             close(pout[0]);
             return 1;
         }*/
-        close(pout[0]);
+        //close(pout[0]);
         int ans = WEXITSTATUS(status);
         fprintf(stderr, "STATUS:%d\n", ans);
         return ans;
