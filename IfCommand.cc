@@ -93,10 +93,10 @@ int IfCommand::runTest(SimpleCommand * condition) {
         // fprintf(stderr, "status: %d\n", status);
 
         if (WIFEXITED(status)) {
-            close(pout[0]);
+            // close(pout[0]);
             return WEXITSTATUS(status);
         } else {
-            close(pout[0]);
+            // close(pout[0]);
             return 1;
         }
         //close(pout[0]);
