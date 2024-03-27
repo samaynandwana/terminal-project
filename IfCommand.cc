@@ -27,7 +27,7 @@ IfCommand::runTest(SimpleCommand * condition) {
     }
     int ret = fork();
     if (ret < 0) {
-      perror("fork);
+      perror("fork");
       return 1;
     } else if (ret == 0) {
       execvp("test", args.data());
@@ -35,7 +35,7 @@ IfCommand::runTest(SimpleCommand * condition) {
       exit(1);
     } else {
         int status;
-        waitpid(pid, &status, 0);
+        waitpid(ret, &status, 0);
         if (WIFEXITED(status)) {
             return WEXITSTATUS(status);
         } else {
