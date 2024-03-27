@@ -80,13 +80,15 @@ int IfCommand::runTest(SimpleCommand * condition) {
         int status;
         waitpid(ret, &status, 0);
 
-        if (WIFEXITED(status)) {
+        /*if (WIFEXITED(status)) {
             close(pout[0]);
             return WEXITSTATUS(status);
         } else {
             close(pout[0]);
             return 1;
-        }
+        }*/
+        close(pout[0]);
+        return WEXITSTATUS(status);
     }
 }
 
