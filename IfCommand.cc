@@ -88,7 +88,9 @@ int IfCommand::runTest(SimpleCommand * condition) {
             return 1;
         }*/
         close(pout[0]);
-        return WEXITSTATUS(status);
+        int ans = WEXITSTATUS(status);
+        fprintf(stderr, "STATUS:%d\n", ans);
+        return ans;
     }
 }
 
