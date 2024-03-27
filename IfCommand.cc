@@ -5,7 +5,7 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
+#include <iostream>
 #include "Command.hh"
 #include "SimpleCommand.hh"
 #include "IfCommand.hh"
