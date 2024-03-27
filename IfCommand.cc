@@ -75,7 +75,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
 
         const char** iter = args;
         while (*iter != NULL) {
-          fprintf(stderr, "arg: %s\n", *iter);
+          //fprintf(stderr, "arg: %s\n", *iter);
           iter++;
         }
 
