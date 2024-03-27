@@ -49,7 +49,7 @@ IfCommand::runTest(SimpleCommand * condition) {
     }
 }*/
 int IfCommand::runTest(SimpleCommand * condition) {
-    std::string commandLine = "test";
+    std::string line = "test";
 
     for (std::string* arg : condition->_arguments) {
         line += " " + *arg;
