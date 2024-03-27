@@ -24,8 +24,17 @@ IfCommand::IfCommand() {
 int IfCommand::runTest(SimpleCommand * condition) {
     
     std::string *commandLine = new std::string("test");
+        bool foundTest = false;
+
     //condition->_arguments.insert(condition->_arguments.begin(), commandLine);
-     if (condition->_arguments.empty() || *(condition->_arguments.front()) != "test") {
+    for (auto &arg : condition->_arguments) {
+        if (*arg == "test") {
+            foundTest = true;
+            break;
+        }
+    }
+
+    if (!foundTest) {
         std::string *commandLine = new std::string("test");
         condition->_arguments.insert(condition->_arguments.begin(), commandLine);
     }
