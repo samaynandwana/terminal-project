@@ -73,7 +73,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
         args[0] = first.c_str();
         args[condition->_arguments.size() + 1] = NULL;
 
-        char** iter = args;
+        const char** iter = args;
         while (*iter != NULL) {
           fprintf(stderr, "arg: %s\n", *iter);
           iter++;
