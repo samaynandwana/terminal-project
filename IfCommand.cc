@@ -90,6 +90,8 @@ int IfCommand::runTest(SimpleCommand * condition) {
         int status;
         waitpid(ret, &status, 0);
 
+        fprintf(stderr, "status & 0xff: %d\n", status & 0xff);
+
         /*if (WIFEXITED(status)) {
             close(pout[0]);
             return WEXITSTATUS(status);
