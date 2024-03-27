@@ -25,6 +25,7 @@ IfCommand::runTest(SimpleCommand * condition) {
     for (std::string* arg : condition->_arguments) {
       args.push_back(const_cast<char*>(arg->c_str()));
     }
+    args.push_back(nullptr);
     int ret = fork();
     if (ret < 0) {
       perror("fork");
