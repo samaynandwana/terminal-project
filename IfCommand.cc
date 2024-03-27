@@ -25,8 +25,10 @@ int IfCommand::runTest(SimpleCommand * condition) {
         commandLine += " " + *arg;
     }
     commandLine += "\n";
-
-    int ret = fork();
+    PipeCommand* pipe = new PipeCommand();
+    pipe->insertCommand(condition);
+    pipe->execute();
+    /*int ret = fork();
     if (ret == 0) {
         const char ** args = (const char **) malloc ((condition->_arguments.size() + 2)*sizeof(char*));
         for (unsigned long j = 0; j < condition->_arguments.size(); j++) {
@@ -46,7 +48,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
         } else {
             return 1;
         }
-    }
+    }*/
 }
 
 
