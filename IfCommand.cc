@@ -56,7 +56,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
         commandLine += " " + *arg;
     }
 
-    char *args[] = {"/bin/sh", "-c", const_cast<char*>(commandLine.c_str()), nullptr};
+    char *args[] = {"/proc/self/exe", "-c", const_cast<char*>(commandLine.c_str()), nullptr};
 
     int ret = fork();
     if (ret < 0) {
