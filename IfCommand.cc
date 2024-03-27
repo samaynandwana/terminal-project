@@ -22,11 +22,13 @@ IfCommand::IfCommand() {
 
 
 int IfCommand::runTest(SimpleCommand * condition) {
-    std::string commandLine = "test";
-    for (std::string* arg : condition->_arguments) {
+    
+    std::string *commandLine = new std::string("test");
+    condition->_arguments.insert(condition->_arguments.begin(), commandLine);
+    /*for (std::string* arg : condition->_arguments) {
         commandLine += " " + *arg;
     }
-    commandLine += "\n";
+    commandLine += "\n";*/
     PipeCommand* pipe = new PipeCommand();
     pipe->insertSimpleCommand(condition);
     pipe->execute();
