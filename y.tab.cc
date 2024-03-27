@@ -1351,9 +1351,9 @@ yyreduce:
   case 32: /* $@4: %empty  */
 #line 190 "shell.y"
                    {
-
       Shell::TheShell->_level++;
       Shell::TheShell->_ifCommand = new IfCommand();
+      Shell:TheShell->_isWhile = true;
 
     }
 #line 1360 "y.tab.cc"

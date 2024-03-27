@@ -190,7 +190,7 @@ while_command:
     WHILE LBRACKET {
       Shell::TheShell->_level++;
       Shell::TheShell->_ifCommand = new IfCommand();
-      Shell:TheShell->_isWhile = true;
+      Shell::TheShell->_isWhile = true;
 
     } arg_list RBRACKET SEMI DO {
 Shell::TheShell->_ifCommand->insertCondition( 
