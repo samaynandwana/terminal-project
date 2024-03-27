@@ -19,35 +19,6 @@ IfCommand::IfCommand() {
 // Run condition with command "test" and return the exit value.
 
 
-/*int
-IfCommand::runTest(SimpleCommand * condition) {
-    /*condition->print();
-    return 1;*/
-    /*std::vector<char*> args;
-    for (std::string* arg : condition->_arguments) {
-      args.push_back(const_cast<char*>(arg->c_str()));
-    }
-    args.push_back(nullptr);
-    int ret = fork();
-    if (ret < 0) {
-      perror("fork");
-      return 1;
-    } else if (ret == 0) {
-      execvp("test", args.data());
-      perror("execvp");
-      exit(1);
-    } else {
-        int status;
-        waitpid(ret, &status, 0);
-        if (WIFEXITED(status)) {
-            fprintf(stderr, "W STATUS:%d\n", WEXITSTATUS(status));
-            return WEXITSTATUS(status);
-        } else {
-            fprintf(stderr, "reached return 1\n");
-            return 1;
-        }
-    }
-}*/
 /*int IfCommand::runTest(SimpleCommand * condition) {
     std::string line = "test";
 
