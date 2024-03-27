@@ -87,22 +87,22 @@ int IfCommand::runTest(SimpleCommand * condition) {
         close(pin[1]);
 
         close(pout[1]);*/
-        int status;
-        waitpid(ret, &status, 0);
+        // int status;
+        // waitpid(ret, &status, 0);
 
-        fprintf(stderr, "status: %d\n", status);
+        // fprintf(stderr, "status: %d\n", status);
 
-        /*if (WIFEXITED(status)) {
+        if (WIFEXITED(status)) {
             close(pout[0]);
             return WEXITSTATUS(status);
         } else {
             close(pout[0]);
             return 1;
-        }*/
+        }
         //close(pout[0]);
-        int ans = WEXITSTATUS(status);
-        fprintf(stderr, "STATUS:%d\n", ans);
-        return ans;
+        // int ans = WEXITSTATUS(status);
+        // fprintf(stderr, "STATUS:%d\n", ans);
+        // return ans;
     }
 }
 
