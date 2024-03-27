@@ -25,7 +25,7 @@ IfCommand::runTest(SimpleCommand * condition) {
     for (std::string* arg : condition->_arguments) {
       args.push_back(const_cast<char*>(arg->c_str()));
     }
-    //args.push_back(nullptr);
+    args.push_back(nullptr);
     int ret = fork();
     if (ret < 0) {
       perror("fork");
@@ -38,8 +38,10 @@ IfCommand::runTest(SimpleCommand * condition) {
         int status;
         waitpid(ret, &status, 0);
         if (WIFEXITED(status)) {
+            fprintf(stderr, "W STATUS:%s\n", WEXITSTATUS(status);
             return WEXITSTATUS(status);
         } else {
+            fprintf(stderr, "reached return 1\n");
             return 1;
         }
     }
