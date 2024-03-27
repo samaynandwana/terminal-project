@@ -8,6 +8,7 @@
 #include <iostream>
 #include "Command.hh"
 #include "SimpleCommand.hh"
+#include "PipeCommand.hh"
 #include "IfCommand.hh"
 
 IfCommand::IfCommand() {
