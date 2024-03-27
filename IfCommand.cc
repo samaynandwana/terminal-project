@@ -17,11 +17,13 @@ IfCommand::IfCommand() {
 
 
 // Run condition with command "test" and return the exit value.
-int
+
+
+/*int
 IfCommand::runTest(SimpleCommand * condition) {
     /*condition->print();
     return 1;*/
-    std::vector<char*> args;
+    /*std::vector<char*> args;
     for (std::string* arg : condition->_arguments) {
       args.push_back(const_cast<char*>(arg->c_str()));
     }
@@ -45,7 +47,36 @@ IfCommand::runTest(SimpleCommand * condition) {
             return 1;
         }
     }
+}*/
+int IfCommand::runTest(SimpleCommand * condition) {
+    std::string commandLine = "test";
+
+
+    for (std::string* arg : condition->_arguments) {
+        commandLine += " " + *arg;
+    }
+
+    char *args[] = {"/bin/sh", "-c", const_cast<char*>(commandLine.c_str()), nullptr};
+
+    int ret = fork();
+    if (ret < 0) {
+        perror("fork");
+        return 1;
+    } else if (ret == 0) {
+        execvp(args[0], args);
+        perror("execvp");
+        exit(1);
+    } else {
+        int status;
+        waitpid(ret, &status, 0);
+        if (WIFEXITED(status)) {
+            return WEXITSTATUS(status);
+        } else {
+            return 1;
+        }
+    }
 }
+
 
 void 
 IfCommand::insertCondition( SimpleCommand * condition ) {
