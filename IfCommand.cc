@@ -10,6 +10,7 @@
 #include "SimpleCommand.hh"
 #include "PipeCommand.hh"
 #include "IfCommand.hh"
+#include "Shell.hh"
 
 IfCommand::IfCommand() {
     _condition = NULL;
@@ -29,6 +30,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
     PipeCommand* pipe = new PipeCommand();
     pipe->insertSimpleCommand(condition);
     pipe->execute();
+    return Shell::TheShell->return_last_exit;
     /*int ret = fork();
     if (ret == 0) {
         const char ** args = (const char **) malloc ((condition->_arguments.size() + 2)*sizeof(char*));
