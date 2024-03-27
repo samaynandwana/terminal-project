@@ -1353,7 +1353,7 @@ yyreduce:
                    {
       Shell::TheShell->_level++;
       Shell::TheShell->_ifCommand = new IfCommand();
-      Shell:TheShell->_isWhile = true;
+      Shell::TheShell->_isWhile = true;
 
     }
 #line 1360 "y.tab.cc"
