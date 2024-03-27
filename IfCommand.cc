@@ -87,7 +87,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
         close(pin[1]);
 
         close(pout[1]);*/
-        // int status;
+        int status;
         // waitpid(ret, &status, 0);
 
         // fprintf(stderr, "status: %d\n", status);
