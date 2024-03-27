@@ -71,7 +71,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
         perror("execvp");
         _exit(1);
     } else {
-        fprintf(stderr, "%s\n", commandLine.c_str());
+        //fprintf(stderr, "%s\n", commandLine.c_str());
         write(pin[1], commandLine.c_str(), commandLine.size());
         close(pin[0]);
         close(pin[1]);
