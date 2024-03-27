@@ -75,6 +75,11 @@ IfCommand::print() {
 void 
 IfCommand::execute() {
     // Run command if test is 0
+    if (isWhile) {
+      while(runTest(this->_condition) == 0) {
+        _listCommands->execute();
+      }
+    }
     if (runTest(this->_condition) == 0) {
 	_listCommands->execute();
     }

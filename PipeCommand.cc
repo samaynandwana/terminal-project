@@ -260,7 +260,7 @@ void PipeCommand::execute() {
                }
             }
          }
-         }
+      }
 
       //Subshell Implementation
       for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
