@@ -446,7 +446,7 @@ void PipeCommand::execute() {
       Shell::TheShell->pid_background = ret;
     }
     // Clear to prepare for next command
-    clear();
+    //clear();
 
     // Print new prompt
     //Shell::TheShell->prompt();
