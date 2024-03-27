@@ -48,7 +48,7 @@ IfCommand::runTest(SimpleCommand * condition) {
         }
     }
 }*/
-int IfCommand::runTest(SimpleCommand * condition) {
+/*int IfCommand::runTest(SimpleCommand * condition) {
     std::string line = "test";
 
     for (std::string* arg : condition->_arguments) {
@@ -71,6 +71,48 @@ int IfCommand::runTest(SimpleCommand * condition) {
         if (WIFEXITED(status)) {
             return WEXITSTATUS(status);
         } else {
+            return 1;
+        }
+    }
+}*/
+int IfCommand::runTest(SimpleCommand * condition) {
+    std::string commandLine = "test";
+    for (std::string* arg : condition->_arguments) {
+        commandLine += " " + *arg;
+    }
+    commandLine += "\n";
+
+    int pin[2], pout[2];
+    pipe(pin);
+    pipe(pout);
+
+    int ret = fork();
+    if (ret == 0) {
+        dup2(pin[0], 0);
+        dup2(pout[1], 1);
+        close(pin[1]);
+        close(pout[0]);
+        close(pin[0]);
+        close(pout[1]);
+
+        const char *argv[] = {"/proc/self/exe", NULL};
+        execvp(argv[0], (char* const*)argv);
+        perror("execvp");
+        _exit(1);
+    } else {
+        write(pin[1], commandLine.c_str(), commandLine.size());
+        close(pin[0]);
+        close(pin[1]);
+
+        close(pout[1]);
+        int status;
+        waitpid(ret, &status, 0);
+
+        if (WIFEXITED(status)) {
+            close(pout[0]);
+            return WEXITSTATUS(status);
+        } else {
+            close(pout[0]);
             return 1;
         }
     }
