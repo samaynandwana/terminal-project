@@ -147,7 +147,11 @@ command_line:
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
          }
-        | while_command SEPARATOR {printf("while\n"); }
+        | while_command SEPARATOR {printf("while\n"); 
+        Shell::TheShell->_listCommands->
+		insertCommand(Shell::TheShell->_ifCommand);
+
+        }
         | for_command SEPARATOR {printf("for\n"); }
         | SEPARATOR /*accept empty cmd line*/
         | error SEPARATOR {yyerrok; Shell::TheShell->clear(); }
