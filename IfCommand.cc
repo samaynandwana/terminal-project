@@ -27,7 +27,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
     }
     commandLine += "\n";
     PipeCommand* pipe = new PipeCommand();
-    pipe->insertCommand(condition);
+    pipe->insertSimpleCommand(condition);
     pipe->execute();
     /*int ret = fork();
     if (ret == 0) {
