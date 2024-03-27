@@ -53,30 +53,40 @@ int IfCommand::runTest(SimpleCommand * condition) {
     }
     commandLine += "\n";
 
-    int pin[2], pout[2];
+    /*int pin[2], pout[2];
     pipe(pin);
-    pipe(pout);
+    pipe(pout);*/
 
     int ret = fork();
     if (ret == 0) {
-        dup2(pin[0], 0);
+        /*dup2(pin[0], 0);
         dup2(pout[1], 1);
         close(pin[1]);
         close(pout[0]);
         close(pin[0]);
-        close(pout[1]);
+        close(pout[1]);*/
+        const char ** args = (const char **) malloc ((condition->_arguments.size() + 2)*sizeof(char*));
+        for (unsigned long j = 1; j < condition->_arguments.size(); j++) {
+          args[j] = condition>_arguments[j]->c_str();
+        }
+        std::string first = "test";
+        args[0] = first.c_str();
+        args[condition->_arguments.size()] = NULL;
 
-        const char *argv[] = {"/proc/self/exe", NULL};
+        /*const char *argv[] = {"/proc/self/exe", NULL};
+        char ** arr
         execvp(argv[0], (char* const*)argv);
         perror("execvp");
+        _exit(1);*/
+        execvp(args[0], (char* const*)args);
         _exit(1);
     } else {
         //fprintf(stderr, "%s\n", commandLine.c_str());
-        write(pin[1], commandLine.c_str(), commandLine.size());
+        /*write(pin[1], commandLine.c_str(), commandLine.size());
         close(pin[0]);
         close(pin[1]);
 
-        close(pout[1]);
+        close(pout[1]);*/
         int status;
         waitpid(ret, &status, 0);
 
