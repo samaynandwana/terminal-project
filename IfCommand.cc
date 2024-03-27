@@ -71,7 +71,13 @@ int IfCommand::runTest(SimpleCommand * condition) {
         }
         std::string first = "test";
         args[0] = first.c_str();
-        args[condition->_arguments.size()] = NULL;
+        args[condition->_arguments.size() + 1] = NULL;
+
+        char** iter = args;
+        while (*iter != NULL) {
+          fprintf(stderr, "arg: %s\n", *iter);
+          iter++;
+        }
 
         /*const char *argv[] = {"/proc/self/exe", NULL};
         char ** arr
@@ -88,7 +94,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
 
         close(pout[1]);*/
         int status;
-        // waitpid(ret, &status, 0);
+        waitpid(ret, &status, 0);
 
         // fprintf(stderr, "status: %d\n", status);
 
