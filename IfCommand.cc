@@ -76,6 +76,7 @@ void
 IfCommand::execute() {
     // Run command if test is 0
     if (isWhile) {
+      std::cerr << "Running while:\n";
       while(runTest(this->_condition) == 0) {
         _listCommands->execute();
       }
