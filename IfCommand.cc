@@ -55,7 +55,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
         line += " " + *arg;
     }
 
-    char *args[] = {"/bin/sh", "-c", const_cast<char*>(line.c_str()), nullptr};
+    char *args[] = {"/homes/snandwa/cs252/lab3-src/shell", "-c", const_cast<char*>(line.c_str()), nullptr};
 
     int ret = fork();
     if (ret < 0) {
