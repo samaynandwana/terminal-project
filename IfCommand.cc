@@ -95,7 +95,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
         close(pin[0]);
         close(pout[1]);
 
-        char *argv[] = {"/proc/self/exe", const_cast<char*>(commandLine.c_str()), nullptr};
+        const char *argv[] = {"/proc/self/exe", NULL};
         execvp(argv[0], (char* const*)argv);
         perror("execvp");
         _exit(1);
