@@ -25,8 +25,8 @@ int IfCommand::runTest(SimpleCommand * condition) {
     
     std::string *commandLine = new std::string("test");
 
-    //condition->_arguments.insert(condition->_arguments.begin(), commandLine);
-    condition->_arguments[0] = commandLine;
+    condition->_arguments.insert(condition->_arguments.begin(), commandLine);
+    //condition->_arguments[0] = commandLine;
     /*for (std::string* arg : condition->_arguments) {
         commandLine += " " + *arg;
     }
@@ -90,10 +90,10 @@ IfCommand::execute() {
         _listCommands->execute();
       }
     } 
-    //else {
+    else {
     if (runTest(this->_condition) == 0) {
 	_listCommands->execute();
-  //}
+  }
     }
 }
 
