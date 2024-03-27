@@ -38,7 +38,7 @@ IfCommand::runTest(SimpleCommand * condition) {
         int status;
         waitpid(ret, &status, 0);
         if (WIFEXITED(status)) {
-            fprintf(stderr, "W STATUS:%s\n", WEXITSTATUS(status));
+            fprintf(stderr, "W STATUS:%d\n", WEXITSTATUS(status));
             return WEXITSTATUS(status);
         } else {
             fprintf(stderr, "reached return 1\n");
