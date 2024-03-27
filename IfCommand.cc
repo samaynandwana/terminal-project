@@ -51,12 +51,11 @@ IfCommand::runTest(SimpleCommand * condition) {
 int IfCommand::runTest(SimpleCommand * condition) {
     std::string commandLine = "test";
 
-
     for (std::string* arg : condition->_arguments) {
-        commandLine += " " + *arg;
+        line += " " + *arg;
     }
 
-    char *args[] = {"/proc/self/exe", "-c", const_cast<char*>(commandLine.c_str()), nullptr};
+    char *args[] = {"/bin/sh", "-c", const_cast<char*>(line.c_str()), nullptr};
 
     int ret = fork();
     if (ret < 0) {
