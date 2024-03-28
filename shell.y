@@ -147,7 +147,7 @@ command_line:
 	    Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
          }
-        | while_command SEPARATOR {printf("while\n"); 
+        | while_command SEPARATOR {
         Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
 
