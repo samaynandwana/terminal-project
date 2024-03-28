@@ -372,16 +372,16 @@ void PipeCommand::execute() {
             }
           }
       }
-      const char ** args = (const char **) malloc ((_simpleCommands[i]->_arguments.size() + 1)*sizeof(char*));
-      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-        args[j] = _simpleCommands[i]->_arguments[j]->c_str();
+      const char ** args = (const char **) malloc ((copy->_arguments.size() + 1)*sizeof(char*));
+      for (unsigned long j = 0; j < copy->_arguments.size(); j++) {
+        args[j] = copy->_arguments[j]->c_str();
       }
-      args[_simpleCommands[i]->_arguments.size()] = NULL;
+      args[copy->_arguments.size()] = NULL;
 
       //Environment Variable Expansion
       bool replace = false;
-      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-          std::string& arg = *_simpleCommands[i]->_arguments[j];
+      for (unsigned long j = 0; j < copy->_arguments.size(); j++) {
+          std::string& arg = *copy->_arguments[j];
           //parsing to see if there is an env variable
           std::size_t start_pos = arg.find("${");
           while (start_pos != std::string::npos) {
@@ -423,7 +423,7 @@ void PipeCommand::execute() {
       if (ret == 0) {
         std::vector<char *> env_arg;
         //print env implementation
-        if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "printenv")) {
+        if (!strcmp(copy->_arguments[0]->c_str(), "printenv")) {
           char **p = environ;
           while (*p != NULL) {
             printf("%s\n", *p);
