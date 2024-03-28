@@ -194,6 +194,8 @@ if_command:
 while_command:
     WHILE LBRACKET {
       Shell::TheShell->_level++;
+      Shell::TheShell->listCommandStack.push(Shell::TheShell->_listCommands);
+      Shell::TheShell->_listCommands = new ListCommands();
       Shell::TheShell->_ifCommand = new IfCommand();
       Shell::TheShell->_ifCommand->isWhile = true;
       Shell::TheShell->ifCommandStack.push(Shell::TheShell->_ifCommand);
@@ -210,9 +212,12 @@ while_command:
       Shell::TheShell->_level--; 
       IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
       Shell::TheShell->ifCommandStack.pop();
+      ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
+      Shell::TheShell->listCommandStack.pop();
 	    Shell::TheShell->_ifCommand->insertListCommands( 
 		  Shell::TheShell->_listCommands);
 	    Shell::TheShell->_listCommands = new ListCommands();
+
 
     }
     ;
