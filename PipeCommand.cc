@@ -271,7 +271,7 @@ void PipeCommand::execute() {
             str = str.substr(2, str.length() - 3);
             modify = true;
         //parsing for the '' case
-        } else if (str.front() == '\'' && str.back() == '\'') {
+        } else if (str.front() == '\'` && str.back() == '\'`) {
             str = str.substr(2, str.length() - 3);
             modify = true;
         } else {
