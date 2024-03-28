@@ -273,6 +273,7 @@ void PipeCommand::execute() {
         //parsing for the '' case
         } else if (str.front() == '`' && str.back() == '`') {
             str = str.substr(2, str.length() - 3);
+            fprintf(stderr, "STR:%s\n", str.c_str());
             modify = true;
         } else {
             continue;
