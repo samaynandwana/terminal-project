@@ -8,6 +8,7 @@
 #include "Shell.hh"
 #include "Command.hh"
 #include <sys/wait.h>
+#include <stack>
 int yyparse(void);
 
 Shell * Shell::TheShell;
