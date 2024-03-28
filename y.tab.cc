@@ -1286,7 +1286,7 @@ yyreduce:
 
   case 23: /* command_line: while_command SEPARATOR  */
 #line 150 "shell.y"
-                                  {printf("while\n"); 
+                                  {
         Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
 
