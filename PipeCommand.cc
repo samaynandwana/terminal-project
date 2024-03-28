@@ -436,7 +436,7 @@ void PipeCommand::execute() {
         perror("execvp");
         exit(1);
       }
-      Shell::TheShell->glob = std::string(_simpleCommands[i]->_arguments.back()->c_str());
+      Shell::TheShell->glob = std::string(copy->_arguments.back()->c_str());
     }
     //close temps
     dup2(tmpin, 0);
