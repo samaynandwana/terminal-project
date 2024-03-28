@@ -316,9 +316,9 @@ void PipeCommand::execute() {
               words.push_back(word);
             }
             //pass in the arguments one by one from buffer
-            copy[i]->_arguments[k] = new std::string(words[0]);
+            copy->_arguments[k] = new std::string(words[0]);
             for (unsigned long a = 1; a < words.size(); a++) {
-                  copy[i]->insertArgument(new std::string(words[a]));
+                  copy->insertArgument(new std::string(words[a]));
 
             }
           }
