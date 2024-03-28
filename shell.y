@@ -196,18 +196,24 @@ while_command:
       Shell::TheShell->_level++;
       Shell::TheShell->_ifCommand = new IfCommand();
       Shell::TheShell->_ifCommand->isWhile = true;
+      Shell::TheShell->ifCommandStack.push(Shell::TheShell->_ifCommand);
 
     } arg_list RBRACKET SEMI DO {
 Shell::TheShell->_ifCommand->insertCondition( 
 		    Shell::TheShell->_simpleCommand);
+        IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
+        currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
 
 
     } command_list DONE{
 Shell::TheShell->_level--; 
+      IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
+        Shell::TheShell->ifCommandStack.pop();
 	    Shell::TheShell->_ifCommand->insertListCommands( 
 		    Shell::TheShell->_listCommands);
 	    Shell::TheShell->_listCommands = new ListCommands();
+      Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.empty() ? nullptr : Shell::TheShell->ifCommandStack.top();
 
     }
     ;
