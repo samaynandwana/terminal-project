@@ -166,7 +166,7 @@ void PipeCommand::execute() {
     //loop through the vector of simple commands
     for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
     SimpleCommand* copy = new SimpleCommand();
-    for (const std::string* arg : condition->_arguments) {
+    for (const std::string* arg : _simpleCommands[i]->_arguments) {
         copy->insertArgument(new std::string(*arg));
     }
       dup2(fdin, 0);
