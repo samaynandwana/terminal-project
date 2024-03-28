@@ -16,7 +16,7 @@ public:
   void insertCondition( SimpleCommand * condition );
   void insertListCommands( ListCommands * listCommands);
   static int runTest(SimpleCommand * condition);
-  SimpleCommand * deepCopySimpleCommand(const * SimpleCommand original);
+  //SimpleCommand * deepCopySimpleCommand(const * SimpleCommand original);
 
   void clear();
   void print();

@@ -20,18 +20,23 @@ IfCommand::IfCommand() {
 
 // Run condition with command "test" and return the exit value.
 
-SimpleCommand* deepCopySimpleCommand(const SimpleCommand* original) {
+/*SimpleCommand* deepCopySimpleCommand(const SimpleCommand* original) {
     SimpleCommand* copy = new SimpleCommand();
     for (const std::string* arg : original->_arguments) {
         copy->insertArgument(new std::string(*arg));
     }
     return copy;
-}
+}*/
 
 int IfCommand::runTest(SimpleCommand * condition) {
-    
-    std::string *commandLine = new std::string("test");
-
+    SimpleCommand* copy = new SimpleCommand();
+    for (const std::string* arg : condition->_arguments) {
+        copy->insertArgument(new std::string(*arg));
+    }
+    //std::string *commandLine = new std::string("test");
+    if (copy->_arguments.empty() || *copy->_arguments[0] != "test") {
+        copy->_arguments.insert(copy->_arguments.begin(), new std::string("test"));
+    }
     condition->_arguments.insert(condition->_arguments.begin(), commandLine);
     //condition->_arguments[0] = commandLine;
     /*for (std::string* arg : condition->_arguments) {
@@ -39,8 +44,9 @@ int IfCommand::runTest(SimpleCommand * condition) {
     }
     commandLine += "\n";*/
     PipeCommand* pipe = new PipeCommand();
-    pipe->insertSimpleCommand(condition);
+    pipe->insertSimpleCommand(copy);
     pipe->execute();
+    delete copy;
     return Shell::TheShell->return_last_exit;
     /*int ret = fork();
     if (ret == 0) {
