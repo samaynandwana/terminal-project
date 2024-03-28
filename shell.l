@@ -143,6 +143,7 @@ void myunputc(int c) {
 }
 
 \`[^\n]*\` {
+  fprintf(stderr, "R");
   yylval.cpp_string = new std::string(yytext);
   std::string temp(*yylval.cpp_string);
   yylval.cpp_string = new std::string(temp);
