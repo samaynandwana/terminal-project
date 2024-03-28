@@ -113,11 +113,11 @@ int main(int argc, char **argv) {
 
   //int error = sigaction(SIGCHLD, &sa_zombie, NULL); 
 
-  if (error) {
-    perror ("sigaction");
-    exit(-1);
+  //if (error) {
+  //  perror ("sigaction");
+  //  exit(-1);
 
-  }
+  //}
 
 
   yyparse();
