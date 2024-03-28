@@ -22,6 +22,7 @@ Shell::Shell() {
     this->glob = "NULL";
     this->return_last_exit = 0;
     this->pid_background = 0;
+    this->stack = NULL;
     if ( !isatty(0)) {
 	this->_enablePrompt = false;
     }
