@@ -268,11 +268,13 @@ void PipeCommand::execute() {
         std::string& str = *_simpleCommands[i]->_arguments[k];
         //parsing for the $() case
         if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
+            fprintf(stderr, "PRESTR$:%s\n", str.c_str());
             str = str.substr(2, str.length() - 3);
+            fprintf(stderr, "STR$:%s\n", str.c_str());
             modify = true;
         //parsing for the '' case
-        fprintf(stderr, "PRESTR:%s\n", str.c_str());
         } else if (str.front() == '`' && str.back() == '`') {
+            fprintf(stderr, "PRESTR:%s\n", str.c_str());
             str = str.substr(2, str.length() - 3);
             fprintf(stderr, "STR:%s\n", str.c_str());
             modify = true;
