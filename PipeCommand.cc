@@ -556,6 +556,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
                 }
             }
         }
+        closedir(dir);
         } else { //component does not contain any wildcarding characters
           char newPrefix[MAXFILENAME];
           if (prefix == NULL) {
@@ -566,7 +567,6 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
           expandWildcard(newPrefix, suffix, false);
           return;
     }
-  closedir(dir);
 }
 // Expands environment vars and wildcards of a SimpleCommand and
 // returns the arguments to pass to execvp.
