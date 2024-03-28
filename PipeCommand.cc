@@ -339,24 +339,24 @@ void PipeCommand::execute() {
 
       //Wildcarding Implementation
       bool wildcard = false;
-      for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-        std::string& arg = *_simpleCommands[i]->_arguments[j];
+      for (unsigned long j = 0; j < copy->_arguments.size(); j++) {
+        std::string& arg = *copy->_arguments[j];
         if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
           wildcard = true;
           break;
         }
       }
       if (wildcard) {
-          for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
-            std::string& arg = *_simpleCommands[i]->_arguments[j];
+          for (unsigned long j = 0; j < copy->_arguments.size(); j++) {
+            std::string& arg = *copy->_arguments[j];
             if ((arg.find('*') == std::string::npos && arg.find('?') == std::string::npos)) {
               continue;
             } else {
               expandWildcard(NULL, (char *) arg.c_str(), true);
-              _simpleCommands[i]->_arguments.erase(_simpleCommands[i]->_arguments.begin() + j);
+              copy->_arguments.erase(copy->_arguments.begin() + j);
               sortArray(array, nEntries);
               if (nEntries == 0) {
-                _simpleCommands[i]->insertArgument(new std::string(arg.c_str()));
+                copy->insertArgument(new std::string(arg.c_str()));
               }
               for (int b = 0; b < nEntries; b++) {
                  std::string* app = new std::string(array[b]);
@@ -367,7 +367,7 @@ void PipeCommand::execute() {
                     *app = app->substr(2);
                   }
 
-                _simpleCommands[i]->insertArgument(app);
+                copy->insertArgument(app);
               }
             }
           }
