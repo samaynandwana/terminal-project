@@ -197,11 +197,11 @@ void PipeCommand::execute() {
 
 
       //implementation of CD
-      if (!strcmp(copy[0]->_arguments[0]->c_str(), "cd")) {
+      if (!strcmp(copy->_arguments[0]->c_str(), "cd")) {
         if (copy->_arguments[1]) {
           int is_error = 0; //variable for storing the return of chdir
           //case for trying to cd into the expanded env variable of ${HOME}
-          if(strcmp(copy[0]->_arguments[1]->c_str(),"${HOME}") == 0) {
+          if(strcmp(copy->_arguments[1]->c_str(),"${HOME}") == 0) {
             char *dir = getenv("HOME");
             is_error = chdir(dir);
           //cd to the specified directory
