@@ -275,7 +275,7 @@ void PipeCommand::execute() {
         //parsing for the '' case
         } else if (str.front() == '`' && str.back() == '`') {
             fprintf(stderr, "PRESTR:%s\n", str.c_str());
-            str = str.substr(1, str.length() - 3);
+            str = str.substr(1, str.length() - 2);
             fprintf(stderr, "STR:%s\n", str.c_str());
             modify = true;
         } else {
