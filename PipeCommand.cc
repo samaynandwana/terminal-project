@@ -215,19 +215,7 @@ void PipeCommand::execute() {
         }
         break;
       }
-      //implementation for setenv, set an environment variable with C's setenv function
-      extern char ** environ;
-      //child process create with fork
-            if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
-        setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
-        break;
-      }
-      //implementation for unsetenv, unset a passed in environment variable
-      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")) {
-        unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
-        break;
-      }
-      //Tilde Expansion
+            //Tilde Expansion
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
           std::string& arg = *_simpleCommands[i]->_arguments[j];
           //check if there is a tilde
@@ -332,6 +320,19 @@ void PipeCommand::execute() {
           }
          }
       }
+      //implementation for setenv, set an environment variable with C's setenv function
+      extern char ** environ;
+      //child process create with fork
+            if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
+        setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
+        break;
+      }
+      //implementation for unsetenv, unset a passed in environment variable
+      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")) {
+        unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
+        break;
+      }
+
       //Wildcarding Implementation
       bool wildcard = false;
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
