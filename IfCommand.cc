@@ -20,6 +20,13 @@ IfCommand::IfCommand() {
 
 // Run condition with command "test" and return the exit value.
 
+SimpleCommand* deepCopySimpleCommand(const SimpleCommand* original) {
+    SimpleCommand* copy = new SimpleCommand();
+    for (const std::string* arg : original->_arguments) {
+        copy->insertArgument(new std::string(*arg));
+    }
+    return copy;
+}
 
 int IfCommand::runTest(SimpleCommand * condition) {
     
