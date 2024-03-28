@@ -327,13 +327,13 @@ void PipeCommand::execute() {
       //implementation for setenv, set an environment variable with C's setenv function
       extern char ** environ;
       //child process create with fork
-            if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "setenv")) {
-        setenv(_simpleCommands[i]->_arguments[1]->c_str(), _simpleCommands[i]->_arguments[2]->c_str(), 1);
+            if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
+        setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
         break;
       }
       //implementation for unsetenv, unset a passed in environment variable
-      if (!strcmp(_simpleCommands[i]->_arguments[0]->c_str(), "unsetenv")) {
-        unsetenv(_simpleCommands[i]->_arguments[1]->c_str());
+      if (!strcmp(copy->_arguments[0]->c_str(), "unsetenv")) {
+        unsetenv(copy->_arguments[1]->c_str());
         break;
       }
 
