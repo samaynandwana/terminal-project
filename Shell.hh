@@ -5,6 +5,7 @@
 #include "PipeCommand.hh"
 #include "IfCommand.hh"
 #include <string>
+#include <stack>
 
 class Shell {
 
@@ -21,6 +22,7 @@ public:
   std::string glob;
   int return_last_exit;
   int pid_background;
+  std::stack<IfCommand*> ifCommandStack;
 
   Shell();
   void execute();
