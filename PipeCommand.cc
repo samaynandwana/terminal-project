@@ -262,74 +262,7 @@ void PipeCommand::execute() {
          }
       }
 
-      //Subshell Implementation
-      for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
-        bool modify = false; //will be updated if we need to parse subshell
-        std::string& str = *_simpleCommands[i]->_arguments[k];
-        //parsing for the $() case
-        if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
-            str = str.substr(2, str.length() - 3);
-            modify = true;
-        //parsing for the '' case
-        } else if (str.front() == '`' && str.back() == '`') {
-            str = str.substr(1, str.length() - 2);
-            fprintf(stderr, "%s\n", str);
-            modify = true;
-        } else {
-            continue;
-        }
-        if (modify) {
-          //set up pipes for subshell
-          int pin[2];
-          int pout[2];
-          pipe(pin);
-          pipe(pout);
-          int sub_ret = fork(); //subshell fork call
-          if (sub_ret == 0) {
-            dup2(pin[0], 0);
-            dup2(pout[1], 1);
-            close(pin[1]);
-            close(pout[0]);
-            close(pin[0]);
-            close(pout[1]);
-            const char *argv[] = {"/proc/self/exe", NULL};
-            execvp(argv[0], (char* const*)argv); //call execvp child process
-            _exit(1); //exit the new subshell process
-          } else {
-            //read in the contents of the subshell output
-            write(pin[1], str.c_str(), str.size());
-            write(pin[1], "\n", 1);
-            close(pin[0]);
-            close(pin[1]);
-            close(pout[1]);
-            char c;
-            std::vector<char> buffer;
-            //push contents into a buffer array
-            while (read(pout[0], &c, 1) > 0) {
-              if (c == '\n') {
-                buffer.push_back(' ');
-              } else {
-                buffer.push_back(c);
-              }
-            }
-            //split the buffer array by space
-            std::string buffstr(buffer.begin(), buffer.end());
-            std::vector<std::string> words;
-            std::stringstream ss(buffstr);
-            std::string word;
-            while (ss >> word) {
-              words.push_back(word);
-            }
-            //pass in the arguments one by one from buffer
-            _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
-            for (unsigned long a = 1; a < words.size(); a++) {
-                  _simpleCommands[i]->insertArgument(new std::string(words[a]));
-
-            }
-          }
-         }
-      }
-      //Wildcarding Implementation
+            //Wildcarding Implementation
       bool wildcard = false;
       for (unsigned long j = 0; j < _simpleCommands[i]->_arguments.size(); j++) {
         std::string& arg = *_simpleCommands[i]->_arguments[j];
@@ -409,6 +342,73 @@ void PipeCommand::execute() {
               args[j] = arg.c_str();
             }
           }
+      }
+      //Subshell Implementation
+      for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
+        bool modify = false; //will be updated if we need to parse subshell
+        std::string& str = *_simpleCommands[i]->_arguments[k];
+        //parsing for the $() case
+        if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
+            str = str.substr(2, str.length() - 3);
+            modify = true;
+        //parsing for the '' case
+        } else if (str.front() == '`' && str.back() == '`') {
+            str = str.substr(1, str.length() - 2);
+            fprintf(stderr, "%s\n", str);
+            modify = true;
+        } else {
+            continue;
+        }
+        if (modify) {
+          //set up pipes for subshell
+          int pin[2];
+          int pout[2];
+          pipe(pin);
+          pipe(pout);
+          int sub_ret = fork(); //subshell fork call
+          if (sub_ret == 0) {
+            dup2(pin[0], 0);
+            dup2(pout[1], 1);
+            close(pin[1]);
+            close(pout[0]);
+            close(pin[0]);
+            close(pout[1]);
+            const char *argv[] = {"/proc/self/exe", NULL};
+            execvp(argv[0], (char* const*)argv); //call execvp child process
+            _exit(1); //exit the new subshell process
+          } else {
+            //read in the contents of the subshell output
+            write(pin[1], str.c_str(), str.size());
+            write(pin[1], "\n", 1);
+            close(pin[0]);
+            close(pin[1]);
+            close(pout[1]);
+            char c;
+            std::vector<char> buffer;
+            //push contents into a buffer array
+            while (read(pout[0], &c, 1) > 0) {
+              if (c == '\n') {
+                buffer.push_back(' ');
+              } else {
+                buffer.push_back(c);
+              }
+            }
+            //split the buffer array by space
+            std::string buffstr(buffer.begin(), buffer.end());
+            std::vector<std::string> words;
+            std::stringstream ss(buffstr);
+            std::string word;
+            while (ss >> word) {
+              words.push_back(word);
+            }
+            //pass in the arguments one by one from buffer
+            _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
+            for (unsigned long a = 1; a < words.size(); a++) {
+                  _simpleCommands[i]->insertArgument(new std::string(words[a]));
+
+            }
+          }
+         }
       }
 
       ret = fork();
