@@ -106,18 +106,18 @@ int main(int argc, char **argv) {
   }
 
   //Zombie Process Implementation
-  //struct sigaction sa_zombie;
-  //sa_zombie.sa_handler = disp_zombie;
-  //sigemptyset(&sa_zombie.sa_mask);
-  //sa_zombie.sa_flags = SA_RESTART;
+  struct sigaction sa_zombie;
+  sa_zombie.sa_handler = disp_zombie;
+  sigemptyset(&sa_zombie.sa_mask);
+  sa_zombie.sa_flags = SA_RESTART;
 
-  //int error = sigaction(SIGCHLD, &sa_zombie, NULL); 
+  int error = sigaction(SIGCHLD, &sa_zombie, NULL); 
 
-  //if (error) {
-  //  perror ("sigaction");
-  //  exit(-1);
+  if (error) {
+    perror ("sigaction");
+    exit(-1);
 
-  //}
+  }
 
 
   yyparse();
