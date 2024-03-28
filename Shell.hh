@@ -23,6 +23,7 @@ public:
   int return_last_exit;
   int pid_background;
   std::stack<IfCommand*> ifCommandStack;
+  std::stack<ListCommand*> listCommandStack;
 
   Shell();
   void execute();
