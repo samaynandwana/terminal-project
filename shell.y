@@ -213,7 +213,6 @@ Shell::TheShell->_level--;
 	    Shell::TheShell->_ifCommand->insertListCommands( 
 		    Shell::TheShell->_listCommands);
 	    Shell::TheShell->_listCommands = new ListCommands();
-      Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.empty() ? nullptr : Shell::TheShell->ifCommandStack.top();
 
     }
     ;
