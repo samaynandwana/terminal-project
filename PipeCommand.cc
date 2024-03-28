@@ -353,8 +353,8 @@ void PipeCommand::execute() {
             modify = true;
         //parsing for the '' case
         } else if (str.front() == '`' && str.back() == '`') {
-            str = str.substr(1, str.length() - 2);
-            fprintf(stderr, "%s\n", str);
+            str = str.substr(2, str.length() - 3);
+            //fprintf(stderr, "%s\n", str);
             modify = true;
         } else {
             continue;
