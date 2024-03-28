@@ -165,6 +165,10 @@ void PipeCommand::execute() {
     close(fderr);
     //loop through the vector of simple commands
     for (unsigned long i = 0; i < _simpleCommands.size(); i++) {
+    SimpleCommand* copy = new SimpleCommand();
+    for (const std::string* arg : condition->_arguments) {
+        copy->insertArgument(new std::string(*arg));
+    }
       dup2(fdin, 0);
       close(fdin);
       //last argument
@@ -193,16 +197,16 @@ void PipeCommand::execute() {
 
 
       //implementation of CD
-      if (!strcmp(_simpleCommands[0]->_arguments[0]->c_str(), "cd")) {
-        if (_simpleCommands[0]->_arguments[1]) {
+      if (!strcmp(_copy[0]->_arguments[0]->c_str(), "cd")) {
+        if (_copy[0]->_arguments[1]) {
           int is_error = 0; //variable for storing the return of chdir
           //case for trying to cd into the expanded env variable of ${HOME}
-          if(strcmp(_simpleCommands[0]->_arguments[1]->c_str(),"${HOME}") == 0) {
+          if(strcmp(_copy[0]->_arguments[1]->c_str(),"${HOME}") == 0) {
             char *dir = getenv("HOME");
             is_error = chdir(dir);
           //cd to the specified directory
           } else {
-            is_error = chdir(_simpleCommands[0]->_arguments[1]->c_str());
+            is_error = chdir(_copy[0]->_arguments[1]->c_str());
           }
           //error directory not found
           if (is_error != 0 ) {
@@ -251,9 +255,9 @@ void PipeCommand::execute() {
       }
 
       //Subshell Implementation
-      for (unsigned long k = 0; k < _simpleCommands[i]->_arguments.size(); k++) {
+      for (unsigned long k = 0; k < _copy[i]->_arguments.size(); k++) {
         bool modify = false; //will be updated if we need to parse subshell
-        std::string& str = *_simpleCommands[i]->_arguments[k];
+        std::string& str = *_copy[i]->_arguments[k];
         //parsing for the $() case
         if (str.front() == '$' && str[1] == '(' && str.back() == ')') {
             //fprintf(stderr, "PRESTR$:%s\n", str.c_str());
@@ -312,9 +316,9 @@ void PipeCommand::execute() {
               words.push_back(word);
             }
             //pass in the arguments one by one from buffer
-            _simpleCommands[i]->_arguments[k] = new std::string(words[0]);
+            copy[i]->_arguments[k] = new std::string(words[0]);
             for (unsigned long a = 1; a < words.size(); a++) {
-                  _simpleCommands[i]->insertArgument(new std::string(words[a]));
+                  copy[i]->insertArgument(new std::string(words[a]));
 
             }
           }
