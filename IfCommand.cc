@@ -84,10 +84,12 @@ IfCommand::print() {
 void 
 IfCommand::execute() {
     // Run command if test is 0
+    int count = 1;
     if (isWhile) {
       //std::cerr << "Running while:\n";
       while(runTest(this->_condition) == 0) {
         _listCommands->execute();
+        fprintf(stderr, "while executed %d times\n", count);
       }
     } 
     else {
