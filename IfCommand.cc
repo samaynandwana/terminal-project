@@ -29,7 +29,7 @@ IfCommand::IfCommand() {
 }*/
 
 int IfCommand::runTest(SimpleCommand * condition) {
-    /*SimpleCommand* copy = new SimpleCommand();
+    SimpleCommand* copy = new SimpleCommand();
     for (const std::string* arg : condition->_arguments) {
         copy->insertArgument(new std::string(*arg));
     }
@@ -40,16 +40,16 @@ int IfCommand::runTest(SimpleCommand * condition) {
     pipe->insertSimpleCommand(copy);
     pipe->execute();
     delete copy;
-    return Shell::TheShell->return_last_exit;*/
+    return Shell::TheShell->return_last_exit;
 
-    std::string *commandLine = new std::string("test");
+    /*std::string *commandLine = new std::string("test");
     condition->_arguments.insert(condition->_arguments.begin(), commandLine);
-    condition->_arguments[0] = commandLine;
+    condition->_arguments[0] = commandLine;*/
     /*for (std::string* arg : condition->_arguments) {
         commandLine += " " + *arg;
     }
     commandLine += "\n";*/
-        int ret = fork();
+    /*    int ret = fork();
     if (ret == 0) {
         const char ** args = (const char **) malloc ((condition->_arguments.size() + 2)*sizeof(char*));
         for (unsigned long j = 0; j < condition->_arguments.size(); j++) {
@@ -69,7 +69,8 @@ int IfCommand::runTest(SimpleCommand * condition) {
         } else {
             return 1;
         }
-    }
+    }*/
+
 }
 
 
