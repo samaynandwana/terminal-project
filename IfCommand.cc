@@ -101,12 +101,14 @@ IfCommand::execute() {
     // Run command if test is 0
     int count = 1;
     if (isWhile) {
+      Shell::TheShell->_level++;
       //std::cerr << "Running while:\n";
       while(runTest(this->_condition) == 0) {
         _listCommands->execute();
         //fprintf(stderr, "while executed %d times\n", count);
         //count;
       }
+      Shell::TheShell->_level--;
     } 
     else {
     if (runTest(this->_condition) == 0) {
