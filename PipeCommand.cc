@@ -254,6 +254,10 @@ void PipeCommand::execute() {
          }
       }
 
+            if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
+        setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
+        continue;
+      }
       //Subshell Implementation
       for (unsigned long k = 0; k < copy->_arguments.size(); k++) {
         bool modify = false; //will be updated if we need to parse subshell
