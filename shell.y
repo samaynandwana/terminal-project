@@ -206,11 +206,11 @@ while_command:
       //Shell::TheShell->_ifCommand = new IfCommand();
       //Shell::TheShell->_ifCommand->isWhile = true;
       Shell::TheShell->ifCommandStack.push(new IfCommand());
+      Shell::TheShell->ifCommandStack.top()->isWhile = true;
 
     } arg_list RBRACKET SEMI DO {
         //Shell::TheShell->_ifCommand->insertCondition( 
 		    //Shell::TheShell->_simpleCommand);
-        Shell::TheShell->ifCommandStack.top()->isWhile = true;
         IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
