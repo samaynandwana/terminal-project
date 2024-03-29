@@ -254,10 +254,6 @@ void PipeCommand::execute() {
          }
       }
 
-            if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
-        setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
-        continue;
-      }
       //Subshell Implementation
       for (unsigned long k = 0; k < copy->_arguments.size(); k++) {
         bool modify = false; //will be updated if we need to parse subshell
@@ -331,6 +327,10 @@ void PipeCommand::execute() {
       //implementation for setenv, set an environment variable with C's setenv function
       extern char ** environ;
       //child process create with fork
+            if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
+        setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
+        break;
+      }
       //implementation for unsetenv, unset a passed in environment variable
       if (!strcmp(copy->_arguments[0]->c_str(), "unsetenv")) {
         unsetenv(copy->_arguments[1]->c_str());
