@@ -1356,11 +1356,11 @@ yyreduce:
 #line 195 "shell.y"
                    {
       Shell::TheShell->_level++;
-      Shell::TheShell->listCommandStack.push(new ListCommand());
+      Shell::TheShell->listCommandStack.push(new ListCommands());
       //Shell::TheShell->_listCommands = new ListCommands();
       //Shell::TheShell->_ifCommand = new IfCommand();
       //Shell::TheShell->_ifCommand->isWhile = true;
-      Shell:TheShell->ifCommandStack.top()->isWhile = true;
+      Shell::TheShell->ifCommandStack.top()->isWhile = true;
       Shell::TheShell->ifCommandStack.push(new IfCommand());
 
     }

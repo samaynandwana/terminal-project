@@ -299,7 +299,7 @@ void PipeCommand::execute() {
             close(pout[1]);
             char c;
             std::vector<char> buffer;
-            /push contents into a buffer array
+            //push contents into a buffer array
             while (read(pout[0], &c, 1) > 0) {
               if (c == '\n') {
                 buffer.push_back(' ');
