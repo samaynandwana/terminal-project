@@ -329,7 +329,7 @@ void PipeCommand::execute() {
       //child process create with fork
             if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
         setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
-        break;
+        continue;
       }
       //implementation for unsetenv, unset a passed in environment variable
       if (!strcmp(copy->_arguments[0]->c_str(), "unsetenv")) {
