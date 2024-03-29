@@ -151,7 +151,7 @@ command_line:
         | while_command SEPARATOR {
             //Shell::TheShell->_listCommands->
             //insertCommand(Shell::TheShell->_ifCommand);
-
+            fprintf(stderr, "EXECUTED\n");
             IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
 
             ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
