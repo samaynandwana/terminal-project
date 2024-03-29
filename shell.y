@@ -202,31 +202,20 @@ while_command:
     WHILE LBRACKET {
       Shell::TheShell->_level++;
       Shell::TheShell->listCommandStack.push(new ListCommands());
-      //Shell::TheShell->_listCommands = new ListCommands();
-      //Shell::TheShell->_ifCommand = new IfCommand();
-      //Shell::TheShell->_ifCommand->isWhile = true;
       Shell::TheShell->ifCommandStack.push(new IfCommand());
       Shell::TheShell->ifCommandStack.top()->isWhile = true;
 
     } arg_list RBRACKET SEMI DO {
-        //Shell::TheShell->_ifCommand->insertCondition( 
-		    //Shell::TheShell->_simpleCommand);
         IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
 
-
     } command_list DONE{
       Shell::TheShell->_level--; 
       IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
-      //Shell::TheShell->ifCommandStack.pop();
       ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
       completedIfCommand->insertListCommands(completedListCommands);
       Shell::TheShell->listCommandStack.pop();
-	    //Sh/ell::TheShell->_ifCommand->insertListCommands( 
-		  //Shell::TheShell->_listCommands);
-	    //Shell::TheShell->_listCommands = new ListCommands();
-
 
     }
     ;

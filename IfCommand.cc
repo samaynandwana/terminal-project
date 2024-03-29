@@ -104,6 +104,7 @@ IfCommand::execute() {
       Shell::TheShell->_level++;
       //std::cerr << "Running while:\n";
       while(runTest(this->_condition) == 0) {
+        print();
         _listCommands->execute();
         //fprintf(stderr, "while executed %d times\n", count);
         //count;
