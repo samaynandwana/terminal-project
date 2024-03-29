@@ -1297,7 +1297,7 @@ yyreduce:
             completedListCommands->insertCommand(completedIfCommand);
             
             Shell::TheShell->ifCommandStack.pop();
-            //Shell::TheShell->listCommandStack.pop();
+            Shell::TheShell->listCommandStack.pop();
         }
 #line 1303 "y.tab.cc"
     break;
@@ -1390,7 +1390,7 @@ yyreduce:
       IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
       ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
       completedIfCommand->insertListCommands(completedListCommands);
-      Shell::TheShell->listCommandStack.pop();
+      //Shell::TheShell->listCommandStack.pop();
 
     }
 #line 1397 "y.tab.cc"
