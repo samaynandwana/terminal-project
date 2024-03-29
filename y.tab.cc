@@ -541,7 +541,7 @@ static const yytype_uint8 yyrline[] =
        0,    48,    48,    51,    53,    57,    57,    65,    71,    80,
       87,    95,   104,   111,   114,   121,   122,   126,   129,   135,
      136,   140,   146,   151,   156,   157,   158,   162,   167,   175,
-     180,   174,   195,   203,   195,   226
+     180,   174,   195,   204,   195,   228
 };
 #endif
 
@@ -1356,49 +1356,51 @@ yyreduce:
 #line 195 "shell.y"
                    {
       Shell::TheShell->_level++;
-      Shell::TheShell->listCommandStack.push(Shell::TheShell->_listCommands);
-      Shell::TheShell->_listCommands = new ListCommands();
-      Shell::TheShell->_ifCommand = new IfCommand();
-      Shell::TheShell->_ifCommand->isWhile = true;
-      Shell::TheShell->ifCommandStack.push(Shell::TheShell->_ifCommand);
+      Shell::TheShell->listCommandStack.push(new ListCommand());
+      //Shell::TheShell->_listCommands = new ListCommands();
+      //Shell::TheShell->_ifCommand = new IfCommand();
+      //Shell::TheShell->_ifCommand->isWhile = true;
+      Shell:TheShell->ifCommandStack.top()->isWhile = true;
+      Shell::TheShell->ifCommandStack.push(new IfCommand());
 
     }
-#line 1367 "y.tab.cc"
+#line 1368 "y.tab.cc"
     break;
 
   case 33: /* $@5: %empty  */
-#line 203 "shell.y"
+#line 204 "shell.y"
                                 {
-        Shell::TheShell->_ifCommand->insertCondition( 
-		    Shell::TheShell->_simpleCommand);
+        //Shell::TheShell->_ifCommand->insertCondition( 
+		    //Shell::TheShell->_simpleCommand);
         IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
 
 
     }
-#line 1381 "y.tab.cc"
+#line 1382 "y.tab.cc"
     break;
 
   case 34: /* while_command: WHILE LBRACKET $@4 arg_list RBRACKET SEMI DO $@5 command_list DONE  */
-#line 211 "shell.y"
+#line 212 "shell.y"
                        {
       Shell::TheShell->_level--; 
       IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
-      Shell::TheShell->ifCommandStack.pop();
+      //Shell::TheShell->ifCommandStack.pop();
       ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
+      completedIfCommand->insertListCommands(completedListCommands);
       Shell::TheShell->listCommandStack.pop();
-	    Shell::TheShell->_ifCommand->insertListCommands( 
-		  Shell::TheShell->_listCommands);
-	    Shell::TheShell->_listCommands = new ListCommands();
+	    //Sh/ell::TheShell->_ifCommand->insertListCommands( 
+		  //Shell::TheShell->_listCommands);
+	    //Shell::TheShell->_listCommands = new ListCommands();
 
 
     }
-#line 1398 "y.tab.cc"
+#line 1400 "y.tab.cc"
     break;
 
 
-#line 1402 "y.tab.cc"
+#line 1404 "y.tab.cc"
 
       default: break;
     }
@@ -1591,7 +1593,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 229 "shell.y"
+#line 231 "shell.y"
 
 
 void
