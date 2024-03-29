@@ -159,7 +159,7 @@ command_line:
             completedListCommands->insertCommand(completedIfCommand);
             
             Shell::TheShell->ifCommandStack.pop();
-            //Shell::TheShell->listCommandStack.pop();
+            Shell::TheShell->listCommandStack.pop();
         }
         | for_command SEPARATOR {printf("for\n"); }
         | SEPARATOR /*accept empty cmd line*/
@@ -216,7 +216,7 @@ while_command:
       IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
       ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
       completedIfCommand->insertListCommands(completedListCommands);
-      Shell::TheShell->listCommandStack.pop();
+      //Shell::TheShell->listCommandStack.pop();
 
     }
     ;
