@@ -145,13 +145,18 @@ command_line:
          }
         | if_command SEPARATOR 
          {
-	    Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_ifCommand);
+            Shell::TheShell->_listCommands->
+            insertCommand(Shell::TheShell->_ifCommand);
          }
         | while_command SEPARATOR {
-        Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_ifCommand);
+            //Shell::TheShell->_listCommands->
+            //insertCommand(Shell::TheShell->_ifCommand);
 
+            IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
+
+            ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
+
+            completedListCommands->insertCommand(completedIfCommand);
         }
         | for_command SEPARATOR {printf("for\n"); }
         | SEPARATOR /*accept empty cmd line*/
