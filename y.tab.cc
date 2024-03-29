@@ -540,8 +540,8 @@ static const yytype_uint8 yyrline[] =
 {
        0,    48,    48,    51,    53,    57,    57,    65,    71,    80,
       87,    95,   104,   111,   114,   121,   122,   126,   129,   135,
-     136,   140,   146,   151,   164,   165,   166,   170,   175,   183,
-     188,   182,   203,   209,   203,   225
+     136,   140,   146,   151,   163,   164,   165,   169,   174,   182,
+     187,   181,   202,   208,   202,   225
 };
 #endif
 
@@ -1289,7 +1289,6 @@ yyreduce:
                                   {
             //Shell::TheShell->_listCommands->
             //insertCommand(Shell::TheShell->_ifCommand);
-            fprintf(stderr, "EXECUTED\n");
             IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
 
             ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
@@ -1299,69 +1298,69 @@ yyreduce:
             Shell::TheShell->ifCommandStack.pop();
             //Shell::TheShell->listCommandStack.pop();
         }
-#line 1303 "y.tab.cc"
+#line 1302 "y.tab.cc"
     break;
 
   case 24: /* command_line: for_command SEPARATOR  */
-#line 164 "shell.y"
+#line 163 "shell.y"
                                 {printf("for\n"); }
-#line 1309 "y.tab.cc"
+#line 1308 "y.tab.cc"
     break;
 
   case 26: /* command_line: error SEPARATOR  */
-#line 166 "shell.y"
+#line 165 "shell.y"
                           {yyerrok; Shell::TheShell->clear(); }
-#line 1315 "y.tab.cc"
+#line 1314 "y.tab.cc"
     break;
 
   case 27: /* command_list: command_line  */
-#line 171 "shell.y"
+#line 170 "shell.y"
         { 
 	   Shell::TheShell->execute();
 	}
-#line 1323 "y.tab.cc"
+#line 1322 "y.tab.cc"
     break;
 
   case 28: /* command_list: command_list command_line  */
-#line 176 "shell.y"
+#line 175 "shell.y"
         {
 	    Shell::TheShell->execute();
 	}
-#line 1331 "y.tab.cc"
+#line 1330 "y.tab.cc"
     break;
 
   case 29: /* $@2: %empty  */
-#line 183 "shell.y"
+#line 182 "shell.y"
         { 
 	    Shell::TheShell->_level++; 
 	    Shell::TheShell->_ifCommand = new IfCommand();
 	}
-#line 1340 "y.tab.cc"
+#line 1339 "y.tab.cc"
     break;
 
   case 30: /* $@3: %empty  */
-#line 188 "shell.y"
+#line 187 "shell.y"
         {
 	    Shell::TheShell->_ifCommand->insertCondition( 
 		    Shell::TheShell->_simpleCommand);
 	    Shell::TheShell->_simpleCommand = new SimpleCommand();
 	}
-#line 1350 "y.tab.cc"
+#line 1349 "y.tab.cc"
     break;
 
   case 31: /* if_command: IF LBRACKET $@2 arg_list RBRACKET SEMI THEN $@3 command_list FI  */
-#line 194 "shell.y"
+#line 193 "shell.y"
         { 
 	    Shell::TheShell->_level--; 
 	    Shell::TheShell->_ifCommand->insertListCommands( 
 		    Shell::TheShell->_listCommands);
 	    Shell::TheShell->_listCommands = new ListCommands();
 	}
-#line 1361 "y.tab.cc"
+#line 1360 "y.tab.cc"
     break;
 
   case 32: /* $@4: %empty  */
-#line 203 "shell.y"
+#line 202 "shell.y"
                    {
       Shell::TheShell->_level++;
       Shell::TheShell->listCommandStack.push(new ListCommands());
@@ -1369,12 +1368,13 @@ yyreduce:
       Shell::TheShell->ifCommandStack.top()->isWhile = true;
 
     }
-#line 1373 "y.tab.cc"
+#line 1372 "y.tab.cc"
     break;
 
   case 33: /* $@5: %empty  */
-#line 209 "shell.y"
+#line 208 "shell.y"
                                 {
+            fprintf(stderr, "EXECUTED\n");
         IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
