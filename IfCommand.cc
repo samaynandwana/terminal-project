@@ -113,6 +113,7 @@ IfCommand::execute() {
       Shell::TheShell->_level--;
     } 
     else {
+      std::cerr << "Running if:\n";
     if (runTest(this->_condition) == 0) {
 	_listCommands->execute();
   }

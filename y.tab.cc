@@ -541,7 +541,7 @@ static const yytype_uint8 yyrline[] =
        0,    48,    48,    51,    53,    57,    57,    65,    71,    80,
       87,    95,   104,   111,   114,   121,   122,   126,   129,   135,
      136,   140,   146,   151,   163,   164,   165,   169,   174,   182,
-     187,   181,   202,   208,   202,   225
+     187,   181,   202,   208,   202,   224
 };
 #endif
 
@@ -1374,17 +1374,16 @@ yyreduce:
   case 33: /* $@5: %empty  */
 #line 208 "shell.y"
                                 {
-            fprintf(stderr, "EXECUTED\n");
         IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
 
     }
-#line 1384 "y.tab.cc"
+#line 1383 "y.tab.cc"
     break;
 
   case 34: /* while_command: WHILE LBRACKET $@4 arg_list RBRACKET SEMI DO $@5 command_list DONE  */
-#line 214 "shell.y"
+#line 213 "shell.y"
                        {
       Shell::TheShell->_level--; 
       IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
@@ -1393,11 +1392,11 @@ yyreduce:
       Shell::TheShell->listCommandStack.pop();
 
     }
-#line 1397 "y.tab.cc"
+#line 1396 "y.tab.cc"
     break;
 
 
-#line 1401 "y.tab.cc"
+#line 1400 "y.tab.cc"
 
       default: break;
     }
@@ -1590,7 +1589,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 228 "shell.y"
+#line 227 "shell.y"
 
 
 void
