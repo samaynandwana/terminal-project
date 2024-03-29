@@ -157,6 +157,8 @@ command_line:
             ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
 
             completedListCommands->insertCommand(completedIfCommand);
+            
+            Shell::TheShell->ifCommandStack.pop();
         }
         | for_command SEPARATOR {printf("for\n"); }
         | SEPARATOR /*accept empty cmd line*/
