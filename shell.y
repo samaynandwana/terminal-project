@@ -151,7 +151,6 @@ command_line:
         | while_command SEPARATOR {
             //Shell::TheShell->_listCommands->
             //insertCommand(Shell::TheShell->_ifCommand);
-            fprintf(stderr, "EXECUTED\n");
             IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
 
             ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
@@ -207,6 +206,7 @@ while_command:
       Shell::TheShell->ifCommandStack.top()->isWhile = true;
 
     } arg_list RBRACKET SEMI DO {
+            fprintf(stderr, "EXECUTED\n");
         IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
