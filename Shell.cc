@@ -25,6 +25,7 @@ Shell::Shell() {
     this->pid_background = 0;
     this->ifCommandStack = *(new std::stack<IfCommand*>());
     this->listCommandStack = *(new std::stack<ListCommands*>());
+    this->listCommandStack.push(new ListCommands());
     if ( !isatty(0)) {
 	this->_enablePrompt = false;
     }
