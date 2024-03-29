@@ -103,7 +103,7 @@ IfCommand::execute() {
     //int count = 1;
     if (isWhile) {
       Shell::TheShell->_level++;
-      std::cerr << "Running while:\n";
+      //std::cerr << "Running while:\n";
       while(runTest(this->_condition) == 0) {
         //print();
         _listCommands->execute();
@@ -113,7 +113,6 @@ IfCommand::execute() {
       Shell::TheShell->_level--;
     } 
     else {
-      std::cerr << "Running if:\n";
     if (runTest(this->_condition) == 0) {
 	_listCommands->execute();
   }
