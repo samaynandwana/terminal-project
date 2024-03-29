@@ -100,7 +100,7 @@ IfCommand::print() {
 void 
 IfCommand::execute() {
     // Run command if test is 0
-    int count = 1;
+    //int count = 1;
     if (isWhile) {
       Shell::TheShell->_level++;
       //std::cerr << "Running while:\n";
