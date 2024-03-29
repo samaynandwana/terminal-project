@@ -15,7 +15,7 @@
 IfCommand::IfCommand() {
     _condition = NULL;
     _listCommands =  NULL;
-    isWhile = false;
+    //isWhile = false;
 }
 
 
