@@ -39,8 +39,6 @@
 #include <stack>
 #include "Shell.hh"
 
-extern std::stack<ListCommands *> listCommandStack;
-extern std::stack<IfCommand *> ifCommandStack;
 
 
 
@@ -163,9 +161,8 @@ command_line:
             //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
 
             //completedListCommands->insertCommand(completedIfCommand);
-            //Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
-            listCommandStack.top()->insertCommand(ifCommandStack.top());
-            ifCommandStack.pop();
+            Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
+            Shell::TheShell->ifCommandStack.pop();
             //Shell::TheShell->ifCommandStack.pop();
             //Shell::TheShell->listCommandStack.pop();
         }
@@ -210,15 +207,15 @@ if_command:
 while_command:
     WHILE LBRACKET {
       Shell::TheShell->_level++;
-      listCommandStack.push(new ListCommands());
-      ifCommandStack.push(new IfCommand());
+      Shell::TheShell->listCommandStack.push(new ListCommands());
+      Shell::TheShell->ifCommandStack.push(new IfCommand());
 	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
-      ifCommandStack.top()->isWhile = true;
+      Shell::TheShell->ifCommandStack.top()->isWhile = true;
 
     } arg_list RBRACKET SEMI DO {
         //IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         //currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
-        ifCommandStack.top()->insertCondition(Shell::TheShell->_simpleCommand);
+        Shell::TheShell->ifCommandStack.top()->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
 
     } command_list DONE{
@@ -226,8 +223,8 @@ while_command:
       //IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
       //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
       //completedIfCommand->insertListCommands(completedListCommands);
-      ifCommandStack.top()->insertListCommands(listCommandStack.top());
-      listCommandStack.pop();
+      Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandStack.top());
+      Shell::TheShell->listCommandStack.pop();
 	    //Shell::TheShell->_listCommands = new ListCommands();
       //Shell::TheShell->listCommandStack.pop();
 
