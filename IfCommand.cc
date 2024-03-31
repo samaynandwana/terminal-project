@@ -105,7 +105,7 @@ IfCommand::execute() {
       Shell::TheShell->_level++;
       while(runTest(this->_condition) == 0) {
         //print();
-        _listCommands->execute();
+        Shell::TheShell->listCommandStack.top()->execute();
         //fprintf(stderr, "while executed %d times\n", count);
         //count;
       }
