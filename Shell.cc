@@ -55,7 +55,7 @@ void Shell::execute() {
   if (this->_level == 0 ) {
     //this->print();
     int count = 0;
-    fprintf(stderr, "shell execute: %d\n", count);
+    fprintf(stderr, "shell execute: %d\n", count++);
     this->_listCommands->execute();
     this->_listCommands->clear();
     this->prompt();
