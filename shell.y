@@ -143,15 +143,17 @@ SEPARATOR:
 command_line:
 	 pipe_list io_modifier_list background_optional SEPARATOR 
          { 
-         //Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->_pipeCommand);
-	   Shell::TheShell->_listCommands->
-		insertCommand(Shell::TheShell->_pipeCommand);
+         Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->_pipeCommand);
+	  /* Shell::TheShell->_listCommands->
+		insertCommand(Shell::TheShell->_pipeCommand);*/
 	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
          }
         | if_command SEPARATOR 
          {
-            Shell::TheShell->_listCommands->
-            insertCommand(Shell::TheShell->_ifCommand);
+            //Shell::TheShell->_listCommands->
+            //insertCommand(Shell::TheShell->_ifCommand);
+            Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
+            Shell::TheShell->ifCommandStack.pop();
          }
         | while_command SEPARATOR {
             //Shell::TheShell->_listCommands->
@@ -187,7 +189,10 @@ if_command:
     IF LBRACKET 
 	{ 
 	    Shell::TheShell->_level++; 
-	    Shell::TheShell->_ifCommand = new IfCommand();
+	    //Shell::TheShell->_ifCommand = new IfCommand();
+      Shell::TheShell->ifCommandStack.push(new IfCommand());
+      Shell::TheShell->ifCommandStack.top()->isWhile = true;
+      Shell::TheShell->listCommandStack.push(new ListCommands());
 	} 
     arg_list RBRACKET SEMI THEN 
 	{
@@ -198,9 +203,11 @@ if_command:
     command_list FI 
 	{ 
 	    Shell::TheShell->_level--; 
-	    Shell::TheShell->_ifCommand->insertListCommands( 
+	    /*Shell::TheShell->_ifCommand->insertListCommands( 
 		    Shell::TheShell->_listCommands);
-	    Shell::TheShell->_listCommands = new ListCommands();
+	    Shell::TheShell->_listCommands = new ListCommands();*/
+      Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandStack.top());
+      listCommandStack.pop();
 	}
     ;
 
