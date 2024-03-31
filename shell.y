@@ -40,8 +40,6 @@
 #include "Shell.hh"
 
 
-extern std::stack<ListCommands *> listCommandStack;
-extern std::stack<IfCommand *> ifCommandStack;
 
 
 void yyerror(const char * s);
@@ -145,7 +143,8 @@ SEPARATOR:
 command_line:
 	 pipe_list io_modifier_list background_optional SEPARATOR 
          { 
-	    Shell::TheShell->_listCommands->
+         listCommandStack.top()->insertCommand(Shell::TheShell->_pipeCommand);
+	    //Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_pipeCommand);
 	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
          }
