@@ -156,8 +156,8 @@ command_line:
             //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
 
             //completedListCommands->insertCommand(completedIfCommand);
-            listCommandsStack.top()->insertCommand(ifCommandStack.top());
-            ifCommandsStack.pop();
+            Shell::TheShell->listCommandsStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
+            Shell::TheShell->ifCommandsStack.pop();
             //Shell::TheShell->ifCommandStack.pop();
             //Shell::TheShell->listCommandStack.pop();
         }
@@ -210,7 +210,7 @@ while_command:
     } arg_list RBRACKET SEMI DO {
         //IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         //currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
-        ifCommandStack.top()->insertCondition(Shell::TheShell->_simpleCommand);
+        Shell::TheShell->ifCommandStack.top()->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
 
     } command_list DONE{
@@ -218,8 +218,8 @@ while_command:
       //IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
       //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
       //completedIfCommand->insertListCommands(completedListCommands);
-      ifCommandsStack.top()->insertListCommands(listCommandsStack.top());
-      listCommandsStack.pop();
+      Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandsStack.top());
+      Shell::TheShell->listCommandsStack.pop();
 	    //Shell::TheShell->_listCommands = new ListCommands();
       //Shell::TheShell->listCommandStack.pop();
 
