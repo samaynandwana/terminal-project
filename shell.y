@@ -156,8 +156,8 @@ command_line:
             //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
 
             //completedListCommands->insertCommand(completedIfCommand);
-            Shell::TheShell->listCommandsStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
-            Shell::TheShell->ifCommandsStack.pop();
+            Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
+            Shell::TheShell->ifCommandStack.pop();
             //Shell::TheShell->ifCommandStack.pop();
             //Shell::TheShell->listCommandStack.pop();
         }
@@ -218,8 +218,8 @@ while_command:
       //IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
       //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
       //completedIfCommand->insertListCommands(completedListCommands);
-      Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandsStack.top());
-      Shell::TheShell->listCommandsStack.pop();
+      Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandStack.top());
+      Shell::TheShell->listCommandStack.pop();
 	    //Shell::TheShell->_listCommands = new ListCommands();
       //Shell::TheShell->listCommandStack.pop();
 
