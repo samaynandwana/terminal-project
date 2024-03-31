@@ -101,7 +101,7 @@ void
 IfCommand::execute() {
     // Run command if test is 0
     //int count = 1;
-    if(Shell:TheShell->ifCommandStack.top->isWhile) {
+    if(Shell::TheShell->ifCommandStack.top()->isWhile) {
       Shell::TheShell->_level++;
       while(runTest(this->_condition) == 0) {
         //print();
