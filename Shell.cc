@@ -52,6 +52,7 @@ void Shell::clear() {
 }
 
 void Shell::execute() {
+  fprintf(stderr, "%d\n", Shell::TheShell->_level);
   if (this->_level == 0) {
     //this->print();
     this->_listCommands->execute();
