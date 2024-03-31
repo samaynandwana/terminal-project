@@ -106,15 +106,16 @@ IfCommand::execute() {
       //for (int i = 0; i < 5; i++) {
       while(runTest(this->_condition) == 0) {
         //print();
-        Shell::TheShell->listCommandStack.top()->execute();
-        fprintf(stderr, "while executed %d times\n", count);
+        //Shell::TheShell->listCommandStack.top()->execute();
+        //fprintf(stderr, "while executed %d times\n", count);
+        _listCommands->execute();
         count++;
       }
       Shell::TheShell->_level--;
     } 
     else {
     if (runTest(this->_condition) == 0) {
-      fprintf(stderr, "if executed");
+      //fprintf(stderr, "if executed");
 	_listCommands->execute();
   }
     }
