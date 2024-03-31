@@ -52,12 +52,12 @@ void Shell::clear() {
 }
 
 void Shell::execute() {
-  if (this->_level == 0 ) {
+  //if (this->_level == 0 ) {
     //this->print();
     this->_listCommands->execute();
     this->_listCommands->clear();
     this->prompt();
-  }
+  //}
 }
 
 void yyset_in (FILE *  in_str );
