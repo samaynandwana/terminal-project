@@ -143,9 +143,9 @@ SEPARATOR:
 command_line:
 	 pipe_list io_modifier_list background_optional SEPARATOR 
          { 
-         Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->_pipeCommand);
-	   // Shell::TheShell->_listCommands->
-		//insertCommand(Shell::TheShell->_pipeCommand);
+         //Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->_pipeCommand);
+	   Shell::TheShell->_listCommands->
+		insertCommand(Shell::TheShell->_pipeCommand);
 	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
          }
         | if_command SEPARATOR 
