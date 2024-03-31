@@ -207,7 +207,7 @@ if_command:
 		    Shell::TheShell->_listCommands);
 	    Shell::TheShell->_listCommands = new ListCommands();*/
       Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandStack.top());
-      listCommandStack.pop();
+      Shell::TheShell->listCommandStack.pop();
 	}
     ;
 
