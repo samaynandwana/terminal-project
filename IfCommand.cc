@@ -106,7 +106,7 @@ IfCommand::execute() {
 	_listCommands->execute();
   }
   }
-    if(isWhile) {
+    else { //if(isWhile) {
       Shell::TheShell->_level++;
       for (int i = 0; i < 5; i++) {
       //while(runTest(this->_condition) == 0) {
