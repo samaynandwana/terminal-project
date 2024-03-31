@@ -101,7 +101,7 @@ void
 IfCommand::execute() {
     // Run command if test is 0
     //int count = 1;
-    if(isWhile || !isWhile) {
+    if(isWhile) {
       Shell::TheShell->_level++;
       for (int i = 0; i < 5; i++) {
       //while(runTest(this->_condition) == 0) {
