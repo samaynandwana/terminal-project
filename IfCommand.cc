@@ -114,6 +114,7 @@ IfCommand::execute() {
     } 
     else {
     if (runTest(this->_condition) == 0) {
+      fprintf(stderr, "if executed");
 	_listCommands->execute();
   }
     }
