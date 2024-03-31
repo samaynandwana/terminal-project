@@ -101,9 +101,10 @@ void
 IfCommand::execute() {
     // Run command if test is 0
     //int count = 1;
-    if(isWhile) {
+    if(isWhile || !isWhile) {
       Shell::TheShell->_level++;
-      while(runTest(this->_condition) == 0) {
+      for (int i = 0; i < 5; i++) {
+      //while(runTest(this->_condition) == 0) {
         //print();
         Shell::TheShell->listCommandStack.top()->execute();
         //fprintf(stderr, "while executed %d times\n", count);
