@@ -107,7 +107,7 @@ IfCommand::execute() {
       while(runTest(this->_condition) == 0) {
         //print();
         //Shell::TheShell->listCommandStack.top()->execute();
-        //fprintf(stderr, "while executed %d times\n", count);
+        fprintf(stderr, "while executed %d times\n", count);
         _listCommands->execute();
         count++;
       }
