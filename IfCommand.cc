@@ -100,7 +100,6 @@ IfCommand::print() {
 void 
 IfCommand::execute() {
     // Run command if test is 0
-    print();
     int count = 1;
     if(isWhile) {
       Shell::TheShell->_level++;
@@ -108,7 +107,7 @@ IfCommand::execute() {
       while(runTest(this->_condition) == 0) {
         //print();
         //Shell::TheShell->listCommandStack.top()->execute();
-        printf("while executed %d times\n", count);
+        //fprintf(stderr, "while executed %d times\n", count);
         _listCommands->execute();
         count++;
       }
@@ -116,7 +115,6 @@ IfCommand::execute() {
     } 
     else {
     if (runTest(this->_condition) == 0) {
-      //fprintf(stderr, "while executed %d times\n", count);
       //fprintf(stderr, "if executed");
 	_listCommands->execute();
   }

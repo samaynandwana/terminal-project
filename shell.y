@@ -161,8 +161,8 @@ command_line:
             //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
 
             //completedListCommands->insertCommand(completedIfCommand);
-            /*Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
-            Shell::TheShell->ifCommandStack.pop();*/
+            Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
+            Shell::TheShell->ifCommandStack.pop();
             //Shell::TheShell->ifCommandStack.pop();
             //Shell::TheShell->listCommandStack.pop();
         }
@@ -206,25 +206,25 @@ if_command:
 
 while_command:
     WHILE LBRACKET {
-      /*Shell::TheShell->_level++;
+      Shell::TheShell->_level++;
       Shell::TheShell->listCommandStack.push(new ListCommands());
-      Shell::TheShell->ifCommandStack.push(new IfCommand());*/
+      Shell::TheShell->ifCommandStack.push(new IfCommand());
 	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
-      /*Shell::TheShell->ifCommandStack.top()->isWhile = true;*/
+      Shell::TheShell->ifCommandStack.top()->isWhile = true;
 
     } arg_list RBRACKET SEMI DO {
         //IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         //currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
-        /*Shell::TheShell->ifCommandStack.top()->insertCondition(Shell::TheShell->_simpleCommand);
-	      Shell::TheShell->_simpleCommand = new SimpleCommand();*/
+        Shell::TheShell->ifCommandStack.top()->insertCondition(Shell::TheShell->_simpleCommand);
+	      Shell::TheShell->_simpleCommand = new SimpleCommand();
 
     } command_list DONE{
-      /*Shell::TheShell->_level--; */
+      Shell::TheShell->_level--; 
       //IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
       //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
       //completedIfCommand->insertListCommands(completedListCommands);
-      /*Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandStack.top());
-      Shell::TheShell->listCommandStack.pop();*/
+      Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandStack.top());
+      Shell::TheShell->listCommandStack.pop();
 	    //Shell::TheShell->_listCommands = new ListCommands();
       //Shell::TheShell->listCommandStack.pop();
 
