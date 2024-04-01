@@ -1372,7 +1372,7 @@ yyreduce:
       Shell::TheShell->listCommandStack.push(new ListCommands());
       Shell::TheShell->ifCommandStack.push(new IfCommand());
 	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
-      Shell::TheShell->isWhile = true;
+      Shell::TheShell->ifCommandStack.top()->isWhile = true;
 
     }
 #line 1379 "y.tab.cc"

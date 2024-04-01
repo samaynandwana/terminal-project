@@ -115,6 +115,7 @@ IfCommand::execute() {
     } 
     else {
     if (runTest(this->_condition) == 0) {
+      fprintf(stderr, "while executed %d times\n", count);
       //fprintf(stderr, "if executed");
 	_listCommands->execute();
   }
