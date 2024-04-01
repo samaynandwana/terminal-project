@@ -210,7 +210,7 @@ while_command:
       Shell::TheShell->listCommandStack.push(new ListCommands());
       Shell::TheShell->ifCommandStack.push(new IfCommand());
 	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
-      Shell::TheShell->isWhile = true;
+      Shell::TheShell->ifCommandStack.top()->isWhile = true;
 
     } arg_list RBRACKET SEMI DO {
         //IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
