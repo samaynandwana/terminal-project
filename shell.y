@@ -217,7 +217,7 @@ Shell::TheShell->_level--;
 for_command:
     FOR WORD {
       Shell::TheShell->_level++;
-      Shell::TheShell->_ifCommand = new ifCommand();
+      Shell::TheShell->_ifCommand = new IfCommand();
       Shell::TheShell->_ifCommand->isFor = true;
 
     } IN arg_list SEMI DO {
