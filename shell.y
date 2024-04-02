@@ -157,7 +157,6 @@ command_line:
             //IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
 
             //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
-            fprintf(stderr, "parsed");
             //completedListCommands->insertCommand(completedIfCommand);
             Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
             Shell::TheShell->ifCommandStack.pop();
