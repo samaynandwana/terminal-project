@@ -202,7 +202,6 @@ if_command:
 
 while_command:
     WHILE LBRACKET {
-      fprintf(stderr, "Testing");
       Shell::TheShell->_level++;
       if (Shell::TheShell->_level > 0) {
         Shell::TheShell->listCommandStack.push(Shell::TheShell->_listCommands);
@@ -215,6 +214,7 @@ while_command:
       //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
 
     } arg_list RBRACKET SEMI DO {
+        fprintf(stderr, "Testing");
         //IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         //currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
         Shell::TheShell->_ifCommand->insertCondition(Shell::TheShell->_simpleCommand);
