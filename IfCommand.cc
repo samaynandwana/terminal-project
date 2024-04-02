@@ -128,8 +128,8 @@ IfCommand::execute() {
 
     }*/
     else {
-    if (runTest(this->_condition) == 0) {
       fprintf(stderr, "if executed");
+    if (runTest(this->_condition) == 0) {
 	_listCommands->execute();
   }
     }
