@@ -203,8 +203,10 @@ if_command:
 while_command:
     WHILE LBRACKET {
       Shell::TheShell->_level++;
-      Shell::TheShell->listCommandStack.push(new ListCommands());
-      Shell::TheShell->ifCommandStack.push(new IfCommand());
+      if (Shell::TheShell->_level > 0) {
+        Shell::TheShell->listCommandStack.push(_listCommands);
+        Shell::TheShell->ifCommandStack.push(_ifCommands);
+      }
 	    Shell::TheShell->_ifCommand = new IfCommand();
 	    Shell::TheShell->_listCommands = new ListCommands();
 	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
