@@ -382,10 +382,10 @@ void PipeCommand::execute() {
         args[j] = copy->_arguments[j]->c_str();
       }
       args[copy->_arguments.size()] = NULL;
-      if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
+      /*if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
         setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
         break;
-      }
+      }*/
       //implementation for unsetenv, unset a passed in environment variable
       if (!strcmp(copy->_arguments[0]->c_str(), "unsetenv")) {
         unsetenv(copy->_arguments[1]->c_str());
@@ -430,6 +430,10 @@ void PipeCommand::execute() {
               args[j] = arg.c_str();
             }
           }
+      }
+      if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
+        setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
+        break;
       }
 
       ret = fork();
