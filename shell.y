@@ -160,7 +160,7 @@ command_line:
             //completedListCommands->insertCommand(completedIfCommand);
             //Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
             //Shell::TheShell->ifCommandStack.pop();
-            Shell::TheShell->listCommandStack.top()->insertCommand(_ifCommand);
+            Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->_ifCommand);
             Shell::TheShell->listCommandStack.pop();
         }
         | for_command SEPARATOR {printf("for\n"); }
