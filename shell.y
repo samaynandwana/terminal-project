@@ -202,13 +202,14 @@ if_command:
 
 while_command:
     WHILE LBRACKET {
+      fprintf(stderr, "Testing");
       Shell::TheShell->_level++;
       if (Shell::TheShell->_level > 0) {
         Shell::TheShell->listCommandStack.push(Shell::TheShell->_listCommands);
         Shell::TheShell->ifCommandStack.push(Shell::TheShell->_ifCommand);
       }
-	    //Shell::TheShell->_ifCommand = new IfCommands();
-	    //Shell::TheShell->_listCommands = new ListCommands();
+	    Shell::TheShell->_ifCommand = new IfCommands();
+	    Shell::TheShell->_listCommands = new ListCommands();
 	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
       Shell::TheShell->ifCommandStack.top()->isWhile = true;
       //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
