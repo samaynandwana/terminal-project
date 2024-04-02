@@ -47,6 +47,7 @@ PipeCommand::PipeCommand() {
     _errFile = NULL;
     _background = false;
     //question = NULL;
+    //comment
 }
 
 void PipeCommand::insertSimpleCommand( SimpleCommand * simplePipeCommand ) {
