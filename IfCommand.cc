@@ -101,7 +101,6 @@ void
 IfCommand::execute() {
     // Run command if test is 0
     int count = 1;
-    fprintf(stderr, "if executed");
     if(isWhile) {
       //Shell::TheShell->_level++;
       //for (int i = 0; i < 5; i++) {

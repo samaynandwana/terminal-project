@@ -206,6 +206,7 @@ if_command:
 
 while_command:
     WHILE LBRACKET {
+      fprintf(stderr, "while parsed");
       Shell::TheShell->_level++;
       Shell::TheShell->listCommandStack.push(new ListCommands());
       Shell::TheShell->ifCommandStack.push(new IfCommand());
