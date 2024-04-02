@@ -39,6 +39,8 @@
 #include <stack>
 #include "Shell.hh"
 
+extern std::stack<ListCommands *> listCommandsStack;
+extern std::stack<IfCommand *> ifCommandsStack;
 
 
 
@@ -225,7 +227,6 @@ while_command:
       //completedIfCommand->insertListCommands(completedListCommands);
       Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandStack.top());
       Shell::TheShell->listCommandStack.pop();
-      fprintf(stderr, "while parsed");
 	    //Shell::TheShell->_listCommands = new ListCommands();
       //Shell::TheShell->listCommandStack.pop();
 
