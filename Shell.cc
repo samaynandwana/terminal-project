@@ -59,7 +59,7 @@ void Shell::execute() {
   if (this->_level == 0) {
     //this->print();
     this->_listCommands->execute();
-    //this->_listCommands->clear();
+    this->_listCommands->clear();
     this->prompt();
   }
 }
