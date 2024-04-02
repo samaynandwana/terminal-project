@@ -12,6 +12,7 @@ public:
   SimpleCommand * _condition;
   ListCommands * _listCommands; 
   bool isWhile;
+  bool isFor;
   IfCommand();
   void insertCondition( SimpleCommand * condition );
   void insertListCommands( ListCommands * listCommands);

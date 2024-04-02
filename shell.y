@@ -153,7 +153,9 @@ command_line:
 		insertCommand(Shell::TheShell->_ifCommand);
 
         }
-        | for_command SEPARATOR {printf("for\n"); }
+        | for_command SEPARATOR {
+          Shell::TheShell->_listCommands->insertCommand(Shell::TheShell->_ifCommand);
+        }
         | SEPARATOR /*accept empty cmd line*/
         | error SEPARATOR {yyerrok; Shell::TheShell->clear(); }
 	;          /*error recovery*/
@@ -213,7 +215,23 @@ Shell::TheShell->_level--;
     ;
 
 for_command:
-    FOR WORD IN arg_list SEMI DO command_list DONE
+    FOR WORD {
+      Shell::TheShell->_level++;
+      Shell::TheShell->_ifCommand = new ifCommand();
+      Shell::TheShell->_ifCommand->isFor = true;
+
+    } IN arg_list SEMI DO {
+
+Shell::TheShell->_ifCommand->insertCondition( 
+		    Shell::TheShell->_simpleCommand);
+	    Shell::TheShell->_simpleCommand = new SimpleCommand();
+    } command_list DONE {
+      
+Shell::TheShell->_level--; 
+	    Shell::TheShell->_ifCommand->insertListCommands( 
+		    Shell::TheShell->_listCommands);
+	    Shell::TheShell->_listCommands = new ListCommands();
+    }
     ;
 
 %%
