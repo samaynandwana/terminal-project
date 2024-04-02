@@ -102,7 +102,7 @@ IfCommand::execute() {
     // Run command if test is 0
     int count = 1;
     if(isWhile) {
-      Shell::TheShell->_level++;
+      //Shell::TheShell->_level++;
       //for (int i = 0; i < 5; i++) {
       while(runTest(this->_condition) == 0) {
         //print();
@@ -111,7 +111,7 @@ IfCommand::execute() {
         _listCommands->execute();
         count++;
       }
-      Shell::TheShell->_level--;
+      //Shell::TheShell->_level--;
     }
     /*if (isFor) {
        SimpleCommand* copy = new SimpleCommand();
