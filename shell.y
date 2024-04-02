@@ -222,8 +222,8 @@ while_command:
       //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
       //completedIfCommand->insertListCommands(completedListCommands);
       Shell::TheShell->ifCommandStack.top()->insertListCommands(Shell::TheShell->listCommandStack.top());
-      Shell::TheShell->_listCommands = Shell::TheShell->_ListCommandStack.top();
-      Shell::TheShell->ListCommandStack.pop();
+      Shell::TheShell->_listCommands = Shell::TheShell->listCommandStack.top();
+      Shell::TheShell->listCommandStack.pop();
 	    //Shell::TheShell->_listCommands = new ListCommands();
       //Shell::TheShell->listCommandStack.pop();
 
