@@ -26,6 +26,9 @@ Shell::Shell() {
     this->ifCommandStack = *(new std::stack<IfCommand*>());
     this->listCommandStack = *(new std::stack<ListCommands*>());
     this->listCommandStack.push(new ListCommands());
+    this->numArgs = 0;
+    this->scriptName = 0;
+
     if ( !isatty(0)) {
 	this->_enablePrompt = false;
     }
@@ -56,7 +59,7 @@ void Shell::execute() {
   if (this->_level == 0) {
     //this->print();
     this->_listCommands->execute();
-    this->_listCommands->clear();
+    //this->_listCommands->clear();
     this->prompt();
   }
 }
@@ -76,7 +79,7 @@ extern "C" void disp_zombie( int sig) {
   while(waitpid(-1,NULL,WNOHANG) > 0);
 }
 int main(int argc, char **argv) {
-
+  this->numArgs = argc;
   char * input_file = NULL;
   if ( argc > 1 ) {
     input_file = argv[1];
