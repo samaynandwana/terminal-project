@@ -100,7 +100,6 @@ IfCommand::print() {
 void 
 IfCommand::execute() {
     // Run command if test is 0
-    fprintf(stderr, "PRINNNTNT");
     int count = 1;
     if(isWhile) {
       //Shell::TheShell->_level++;
