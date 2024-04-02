@@ -149,6 +149,7 @@ command_line:
 		insertCommand(Shell::TheShell->_ifCommand);
          }
         | while_command SEPARATOR {
+        Shell::TheShell->_ifCommand->isWhile = true;
         Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_ifCommand);
 
