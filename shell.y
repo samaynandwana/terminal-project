@@ -141,7 +141,6 @@ SEPARATOR:
 command_line:
 	 pipe_list io_modifier_list background_optional SEPARATOR 
          { 
-         //Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->_pipeCommand);
 	   Shell::TheShell->_listCommands->
 		insertCommand(Shell::TheShell->_pipeCommand);
 	    Shell::TheShell->_pipeCommand = new PipeCommand(); 
@@ -152,23 +151,12 @@ command_line:
             insertCommand(Shell::TheShell->_ifCommand);
          }
         | while_command SEPARATOR {
-            //Shell::TheShell->_listCommands->
-            //insertCommand(Shell::TheShell->_ifCommand);
-            //IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
-
-            //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
-            //completedListCommands->insertCommand(completedIfCommand);
-            //Shell::TheShell->listCommandStack.top()->insertCommand(Shell::TheShell->ifCommandStack.top());
-            //Shell::TheShell->ifCommandStack.pop();
             Shell::TheShell->_listCommands->insertCommand(Shell::TheShell->_ifCommand);
-            /*Shell::TheShell->_listCommands->
-            insertCommand(Shell::TheShell->_ifCommand);*/
             if (Shell::TheShell->_level > 0) {
               Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
               Shell::TheShell->ifCommandStack.pop();
             }
 
-            //Shell::TheShell->listCommandStack.pop();
         }
         | for_command SEPARATOR {printf("for\n"); }
         | SEPARATOR /*accept empty cmd line*/
@@ -217,25 +205,15 @@ while_command:
       Shell::TheShell->_level++;
 	    Shell::TheShell->_ifCommand = new IfCommand();
 	    Shell::TheShell->_listCommands = new ListCommands();
-	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
       Shell::TheShell->_ifCommand->isWhile = true;
-      //DOESNT PRINT THIS
-      //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
 
     } arg_list RBRACKET SEMI DO {
-        //IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
-        //currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
         Shell::TheShell->_ifCommand->insertCondition(Shell::TheShell->_simpleCommand);
 	      Shell::TheShell->_simpleCommand = new SimpleCommand();
 
     } command_list DONE{
       Shell::TheShell->_level--; 
-      //IfCommand* completedIfCommand = Shell::TheShell->ifCommandStack.top();
-      //ListCommands* completedListCommands = Shell::TheShell->listCommandStack.top();
-      //completedIfCommand->insertListCommands(completedListCommands);
       Shell::TheShell->_ifCommand->insertListCommands(Shell::TheShell->_listCommands);
-      //Shell::TheShell->_listCommands = Shell::TheShell->listCommandStack.top();
-      //Shell::TheShell->ifCommandStack.pop();
       if (Shell::TheShell->_level > 0) {
         Shell::TheShell->_listCommands = Shell::TheShell->listCommandStack.top();
         Shell::TheShell->listCommandStack.pop();
