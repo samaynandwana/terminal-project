@@ -14,6 +14,8 @@ void
 ListCommands::execute() 
 {
     for (size_t i = 0; i < _commands.size(); i++) {
+      
+    fprintf(stderr, "PRINTNEJWOIRH");
       _commands[i]->execute();
     }
 }
