@@ -147,8 +147,14 @@ command_line:
          }
         | if_command SEPARATOR 
          {
-            Shell::TheShell->_listCommands->
-            insertCommand(Shell::TheShell->_ifCommand);
+            /*Shell::TheShell->_listCommands->
+            insertCommand(Shell::TheShell->_ifCommand);*/
+            Shell::TheShell->_listCommands->insertCommand(Shell::TheShell->_ifCommand);
+            if (Shell::TheShell->_level > 0) {
+              Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
+              Shell::TheShell->ifCommandStack.pop();
+            }
+
          }
         | while_command SEPARATOR {
             Shell::TheShell->_listCommands->insertCommand(Shell::TheShell->_ifCommand);
@@ -178,21 +184,41 @@ command_list :
 if_command:
     IF LBRACKET 
 	{ 
-	    Shell::TheShell->_level++; 
+	    /*Shell::TheShell->_level++; 
+	    Shell::TheShell->_ifCommand = new IfCommand();*/
+      if (Shell::TheShell->_level > 0) {
+        Shell::TheShell->listCommandStack.push(Shell::TheShell->_listCommands);
+        Shell::TheShell->ifCommandStack.push(Shell::TheShell->_ifCommand);
+      }
+      Shell::TheShell->_level++;
 	    Shell::TheShell->_ifCommand = new IfCommand();
+	    Shell::TheShell->_listCommands = new ListCommands();
+      Shell::TheShell->_ifCommand->isWhile = false;
+
 	} 
     arg_list RBRACKET SEMI THEN 
 	{
-	    Shell::TheShell->_ifCommand->insertCondition( 
+	    /*Shell::TheShell->_ifCommand->insertCondition( 
 		    Shell::TheShell->_simpleCommand);
-	    Shell::TheShell->_simpleCommand = new SimpleCommand();
+	    Shell::TheShell->_simpleCommand = new SimpleCommand();*/
+        Shell::TheShell->_ifCommand->insertCondition(Shell::TheShell->_simpleCommand);
+	      Shell::TheShell->_simpleCommand = new SimpleCommand();
 	}
     command_list FI 
 	{ 
-	    Shell::TheShell->_level--; 
+	    /*Shell::TheShell->_level--; 
 	    Shell::TheShell->_ifCommand->insertListCommands( 
 		    Shell::TheShell->_listCommands);
-	    Shell::TheShell->_listCommands = new ListCommands();
+	    Shell::TheShell->_listCommands = new ListCommands();*/
+      Shell::TheShell->_level--; 
+      Shell::TheShell->_ifCommand->insertListCommands(Shell::TheShell->_listCommands);
+      if (Shell::TheShell->_level > 0) {
+        Shell::TheShell->_listCommands = Shell::TheShell->listCommandStack.top();
+        Shell::TheShell->listCommandStack.pop();
+      } else {
+        Shell::TheShell->_listCommands = new ListCommands();
+      }
+
 	}
     ;
 
