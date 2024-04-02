@@ -209,9 +209,9 @@ while_command:
       }
 	    //Shell::TheShell->_ifCommand = new IfCommands();
 	    //Shell::TheShell->_listCommands = new ListCommands();
-	    Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
+	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
       Shell::TheShell->ifCommandStack.top()->isWhile = true;
-      Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
+      //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
 
     } arg_list RBRACKET SEMI DO {
         //IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
