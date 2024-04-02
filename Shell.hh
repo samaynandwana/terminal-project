@@ -22,8 +22,8 @@ public:
   std::string glob;
   int return_last_exit;
   int pid_background;
-  std::stack<IfCommand*> ifCommandStack;
-  std::stack<ListCommands*> listCommandStack;
+  extern std::stack<IfCommand*> ifCommandStack;
+  extern std::stack<ListCommands*> listCommandStack;
 
   Shell();
   void execute();
