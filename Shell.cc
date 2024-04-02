@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include "Shell.hh"
 #include "Command.hh"
+#include "IfCommand.hh"
 #include <sys/wait.h>
 #include <stack>
 int yyparse(void);
@@ -20,6 +21,7 @@ Shell::Shell() {
     this->_simpleCommand = new SimpleCommand();
     this->_pipeCommand = new PipeCommand();
     this->_currentCommand = this->_pipeCommand;
+    this->_ifCommand = new IfCommand();
     this->glob = "NULL";
     this->return_last_exit = 0;
     this->pid_background = 0;
@@ -51,6 +53,7 @@ void Shell::clear() {
     this->_simpleCommand->clear();
     this->_pipeCommand->clear();
     this->_currentCommand->clear();
+    this->_ifCommand->clear();
     this->_level = 0;
 }
 
