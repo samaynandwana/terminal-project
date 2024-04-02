@@ -39,8 +39,8 @@
 #include <stack>
 #include "Shell.hh"
 
-extern std::stack<ListCommands *> listCommandsStack;
-extern std::stack<IfCommand *> ifCommandsStack;
+extern std::stack<ListCommands *> listCommandStack;
+extern std::stack<IfCommand *> ifCommandStack;
 
 
 
