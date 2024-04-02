@@ -209,12 +209,14 @@ while_command:
       }
 	    Shell::TheShell->_ifCommand = new IfCommand();
 	    Shell::TheShell->_listCommands = new ListCommands();
+        
+
+        fprintf(stderr, "Testing");
 	    //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
       Shell::TheShell->ifCommandStack.top()->isWhile = true;
       //Shell::TheShell->_ifCommand = Shell::TheShell->ifCommandStack.top();
 
     } arg_list RBRACKET SEMI DO {
-        fprintf(stderr, "Testing");
         //IfCommand* currentIfCommand = Shell::TheShell->ifCommandStack.top();
         //currentIfCommand->insertCondition(Shell::TheShell->_simpleCommand);
         Shell::TheShell->_ifCommand->insertCondition(Shell::TheShell->_simpleCommand);
