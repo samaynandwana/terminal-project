@@ -332,7 +332,7 @@ void PipeCommand::execute() {
       //implementation for setenv, set an environment variable with C's setenv function
       extern char ** environ;
       //child process create with fork
-            if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
+            /*if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
         setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
         break;
       }
@@ -340,7 +340,7 @@ void PipeCommand::execute() {
       if (!strcmp(copy->_arguments[0]->c_str(), "unsetenv")) {
         unsetenv(copy->_arguments[1]->c_str());
         break;
-      }
+      }*/
 
       //Wildcarding Implementation
       bool wildcard = false;
@@ -382,7 +382,15 @@ void PipeCommand::execute() {
         args[j] = copy->_arguments[j]->c_str();
       }
       args[copy->_arguments.size()] = NULL;
-
+      if (!strcmp(copy->_arguments[0]->c_str(), "setenv")) {
+        setenv(copy->_arguments[1]->c_str(), copy->_arguments[2]->c_str(), 1);
+        break;
+      }
+      //implementation for unsetenv, unset a passed in environment variable
+      if (!strcmp(copy->_arguments[0]->c_str(), "unsetenv")) {
+        unsetenv(copy->_arguments[1]->c_str());
+        break;
+      }
       //Environment Variable Expansion
       bool replace = false;
       for (unsigned long j = 0; j < copy->_arguments.size(); j++) {
