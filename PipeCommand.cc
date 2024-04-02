@@ -441,6 +441,7 @@ void PipeCommand::execute() {
         exit(1);
       }
       Shell::TheShell->glob = std::string(copy->_arguments.back()->c_str());
+      delete copy;
     }
     //close temps
     dup2(tmpin, 0);
