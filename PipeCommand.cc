@@ -566,7 +566,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             }
         }
         closedir(dir);
-        free(dirPath);
+        free(&dirPath);
         regfree(&re);
         free(reg);
         } else { //component does not contain any wildcarding characters
