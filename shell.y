@@ -235,7 +235,7 @@ while_command:
       //completedIfCommand->insertListCommands(completedListCommands);
       Shell::TheShell->_ifCommand->insertListCommands(Shell::TheShell->_listCommands);
       //Shell::TheShell->_listCommands = Shell::TheShell->listCommandStack.top();
-      Shell::TheShell->ifCommandStack.pop();
+      //Shell::TheShell->ifCommandStack.pop();
       if (Shell::TheShell->_level > 0) {
         Shell::TheShell->_listCommands = Shell::TheShell->listCommandStack.top();
         Shell::TheShell->listCommandStack.pop();
