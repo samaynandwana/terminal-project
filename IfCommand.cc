@@ -39,7 +39,9 @@ int IfCommand::runTest(SimpleCommand * condition) {
     }
     PipeCommand* pipe = new PipeCommand();
     pipe->insertSimpleCommand(copy);
+    pipe->print();
     pipe->execute();
+
     delete copy;
     return Shell::TheShell->return_last_exit;
 
