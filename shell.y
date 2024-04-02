@@ -39,10 +39,6 @@
 #include <stack>
 #include "Shell.hh"
 
-extern std::stack<ListCommands *> listCommandStack;
-extern std::stack<IfCommand *> ifCommandStack;
-
-
 
 void yyerror(const char * s);
 int yylex();
