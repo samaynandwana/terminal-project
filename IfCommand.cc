@@ -104,6 +104,7 @@ IfCommand::execute() {
     if(isWhile) {
       //Shell::TheShell->_level++;
       //for (int i = 0; i < 5; i++) {
+      fprintf(stderr, "if executed");
       while(runTest(this->_condition) == 0) {
         //print();
         //Shell::TheShell->listCommandStack.top()->execute();
@@ -128,7 +129,6 @@ IfCommand::execute() {
 
     }*/
     else {
-      fprintf(stderr, "if executed");
     if (runTest(this->_condition) == 0) {
 	_listCommands->execute();
   }
