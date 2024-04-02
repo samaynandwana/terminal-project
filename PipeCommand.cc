@@ -539,7 +539,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             DIR *dir = opendir(dirPath);
             if (dir == NULL) {
               free(reg);
-              regfree(%re);
+              regfree(&re);
               return;
             }
             //checking for matches based on computed regex
