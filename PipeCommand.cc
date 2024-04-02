@@ -442,6 +442,7 @@ void PipeCommand::execute() {
       }
       Shell::TheShell->glob = std::string(copy->_arguments.back()->c_str());
       delete copy;
+      free(args);
     }
     //close temps
     dup2(tmpin, 0);
@@ -565,6 +566,7 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
             }
         }
         closedir(dir);
+        free(dirPath);
         regfree(&re);
         free(reg);
         } else { //component does not contain any wildcarding characters
