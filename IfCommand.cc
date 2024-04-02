@@ -39,7 +39,7 @@ int IfCommand::runTest(SimpleCommand * condition) {
     }
     PipeCommand* pipe = new PipeCommand();
     pipe->insertSimpleCommand(copy);
-    pipe->print();
+    //pipe->print();
     pipe->execute();
 
     delete copy;
