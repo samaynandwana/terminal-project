@@ -117,7 +117,8 @@ IfCommand::execute() {
       }
       //Shell::TheShell->_level--;
     }
-    /*if (isFor) {
+    if (isFor) {
+       fprintf(stderr, "for executing");
        SimpleCommand* copy = new SimpleCommand();
        for (const std::string* arg : condition->_arguments) {
         copy->insertArgument(new std::string(*arg));
@@ -130,7 +131,7 @@ IfCommand::execute() {
         pipe->execute();
         delete copy;
 
-    }*/
+    }
     else {
     if (runTest(this->_condition) == 0) {
 	_listCommands->execute();
