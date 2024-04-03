@@ -11,7 +11,7 @@
 #include "PipeCommand.hh"
 #include "IfCommand.hh"
 #include "Shell.hh"
-
+#include <cstring>
 extern char ** array;
 int maxEntries;
 int nEntries;
