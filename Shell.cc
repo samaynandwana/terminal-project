@@ -82,7 +82,7 @@ extern "C" void disp_zombie( int sig) {
   while(waitpid(-1,NULL,WNOHANG) > 0);
 }
 int main(int argc, char **argv) {
-  this->num_args = argc;
+  Shell::TheShell->num_args = argc;
   //this->script_name = argv[0];
   char * input_file = NULL;
   if ( argc > 1 ) {
