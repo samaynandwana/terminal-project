@@ -38,6 +38,7 @@
 #include <algorithm>
 #include <cassert>
 #define MAXFILENAME 1024
+extern int yylex_destroy();
 PipeCommand::PipeCommand() {
     // Initialize a new vector of Simple PipeCommands
     _simpleCommands = std::vector<SimpleCommand *>();
@@ -121,8 +122,12 @@ void PipeCommand::execute() {
         return;
     }
     if (strcmp(_simpleCommands[0]->_arguments[0]->c_str(),"exit") == 0) {
+      Shell::TheShell->clear();
+      delete Shell::TheShell;
+      this->clear();
+      yylex_destroy();
       fprintf(stderr, "Good bye!!\n");
-      exit(1);
+      exit(0);
     }
 
 
