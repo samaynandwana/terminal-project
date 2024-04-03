@@ -152,6 +152,8 @@ int main(int argc, char **argv) {
 
 
   yyparse();
+  delete Shell::TheShell;
+  Shell::TheShell = nullptr;
 }
 
 
