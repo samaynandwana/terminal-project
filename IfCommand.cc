@@ -22,13 +22,6 @@ IfCommand::IfCommand() {
 
 // Run condition with command "test" and return the exit value.
 
-/*SimpleCommand* deepCopySimpleCommand(const SimpleCommand* original) {
-    SimpleCommand* copy = new SimpleCommand();
-    for (const std::string* arg : original->_arguments) {
-        copy->insertArgument(new std::string(*arg));
-    }
-    return copy;
-}*/
 
 int IfCommand::runTest(SimpleCommand * condition) {
     SimpleCommand* copy = new SimpleCommand();
@@ -40,40 +33,10 @@ int IfCommand::runTest(SimpleCommand * condition) {
     }
     PipeCommand* pipe = new PipeCommand();
     pipe->insertSimpleCommand(copy);
-    //pipe->print();
     pipe->execute();
 
     delete copy;
     return Shell::TheShell->return_last_exit;
-
-    /*std::string *commandLine = new std::string("test");
-    condition->_arguments.insert(condition->_arguments.begin(), commandLine);
-    condition->_arguments[0] = commandLine;*/
-    /*for (std::string* arg : condition->_arguments) {
-        commandLine += " " + *arg;
-    }
-    commandLine += "\n";*/
-    /*    int ret = fork();
-    if (ret == 0) {
-        const char ** args = (const char **) malloc ((condition->_arguments.size() + 2)*sizeof(char*));
-        for (unsigned long j = 0; j < condition->_arguments.size(); j++) {
-          args[j + 1] = condition->_arguments[j]->c_str();
-        }
-        std::string first = "test";
-        args[0] = first.c_str();
-        args[condition->_arguments.size() + 1] = NULL;
-        execvp(args[0], (char* const*)args);
-        _exit(1);
-    } else {
-        int status;
-        waitpid(ret, &status, 0);
-
-        if (WIFEXITED(status)) {
-            return WEXITSTATUS(status);
-        } else {
-            return 1;
-        }
-    }*/
 
 }
 
@@ -119,8 +82,8 @@ IfCommand::execute() {
     }
     if (isFor) {
        fprintf(stderr, "for executing");
-       /*SimpleCommand* copy = new SimpleCommand();
-       for (const std::string* arg : condition->_arguments) {
+       SimpleCommand* copy = new SimpleCommand();
+       for (const std::string* arg : _condition->_arguments) {
         copy->insertArgument(new std::string(*arg));
        }
         if (copy->_arguments.empty() || *copy->_arguments[0] != "test") {
@@ -129,7 +92,7 @@ IfCommand::execute() {
         PipeCommand* pipe = new PipeCommand();
         pipe->insertSimpleCommand(copy);
         pipe->execute();
-        delete copy;*/
+        delete copy;
 
     }
     else {
