@@ -79,7 +79,7 @@ IfCommand::execute() {
          argVals.push_back(*arg);
        }
        for (std::string i: argVals) {
-         fprintf(stderr, "argval: %s\n", i);
+         fprintf(stderr, "argval: %s\n", i.c_str());
        }
        //fprintf(stderr, "ARG: %s\n", loop_var.c_str());
        /*SimpleCommand* copy = new SimpleCommand();
