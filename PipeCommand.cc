@@ -419,19 +419,13 @@ void PipeCommand::execute() {
                 args[j] = (std::to_string(Shell::TheShell->num_args)).c_str();
               } 
               else if (!strcmp(envv.c_str(), "0")) {
-                args[j] = Shell::TheShell->script_name.c_str();
+                args[j] = Shell::TheShell->arg1.c_str();
               }
               else if (!strcmp(envv.c_str(), "1")) {
                 args[j] = Shell::TheShell->arg2.c_str();
               }
               else if (!strcmp(envv.c_str(), "2")) {
                 args[j] = Shell::TheShell->arg3.c_str();
-              }
-              else if (!strcmp(envv.c_str(), "3")) {
-                args[j] = Shell::TheShell->arg3.c_str();
-              }
-              else if (!strcmp(envv.c_str(), "4")) {
-                args[j] = Shell::TheShell->arg4.c_str();
               }
 
               else {
