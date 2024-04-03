@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
   else {
     Shell::TheShell->prompt();
   }
-  Shell::TheShell->num_args = argc;
+  Shell::TheShell->num_args = argc - 2;
   //Ctrl-c Implementation
   struct sigaction sa;
   sa.sa_handler = disp_ctrlc;
