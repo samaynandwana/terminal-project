@@ -66,33 +66,22 @@ IfCommand::print() {
 void 
 IfCommand::execute() {
     // Run command if test is 0
-    //fprintf(stderr, "ferfe");
     int count = 1;
     if(isWhile) {
-      //Shell::TheShell->_level++;
-      //for (int i = 0; i < 5; i++) {
       while(runTest(this->_condition) == 0) {
-        //print();
-        //Shell::TheShell->listCommandStack.top()->execute();
-        //fprintf(stderr, "while executed %d times\n", count);
         _listCommands->execute();
         count++;
       }
-      //Shell::TheShell->_level--;
     }
     if (isFor) {
-       fprintf(stderr, "for executing");
        SimpleCommand* copy = new SimpleCommand();
        for (const std::string* arg : _condition->_arguments) {
         copy->insertArgument(new std::string(*arg));
        }
-        if (copy->_arguments.empty() || *copy->_arguments[0] != "test") {
-           copy->_arguments.insert(copy->_arguments.begin(), new std::string("test"));
-        }
-        PipeCommand* pipe = new PipeCommand();
-        pipe->insertSimpleCommand(copy);
-        pipe->execute();
-        delete copy;
+       PipeCommand* pipe = new PipeCommand();
+       pipe->insertSimpleCommand(copy);
+       pipe->execute();
+       delete copy;
 
     }
     else {

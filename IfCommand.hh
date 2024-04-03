@@ -13,6 +13,7 @@ public:
   ListCommands * _listCommands; 
   bool isWhile;
   bool isFor;
+  std::string loop_var;
   IfCommand();
   void insertCondition( SimpleCommand * condition );
   void insertListCommands( ListCommands * listCommands);

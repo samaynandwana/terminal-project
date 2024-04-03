@@ -269,6 +269,7 @@ for_command:
 	    Shell::TheShell->_listCommands = new ListCommands();
       Shell::TheShell->_ifCommand->isWhile = false;
       Shell::TheShell->_ifCommand->isFor = true;
+      Shell::TheShell->_ifCommand->loop_var = *$2;
 
 
     } IN arg_list SEMI DO {
