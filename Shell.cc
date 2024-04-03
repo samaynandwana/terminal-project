@@ -11,7 +11,7 @@
 #include <sys/wait.h>
 #include <stack>
 int yyparse(void);
-
+void yyrestart(FILE *file);
 Shell * Shell::TheShell;
 
 Shell::Shell() {
