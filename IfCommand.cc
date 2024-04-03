@@ -145,7 +145,7 @@ IfCommand::execute() {
        // for (const std::string *arg : _condition->_arguments) {
        //   argVals.push_back(*arg);
        // }
-       for (auto arg : argVals) {
+       for (auto arg : copy->_arguments) {
             std::string str = arg;
             setenv(this->loop_var.c_str(), str.c_str(), 1);
             //runForTest(_condition);
