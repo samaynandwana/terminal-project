@@ -82,7 +82,7 @@ IfCommand::execute() {
 
         PipeCommand* pipe = new PipeCommand();
         pipe->insertSimpleCommand(copy);
-        std::string str = &arg;
+        std::string str = *arg;
         setenv(this->loop_var.c_str(), str.c_str(), 1);
         pipe->execute();
       }
