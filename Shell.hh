@@ -34,7 +34,6 @@ public:
   std::string arg4;
 
   Shell();
-  Shell::dShell();
   void execute();
   void print();
   void clear();
