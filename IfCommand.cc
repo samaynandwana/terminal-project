@@ -92,15 +92,14 @@ IfCommand::execute() {
       }
     }
     if (isFor) {
-    SimpleCommand* copy = new SimpleCommand();
-    for (const std::string* arg : _condition->_arguments) {
+      SimpleCommand* copy = new SimpleCommand();
+      for (const std::string* arg : _condition->_arguments) {
         copy->insertArgument(new std::string(*arg));
-    }
-    PipeCommand* pipe = new PipeCommand();
-    pipe->insertSimpleCommand(copy);
-    //pipe->execute();
+      }
+      PipeCommand* pipe = new PipeCommand();
+      pipe->insertSimpleCommand(copy);
+      pipe->execute();
 
-    //delete copy;
 
        std::vector<std::string> argVals;
        for (const std::string *arg : _condition->_arguments) {
