@@ -74,14 +74,15 @@ IfCommand::execute() {
       }
     }
     if (isFor) {
-       SimpleCommand* copy = new SimpleCommand();
+       fprintf(stderr, "ARG: %s\n", loop_var.c_str());
+       /*SimpleCommand* copy = new SimpleCommand();
        for (const std::string* arg : _condition->_arguments) {
         copy->insertArgument(new std::string(*arg));
        }
        PipeCommand* pipe = new PipeCommand();
        pipe->insertSimpleCommand(copy);
        pipe->execute();
-       delete copy;
+       delete copy;*/
 
     }
     else {
