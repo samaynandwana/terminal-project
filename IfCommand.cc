@@ -74,30 +74,13 @@ IfCommand::execute() {
       }
     }
     if (isFor) {
-       /*std::vector<std::string> argVals;
+       std::vector<std::string> argVals;
        for (const std::string *arg : _condition->_arguments) {
          argVals.push_back(*arg);
        }
        for (auto arg : argVals) {
             std::string str = arg;
             setenv(this->loop_var.c_str(), str.c_str(), 1);
-            _listCommands->execute();
-        }*/
-        std::vector<std::string> expandedArgs;
-        for (const std::string *arg : _condition->_arguments) {
-            SimpleCommand* tempSimpleCommand = new SimpleCommand();
-            tempSimpleCommand->insertArgument(new std::string(*arg));
-            PipeCommand* tempPipeCommand = new PipeCommand();
-            tempPipeCommand->insertSimpleCommand(tempSimpleCommand);
-            tempPipeCommand->execute();
-            for (const auto& expandedArg : _condition->_arguments) {
-                expandedArgs.push_back(expandedArg);
-            }
-            delete tempSimpleCommand;
-            delete tempPipeCommand;
-        }
-        for (auto& arg : expandedArgs) {
-            setenv(this->loop_var.c_str(), arg.c_str(), 1);
             _listCommands->execute();
         }
     }
