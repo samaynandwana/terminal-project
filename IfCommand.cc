@@ -91,7 +91,7 @@ IfCommand::execute() {
        for (auto arg : argVals) {
             std::string str = arg;
             setenv(this->loop_var.c_str(), str.c_str(), 1);
-            pipe->execute();
+            _listCommands->execute();
         }
     }
     else {
