@@ -119,7 +119,7 @@ IfCommand::execute() {
     }
     if (isFor) {
        fprintf(stderr, "for executing");
-       SimpleCommand* copy = new SimpleCommand();
+       /*SimpleCommand* copy = new SimpleCommand();
        for (const std::string* arg : condition->_arguments) {
         copy->insertArgument(new std::string(*arg));
        }
@@ -129,7 +129,7 @@ IfCommand::execute() {
         PipeCommand* pipe = new PipeCommand();
         pipe->insertSimpleCommand(copy);
         pipe->execute();
-        delete copy;
+        delete copy;*/
 
     }
     else {
