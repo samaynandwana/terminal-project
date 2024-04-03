@@ -151,17 +151,6 @@ int main(int argc, char **argv) {
 
 
   yyparse();
-  delete Shell::TheShell;
-  Shell::TheShell = nullptr;
-  while (!Shell::TheShell->ifCommandStack.empty()) {
-        delete Shell::TheShell->ifCommandStack.top();
-        Shell::TheShell->ifCommandStack.pop();
-    }
-
-    while (!Shell::TheShell->listCommandStack.empty()) {
-        delete Shell::TheShell->listCommandStack.top();
-        Shell::TheShell->listCommandStack.pop();
-    }
-}
+  }
 
 
