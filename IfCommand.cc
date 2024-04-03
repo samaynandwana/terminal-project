@@ -78,9 +78,15 @@ IfCommand::execute() {
        for (const std::string *arg : _condition->_arguments) {
          argVals.push_back(*arg);
        }
-       for (std::string i: argVals) {
+       /*for (std::string i: argVals) {
          fprintf(stderr, "argval: %s\n", i.c_str());
-       }
+       }*/
+       for (auto arg : argVals) {
+            std::string str = arg;
+            setenv(this->loop_var.c_str(), str.c_str(), 1);
+            _listCommands->execute();
+        }
+
        //fprintf(stderr, "ARG: %s\n", loop_var.c_str());
        /*SimpleCommand* copy = new SimpleCommand();
        for (const std::string* arg : _condition->_arguments) {
