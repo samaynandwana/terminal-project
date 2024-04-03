@@ -98,7 +98,7 @@ IfCommand::execute() {
       }
       PipeCommand* pipe = new PipeCommand();
       pipe->insertSimpleCommand(copy);
-      pipe->execute();
+      //pipe->execute();
 
 
        std::vector<std::string> argVals;
