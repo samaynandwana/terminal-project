@@ -109,7 +109,7 @@ IfCommand::execute() {
        for (auto arg : argVals) {
             std::string str = arg;
             setenv(this->loop_var.c_str(), str.c_str(), 1);
-            runForTest(_condition);
+            //runForTest(_condition);
             _listCommands->execute();
         }
         /*std::string loop;
