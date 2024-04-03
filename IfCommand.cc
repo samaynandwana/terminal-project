@@ -40,6 +40,24 @@ int IfCommand::runTest(SimpleCommand * condition) {
 
 }
 
+int IfCommand::runForTest(SimpleCommand * condition) {
+    SimpleCommand* copy = new SimpleCommand();
+    for (const std::string* arg : condition->_arguments) {
+        copy->insertArgument(new std::string(*arg));
+    }
+    /*if (copy->_arguments.empty() || *copy->_arguments[0] != "test") {
+        copy->_arguments.insert(copy->_arguments.begin(), new std::string("test"));
+    }*/
+    PipeCommand* pipe = new PipeCommand();
+    pipe->insertSimpleCommand(copy);
+    pipe->execute();
+
+    delete copy;
+    return Shell::TheShell->return_last_exit;
+
+}
+
+
 
 void 
 IfCommand::insertCondition( SimpleCommand * condition ) {
