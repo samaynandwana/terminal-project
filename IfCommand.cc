@@ -119,12 +119,11 @@ IfCommand::execute() {
               continue;
             } else {
               pipe->expandWildcard(NULL, (char *) arg.c_str(), true);
-              // copy->_arguments.erase(copy->_arguments.begin() + j);
+              copy->_arguments.erase(copy->_arguments.begin() + j);
 
               sortArray2(array, nEntries);
               if (nEntries == 0) {
-                // copy->insertArgument(new std::string(arg.c_str()));
-                argVals.push_back(std::string(arg.c_str()));
+                copy->insertArgument(new std::string(arg.c_str()));
               }
               for (int b = 0; b < nEntries; b++) {
                  std::string* app = new std::string(array[b]);
@@ -136,7 +135,6 @@ IfCommand::execute() {
                   }
 
                 copy->insertArgument(app);
-                argVals.push_back(*app);
               }
             }
           }
@@ -145,8 +143,8 @@ IfCommand::execute() {
        // for (const std::string *arg : _condition->_arguments) {
        //   argVals.push_back(*arg);
        // }
-       for (auto arg : copy->_arguments) {
-            std::string str = arg;
+       for (auto* arg : copy->_arguments) {
+            std::string str = *arg;
             setenv(this->loop_var.c_str(), str.c_str(), 1);
             //runForTest(_condition);
             _listCommands->execute();
