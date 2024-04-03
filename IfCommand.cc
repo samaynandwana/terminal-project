@@ -166,7 +166,7 @@ IfCommand::execute() {
     }
     }
 }
-void PipeCommand::sortArray(char **array, int nEntries) {
+void IfCommand::sortArray2(char **array, int nEntries) {
     int i, j;
     for (i = 0; i < nEntries - 1; i++) {
         for (j = 0; j < nEntries - i - 1; j++) {
