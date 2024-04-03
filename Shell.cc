@@ -82,7 +82,7 @@ extern "C" void disp_zombie( int sig) {
   while(waitpid(-1,NULL,WNOHANG) > 0);
 }
 int main(int argc, char **argv) {
-  Shell::TheShell->num_args = argc;
+  //Shell::TheShell->num_args = argc;
   //this->script_name = argv[0];
   char * input_file = NULL;
   if ( argc > 1 ) {
@@ -105,7 +105,7 @@ int main(int argc, char **argv) {
   else {
     Shell::TheShell->prompt();
   }
-
+  Shell::TheShell->num_args = argc;
   //Ctrl-c Implementation
   struct sigaction sa;
   sa.sa_handler = disp_ctrlc;
