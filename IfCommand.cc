@@ -90,7 +90,7 @@ IfCommand::execute() {
             PipeCommand* tempPipeCommand = new PipeCommand();
             tempPipeCommand->insertSimpleCommand(tempSimpleCommand);
             tempPipeCommand->execute();
-            for (const auto& expandedArg : globalExpandedResults) {
+            for (const auto& expandedArg : tempPipeCommand->_arguments) {
                 expandedArgs.push_back(expandedArg);
             }
             delete tempSimpleCommand;
