@@ -28,8 +28,13 @@ Shell::Shell() {
     this->ifCommandStack = *(new std::stack<IfCommand*>());
     this->listCommandStack = *(new std::stack<ListCommands*>());
     this->listCommandStack.push(new ListCommands());
-    //this->numArgs = 0;
-    //this->scriptName = 0;
+ 
+    this->num_args = 0;
+    this->script_name = NULL;
+    this->arg1 = NULL;
+    this->arg2 = NULL;
+    this->arg3 = NULL;
+    this->arg4 = NULL;
 
     if ( !isatty(0)) {
 	this->_enablePrompt = false;
