@@ -150,9 +150,9 @@ int main(int argc, char **argv) {
 
   }
 
+  //yylex_destroy();
 
   yyparse();
-  yylex_destroy();
   }
 
 
