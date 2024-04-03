@@ -19,7 +19,7 @@ public:
   void insertListCommands( ListCommands * listCommands);
   static int runTest(SimpleCommand * condition);
   static int runForTest(SimpleCommand * condition);
-
+  void sortArray(char **array, int nEntries);
   void clear();
   void print();
   void execute();

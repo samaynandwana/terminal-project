@@ -12,6 +12,9 @@
 #include "IfCommand.hh"
 #include "Shell.hh"
 
+extern char ** array;
+int maxEntries;
+int nEntries;
 IfCommand::IfCommand() {
     _condition = NULL;
     _listCommands =  NULL;
@@ -98,7 +101,42 @@ IfCommand::execute() {
       }
       PipeCommand* pipe = new PipeCommand();
       pipe->insertSimpleCommand(copy);
+      //pipe->expandWildcards();
       //pipe->execute();
+      bool wildcard = false;
+      for (unsigned long j = 0; j < copy->_arguments.size(); j++) {
+        std::string& arg = *copy->_arguments[j];
+        if (arg.find('*') != std::string::npos || arg.find('?') != std::string::npos) {
+          wildcard = true;
+          break;
+        }
+      }
+      if (wildcard) {
+          for (unsigned long j = 0; j < copy->_arguments.size(); j++) {
+            std::string& arg = *copy->_arguments[j];
+            if ((arg.find('*') == std::string::npos && arg.find('?') == std::string::npos)) {
+              continue;
+            } else {
+              pipe->expandWildcard(NULL, (char *) arg.c_str(), true);
+              copy->_arguments.erase(copy->_arguments.begin() + j);
+              sortArray(array, nEntries);
+              if (nEntries == 0) {
+                copy->insertArgument(new std::string(arg.c_str()));
+              }
+              for (int b = 0; b < nEntries; b++) {
+                 std::string* app = new std::string(array[b]);
+                 if (!app->empty() && (*app)[0] == '/') {
+                     *app = app->substr(1);
+                 }
+                  else if (app->size() >= 2 && (*app)[0] == '.' && (*app)[1] == '/') {
+                    *app = app->substr(2);
+                  }
+
+                copy->insertArgument(app);
+              }
+            }
+          }
+      }
 
 
        std::vector<std::string> argVals;
@@ -126,6 +164,18 @@ IfCommand::execute() {
     if (runTest(this->_condition) == 0) {
         _listCommands->execute();
     }
+    }
+}
+void PipeCommand::sortArray(char **array, int nEntries) {
+    int i, j;
+    for (i = 0; i < nEntries - 1; i++) {
+        for (j = 0; j < nEntries - i - 1; j++) {
+            if (strcmp(array[j], array[j + 1]) > 0) {
+                char *temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+            }
+        }
     }
 }
 
