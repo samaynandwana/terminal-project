@@ -109,15 +109,7 @@ int main(int argc, char **argv) {
     Shell::TheShell->_enablePrompt = false;
   }
   else {
-    FILE *file = fopen(".shellrc", "r");
-    if (file != NULL) {
-        yyrestart(file);
-        yyparse();
-        yyrestart(stdin);
-        fclose(file);
-    } else {
         Shell::TheShell->prompt();
-    }
   }
   Shell::TheShell->num_args = argc - 2;
   Shell::TheShell->script_name = argv[0];
