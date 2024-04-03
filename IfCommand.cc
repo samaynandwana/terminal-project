@@ -13,8 +13,8 @@
 #include "Shell.hh"
 #include <cstring>
 extern char ** array;
-int maxEntries;
-int nEntries;
+extern int maxEntries;
+extern int nEntries;
 IfCommand::IfCommand() {
     _condition = NULL;
     _listCommands =  NULL;
