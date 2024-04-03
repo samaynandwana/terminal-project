@@ -108,16 +108,16 @@ int main(int argc, char **argv) {
   Shell::TheShell->num_args = argc - 2;
   Shell::TheShell->script_name = argv[0];
     if (argc > 1) {
-        arg1 = argv[1];
+        Shell::TheShell->arg1 = argv[1];
     }
     if (argc > 2) {
-        arg2 = argv[2];
+        Shell::TheShell->arg2 = argv[2];
     }
     if (argc > 3) {
-        arg3 = argv[3];
+        Shell::TheShell->arg3 = argv[3];
     }
     if (argc > 4) {
-        argv = argv[4];
+        Shell::TheShell->arg4 = argv[4];
     }
   //Ctrl-c Implementation
   struct sigaction sa;
