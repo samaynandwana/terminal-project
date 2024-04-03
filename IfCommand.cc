@@ -119,7 +119,7 @@ IfCommand::execute() {
             } else {
               pipe->expandWildcard(NULL, (char *) arg.c_str(), true);
               copy->_arguments.erase(copy->_arguments.begin() + j);
-              sortArray(array, nEntries);
+              sortArray2(array, nEntries);
               if (nEntries == 0) {
                 copy->insertArgument(new std::string(arg.c_str()));
               }
