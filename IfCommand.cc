@@ -74,34 +74,34 @@ IfCommand::execute() {
       }
     }
     if (isFor) {
-       std::vector<std::string> argVals;
+      SimpleCommand* copy = new SimpleCommand();
+      for (const std::string* arg : _condition->_arguments) {
+        copy->insertArgument(new std::string(*arg));
+      }
+      for (const std::string * arg : _condition->_arguments) {
+
+        PipeCommand* pipe = new PipeCommand();
+        pipe->insertSimpleCommand(copy);
+        std::string str = arg;
+        setenv(this->loop_var.c_str(), str.c_str(), 1);
+        pipe->execute();
+      }
+      delete copy;
+
+       /*std::vector<std::string> argVals;
        for (const std::string *arg : _condition->_arguments) {
          argVals.push_back(*arg);
        }
-       /*for (std::string i: argVals) {
-         fprintf(stderr, "argval: %s\n", i.c_str());
-       }*/
        for (auto arg : argVals) {
             std::string str = arg;
             setenv(this->loop_var.c_str(), str.c_str(), 1);
             _listCommands->execute();
-        }
-
-       //fprintf(stderr, "ARG: %s\n", loop_var.c_str());
-       /*SimpleCommand* copy = new SimpleCommand();
-       for (const std::string* arg : _condition->_arguments) {
-        copy->insertArgument(new std::string(*arg));
-       }
-       PipeCommand* pipe = new PipeCommand();
-       pipe->insertSimpleCommand(copy);
-       pipe->execute();
-       delete copy;*/
-
+        }*/
     }
     else {
     if (runTest(this->_condition) == 0) {
-	_listCommands->execute();
-  }
+        _listCommands->execute();
+    }
     }
 }
 
