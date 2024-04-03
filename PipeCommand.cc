@@ -415,6 +415,8 @@ void PipeCommand::execute() {
                 args[j] = (std::to_string(Shell::TheShell->pid_background)).c_str();
               } else if (!strcmp(envv.c_str(), "?")) {
                 args[j] = (std::to_string(Shell::TheShell->return_last_exit)).c_str();
+              } else if (!strcmp(envv.c_str(), "#") {
+                args[j] = (std::to_string(Shell::TheShell->num_args)).c_str();
               } else {
                 //base case for expansion
                 if (env_val != NULL) {
