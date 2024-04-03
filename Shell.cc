@@ -43,22 +43,9 @@ void Shell::prompt() {
 	printf("myshell>");
 	fflush(stdout);
   } else {
-    //printf("%s", PROMPT);
-    //fflush(stdout);
-  }
-  char *ONERROR = getenv("ON_ERROR");
-  bool temp = false;
-  if (ONERROR == NULL) {
-      temp = false;
-  }
-  if (PROMPT != NULL && temp) {
-    printf("%s", ONERROR);
+    printf("%s", PROMPT);
     fflush(stdout);
-  } else if (PROMPT != NULL && !temp) {
-      printf("%s", PROMPT);
-      fflush(stdout);
   }
-  temp = false;
     }
 }
 
