@@ -37,9 +37,15 @@ Shell::Shell() {
 }
 
 void Shell::prompt() {
+    char * PROMPT  = getenv("PROMPT");
     if (_enablePrompt) {
+    if (!PROMPT) {
 	printf("myshell>");
 	fflush(stdout);
+  } else {
+    printf("%s", PROMPT);
+    fflush(stdout);
+  }
     }
 }
 
