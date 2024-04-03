@@ -74,21 +74,7 @@ IfCommand::execute() {
       }
     }
     if (isFor) {
-      SimpleCommand* copy = new SimpleCommand();
-      for (const std::string* arg : _condition->_arguments) {
-        copy->insertArgument(new std::string(*arg));
-      }
-      for (const std::string * arg : _condition->_arguments) {
-
-        PipeCommand* pipe = new PipeCommand();
-        pipe->insertSimpleCommand(copy);
-        std::string str = *arg;
-        setenv(this->loop_var.c_str(), str.c_str(), 1);
-        pipe->execute();
-      }
-      delete copy;
-
-       /*std::vector<std::string> argVals;
+       std::vector<std::string> argVals;
        for (const std::string *arg : _condition->_arguments) {
          argVals.push_back(*arg);
        }
@@ -96,7 +82,7 @@ IfCommand::execute() {
             std::string str = arg;
             setenv(this->loop_var.c_str(), str.c_str(), 1);
             _listCommands->execute();
-        }*/
+        }
     }
     else {
     if (runTest(this->_condition) == 0) {
