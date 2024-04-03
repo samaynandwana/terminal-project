@@ -78,7 +78,7 @@ IfCommand::execute() {
        for (const std::string *arg : _condition->_arguments) {
          argVals.push_back(*arg);
        }
-       for (string i: argVals) {
+       for (std::string i: argVals) {
          fprintf(stderr, "argval: %s\n", argVals[i]);
        }
        //fprintf(stderr, "ARG: %s\n", loop_var.c_str());
