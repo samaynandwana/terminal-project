@@ -35,7 +35,7 @@ Shell::Shell() {
 	this->_enablePrompt = false;
     }
 }
-Shell::~Shell() {
+Shell::dShell() {
   while (!ifCommandStack.empty()) {
         delete ifCommandStack.top();
         ifCommandStack.pop();
@@ -163,7 +163,7 @@ int main(int argc, char **argv) {
   yyparse();
   delete Shell::TheShell;
   Shell::TheShell = nullptr;
-  ~Shell();
+  dShell();
 }
 
 
