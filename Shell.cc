@@ -35,7 +35,16 @@ Shell::Shell() {
 	this->_enablePrompt = false;
     }
 }
-
+Shell::~Shell() {
+  while (!ifCommandStack.empty()) {
+        delete ifCommandStack.top();
+        ifCommandStack.pop();
+    }
+    while (!listCommandStack.empty()) {
+        delete listCommandStack.top();
+        listCommandStack.pop();
+    }
+}
 void Shell::prompt() {
     char * PROMPT  = getenv("PROMPT");
     if (_enablePrompt) {
@@ -154,6 +163,7 @@ int main(int argc, char **argv) {
   yyparse();
   delete Shell::TheShell;
   Shell::TheShell = nullptr;
+  ~Shell();
 }
 
 
