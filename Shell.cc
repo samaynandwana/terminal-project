@@ -12,6 +12,7 @@
 #include <stack>
 int yyparse(void);
 void yyrestart(FILE *file);
+extern int yylex_destroy();
 Shell * Shell::TheShell;
 
 Shell::Shell() {
@@ -151,6 +152,7 @@ int main(int argc, char **argv) {
 
 
   yyparse();
+  yylex_destroy();
   }
 
 
