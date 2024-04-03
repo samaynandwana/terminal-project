@@ -597,8 +597,8 @@ void PipeCommand::expandWildcard(char *prefix, char *suffix, bool first = true) 
 char ** 
 PipeCommand::expandEnvVarsAndWildcards(SimpleCommand * simpleCommandNumber)
 {
-    simpleCommandNumber->print();
-    return NULL;
+    /*simpleCommandNumber->print();
+    return NULL;*/
 }
 
 
