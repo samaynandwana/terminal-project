@@ -30,11 +30,6 @@ Shell::Shell() {
     this->listCommandStack.push(new ListCommands());
  
     this->num_args = 0;
-    this->script_name = NULL;
-    this->arg1 = NULL;
-    this->arg2 = NULL;
-    this->arg3 = NULL;
-    this->arg4 = NULL;
 
     if ( !isatty(0)) {
 	this->_enablePrompt = false;
