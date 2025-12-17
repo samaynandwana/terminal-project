@@ -6,7 +6,7 @@ A **production-style Unix shell** implemented from scratch in C++, combining **c
 
 ## High-Level Overview
 
-This shell is not a simple command runner—it is a **full execution environment**. User input is:
+The shell is a complete execution tool. User input is:
 
 1. **Lexed and parsed** using formal grammar techniques  
 2. **Lowered into structured command objects**  
@@ -17,7 +17,7 @@ The result is a shell that behaves correctly even under complex combinations of 
 
 ---
 
-## Core Capabilities (Feature-Focused)
+## Core Capabilities 
 
 ### **Advanced Command Parsing**
 - Lex/YACC-based parsing identical in spirit to real compiler frontends
@@ -60,7 +60,7 @@ The result is a shell that behaves correctly even under complex combinations of 
 ---
 
 ### **Multi-Stage Argument Expansion Pipeline**
-Arguments undergo a deliberate, ordered transformation:
+Arguments undergo ordered transformation:
 
 1. **Tilde Expansion**  
    - `~`, `~/path`, `~user/path`
@@ -100,11 +100,10 @@ This ordering is essential to correctly model real shell behavior.
 - Child processes inherit only the descriptors they need
 - Failures do not corrupt shell state
 
-This design ensures **shell continuity**, even when commands fail.
 
 ---
 
-## Systems & Compiler Concepts Demonstrated
+## Systems & Compiler Concepts
 
 - POSIX process model (`fork`, `exec`, `wait`, `pipe`)
 - File descriptor virtualization
@@ -112,5 +111,6 @@ This design ensures **shell continuity**, even when commands fail.
 - Recursive filesystem algorithms
 - Compiler frontends (lexing, parsing, grammar design)
 - Runtime lowering from AST to OS execution
+- Memory management efficiency
 
 ---
